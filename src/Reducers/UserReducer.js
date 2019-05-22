@@ -1,5 +1,4 @@
 
-// const initialState = {_id: null, username:'', password:'', likes:[], trips:[]}
 const initialState = {_id: null}
 export const userReducer = (state=initialState, action) => {
     switch (action.type) {
@@ -7,8 +6,6 @@ export const userReducer = (state=initialState, action) => {
         case 'signup':
             break
         case 'setCurrUser' || 'updateUser':
-        console.log(action.payload)
-        console.log({...state, ...action.payload, likes:[...action.payload.likes], trips:[...action.payload.trips]})
         return ({...state, ...action.payload, likes:[...action.payload.likes], trips:[...action.payload.trips]})
         // case 'updateUser':
             // return ({...state, ...action.payload, likes:[...action.payload.likes], trips:[...action.payload.trips]})

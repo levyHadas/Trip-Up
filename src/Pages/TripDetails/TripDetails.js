@@ -10,11 +10,6 @@ import UtilService from '../../Services/UtilService'
 import './TripDetails.scss'
 import MapContainer from '../MapContainer/MapContainer';
 
-
-
-
-
-
 class TripDetails extends PureComponent {
     constructor(props) {
         super(props)
@@ -77,9 +72,7 @@ class TripDetails extends PureComponent {
                 {trip.imgs &&
                 <img className="trip-img" src={trip.imgs[0]} alt="Trip"/>}
             </div>
-            <div className="map-container">
-                <MapContainer></MapContainer>
-            </div>
+            <MapContainer itinerary={trip.itinerary} country={trip.country}></MapContainer>
         </section>)
     }
 }

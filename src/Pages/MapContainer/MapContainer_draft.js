@@ -43,7 +43,7 @@ _itineraryToCoords = () => {
 
 _geoCodePlace(place) {
   return new Promise((resolve, reject) =>
-    this.geocoder.geocode({ 'address': `${place}, ${this.props.country}` }, (results, status) => {
+    this.geocoder.geocode({ 'address': place }, (results, status) => {
         if (status === 'OK') return resolve(results[0].geometry.location);
         else return reject('No latLng was found by address');
     })
@@ -75,33 +75,45 @@ render() {
     })
   }  
   return (
-  <div>
-    {this.state.center.lat && 
+    <div>
+  {this.state.center.lat && 
     <Map google={this.props.google} zoom={7} style={style} 
       initialCenter={this.state.center}
       onClick={this.onMapClicked}>
+  
+  {markersMap}          
+  {/* {this.state.paths && this.state.paths.length &&
+  <Marker
+      name={'Dolores park'}
+      position={this.state.paths[0]}
+      onClick={this.onMarkerClicked}/> }
+  {this.state.paths && this.state.paths.length &&
+  <Marker
+      name={'Dolores park'}
+      position={this.state.paths[1]}
+      onClick={this.onMarkerClicked}/> } */}
 
-      {markersMap}          
+  {this.state.paths && this.state.paths.length &&
+  <Polygon
+      paths={this.state.paths}
+      strokeColor="#0000FF"
+      strokeOpacity={0.7}
+      strokeWeight={1}
+      fillColor="#0000FF"
+      fillOpacity={0.2} />}
 
-      {this.state.paths && this.state.paths.length &&
-      <Polygon
-        paths={this.state.paths}
-        strokeColor="#0000FF"
-        strokeOpacity={0.7}
-        strokeWeight={1}
-        fillColor="#0000FF"
-        fillOpacity={0.2} />}
+  {/* <Marker onClick={this.onMarkerClick}
+          name={'Current location'} /> */}
 
       <InfoWindow onClose={this.onInfoWindowClose}>
-        <div>
-        </div>
+          <div>
+          </div>
       </InfoWindow>
     </Map>}
-  </div>)
-} //end of render
-
-
-} //end of comp
+    </div>
+  )
+  }
+}
 
 const googleApiConfig = {
     apiKey:'AIzaSyDHc4xMMsbOPlBmSIZjM_9XHJv14Wea9EM'
