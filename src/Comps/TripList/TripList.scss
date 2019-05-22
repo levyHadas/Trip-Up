@@ -1,0 +1,8 @@
+.trip-list{
+    display: grid;
+    // padding: 30px; 
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
+    grid-gap: 40px;
+}

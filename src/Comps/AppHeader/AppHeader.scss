@@ -1,0 +1,27 @@
+.header-container {
+    height: 55px;
+    padding: 0 20px;
+    background-color: black;
+    color: white;
+    margin: 0;
+}
+.header-items-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    // justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.user-area-link {
+    width: 130px;
+}
+
+.user-img {
+    width: 35px;
+    height: 35px;
+
+}
+.title-nav-container {
+    width: 450px;
+}
