@@ -13,13 +13,16 @@ export function loadTrips(filterBy) {
 }
 export function loadTrip(tripId) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
-        dispatch ({type:'loading', payload:true})
-        return TripService.getById(tripId)
+        if (!tripId) dispatch ({type:'setCurrTrip', payload:{}})
+        else {
+            dispatch ({type:'loading', payload:true})
+            return TripService.getById(tripId)
             .then(currTrip => {
                 dispatch ({type:'setCurrTrip', payload:currTrip})
                 dispatch ({type:'loading', payload:false})
                 return currTrip
-            })
+                })
+        }
     }
 }
 export function deleteTrip(tripId, { history }) {

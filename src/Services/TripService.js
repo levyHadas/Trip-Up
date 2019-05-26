@@ -35,6 +35,7 @@ function query(filterBy={}) {
 }
 
 function getById(tripId) {
+    if (!tripId) return null
     return Axios.get(`${BASE_PATH}/${tripId}`)
         .then(res => res.data)
         .catch(err => {throw (err)})
@@ -87,3 +88,5 @@ function getEmpty() {
 function getTripTypes() {
     return ['hiking', 'shoping', 'music', 'art', 'other', 'photography', 'skiing', 'food']
 }
+
+// "itinerary": [{"name":"madrid", "img":"", "coords":{}}, {"name":"barcelona", "img":"", "coords":{}}],

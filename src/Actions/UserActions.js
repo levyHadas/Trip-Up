@@ -50,7 +50,7 @@ export function saveUser(user) {
 export function updateUserLikesTrips(user) {
     return (dispatch) => {
         return UserService.updateUser(user)
-            .then(updatedUser => dispatch ({type:'updateUser', payload:updatedUser}))
+            .then(updatedUser => dispatch ({type:'updateUserLikesTrips', payload:updatedUser}))
             .catch((err) => {throw(err)})
     }
 }

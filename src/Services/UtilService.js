@@ -8,6 +8,7 @@ export default {
 }
 
 function getIconForType(type) {
+    if (type) type = type.toLowerCase()
     switch (type) {
         case 'hiking':
             return <i className="fas fa-hiking" title="Hiking"></i>
@@ -23,6 +24,8 @@ function getIconForType(type) {
             return <i className="fas fa-camera-retro" title="Nhotography"></i>
         case 'shoping':
             return <i className="fas fa-shopping-bag" title="Shoping"></i>
+        default:
+            return <i className="fas fa-suitcase"></i>
     }
 }
   

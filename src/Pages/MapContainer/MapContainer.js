@@ -1,35 +1,26 @@
-import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon, withGoogleMap} from 'google-maps-react';
-import React, { Component } from 'react'
+import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon} from 'google-maps-react';
+import React, { Component, Fragment } from 'react'
  
 export class MapContainer extends Component {
 
-state={center:{}, paths:[]}
+state={center:{}, paths:[], showInfo:false, selectedPlace:''}
 
 componentDidMount() {
   const google = this.props.google
   this.geocoder = new google.maps.Geocoder()
+  this._itineraryToCoords()
+  .then(coords => {
+    this.setState({
+      paths:coords.map(coord => {
+        return { lat: coord.lat(), lng: coord.lng()}
+      })
+    }) 
   this._geoCodePlace(this.props.country)
     .then(coords => {
       this.setState({center: {lat:coords.lat(), lng:coords.lng()}}) 
+      setTimeout(() => {console.log(this.state.center)},500)
     })
-  this._itineraryToCoords()
-    .then(coords => {
-      this.setState({
-        // center: {lat:coords.lat(), lng:coords[0].lng()},
-        paths:coords.map(coord => {
-          return { lat: coord.lat(), lng: coord.lng()}
-        })
-      }) 
   })
-  
-  // setTimeout(() => {
-  //   console.log(this.state)
-  //   this.setState({
-  //     center: 
-  //     {lat: 29.4910603, lng: 34.9025285}
-  //   })
-  //   setTimeout(() => {console.log(this.state)}, 1000)
-  // }, 1000)
 }
 
 _itineraryToCoords = () => {
@@ -43,40 +34,48 @@ _itineraryToCoords = () => {
 
 _geoCodePlace(place) {
   return new Promise((resolve, reject) =>
-    this.geocoder.geocode({ 'address': `${place}, ${this.props.country}` }, (results, status) => {
-        if (status === 'OK') return resolve(results[0].geometry.location);
+    this.geocoder.geocode({ 'address': place }, (results, status) => {    
+      if (status === 'OK') return resolve(results[0].geometry.location);
         else return reject('No latLng was found by address');
     })
   )
 }
   
 
-
-
-onMapClicked = (props,marker, ev) => {
-  this.setState({center:{lat:ev.latLng.lat(), lng:ev.latLng.lng()}})
+onMapClicked = (props,map, ev) => {
+  return this.setState({showInfo:false, 
+            activeMarker:null,
+            selectedPlace: null, 
+            center:{lat:ev.latLng.lat(), lng:ev.latLng.lng()}
+          })
+}
+onInfoWindowClose = (props,infoWindow, ev) => {
+  return this.setState({showInfo:false, 
+            activeMarker:null,
+            selectedPlace: null
+            })
 }
 onMarkerClicked = (props,marker, ev) => {
-
+  return this.setState({showInfo:true, activeMarker:marker,selectedPlace: props})
+  
 }
 render() {
   const style = {
-      width: '80%',
+      width: '100%',
       height: '100%',
-      marginLeft: 'auto',
-      marginRight: 'auto'
   }
   if (this.state.paths && this.state.paths.length) {
-    var markersMap = this.state.paths.map(markerCoords =>{
+    var markersMap = this.state.paths.map((markerCoords, idx) =>{
       return <Marker
-      
-      position={markerCoords}
-      onClick={this.onMarkerClicked}/>
+        name={this.props.itinerary[idx]}
+        key={idx}
+        position={markerCoords}
+        onClick={this.onMarkerClicked}/>
     })
   }  
   return (
-  <div>
-    {this.state.center.lat && 
+  <Fragment>
+    {this.state.center.lng && this.state.center.lat &&
     <Map google={this.props.google} zoom={7} style={style} 
       initialCenter={this.state.center}
       onClick={this.onMapClicked}>
@@ -91,20 +90,23 @@ render() {
         strokeWeight={1}
         fillColor="#0000FF"
         fillOpacity={0.2} />}
-
-      <InfoWindow onClose={this.onInfoWindowClose}>
-        <div>
+      <InfoWindow onClose={this.onInfoWindowClose} 
+                  visible={this.state.showInfo} 
+                  marker={this.state.activeMarker}>
+        <div> 
+          {this.state.selectedPlace &&
+          <h1>{this.state.selectedPlace.name}</h1>}
         </div>
       </InfoWindow>
     </Map>}
-  </div>)
+  </Fragment>)
 } //end of render
 
 
 } //end of comp
 
 const googleApiConfig = {
-    apiKey:'AIzaSyDHc4xMMsbOPlBmSIZjM_9XHJv14Wea9EM'
+    apiKey:'AIzaSyBplLbAcZVSOOSkP5sLK4SrJ-YvjWA43E8'
 }
 
 export default GoogleApiWrapper(googleApiConfig)(MapContainer)

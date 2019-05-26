@@ -6,9 +6,9 @@ export const userReducer = (state=initialState, action) => {
         case 'signup':
             break
         case 'setCurrUser' || 'updateUser':
-        return ({...state, ...action.payload, likes:[...action.payload.likes], trips:[...action.payload.trips]})
-        // case 'updateUser':
-            // return ({...state, ...action.payload, likes:[...action.payload.likes], trips:[...action.payload.trips]})
+            return ({...state, ...action.payload})
+        case 'updateUserLikesTrips':
+            return ({...state, likes:[...action.payload.likes], trips:[...action.payload.trips]})
         default:
             return state
     }

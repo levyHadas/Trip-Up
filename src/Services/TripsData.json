@@ -2,14 +2,14 @@
     {
         "country": "england",
         "city": "london",
-        "budget": "1000",
+        "budget": {"min": 100, "max":800},
         "type": "music",
-        "max-members": "3",
+        "max-members": 3,
         "organizer": {},
         "members": [],
         "status": "open",
         "createdAt":"",
-        "likes": "1",
+        "likes": 15,
         "tripDate":"",
         "itinerary": ["london","liverpool"],
         "imgs": []
@@ -17,14 +17,14 @@
     {
         "country": "spain",
         "city": "madrid",
-        "budget": "1000",
+        "budget": {"min": 500, "max":800},
         "type": "shoping",
-        "max-members": "4",
+        "max-members": 4,
         "organizer": {},
         "members": [],
         "status": "open",
         "createdAt":"",
-        "likes": "1",
+        "likes": 10,
         "tripDate":"",
         "itinerary": ["madrid","barcelona"],
         "imgs": []
@@ -32,14 +32,14 @@
     {
         "country": "italy",
         "city": "rome",
-        "budget": "800",
+        "budget": {"min": 200, "max":1000},
         "type": "art",
-        "max-members": "2",
+        "max-members": 2,
         "organizer": {},
         "members": [],
         "status": "open",
         "createdAt":"",
-        "likes": "1",
+        "likes": 1,
         "tripDate":"",
         "itinerary": ["rome","milan", "florance"],
         "imgs": []
@@ -47,14 +47,14 @@
     {
         "country": "israel",
         "city": "",
-        "budget": "1000",
+        "budget": {"min": 100, "max":800},
         "type": "hiking",
-        "max-members": "5",
+        "max-members": 5,
         "organizer": {},
         "members": [],
         "status": "open",
         "createdAt":"",
-        "likes": "1",
+        "likes": 1,
         "tripDate":"",
         "itinerary": ["eilat","mitzpe-ramon", "dead sea", "tel-aviv", "ramat-agolan"],
         "imgs": []
@@ -62,16 +62,17 @@
     {
         "country": "holand",
         "city": "amsterdam",
-        "budget": "1000",
+        "budget": {"min": 500, "max":3000},
         "type": "hiking",
-        "max-members": "5",
+        "max-members": 5,
         "organizer": {},
         "members": [],
         "status": "open",
         "createdAt":"",
-        "likes": "1",
+        "likes": 50,
         "tripDate":"",
         "itinerary": [],
         "imgs": []
     }
 ]
+

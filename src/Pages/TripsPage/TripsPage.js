@@ -14,6 +14,7 @@ class TripPage extends PureComponent {
     componentDidMount() {
         this.props.loadTrips({})
     }
+ 
   
 
     onUpdateLikeJoin = async(ev) => {

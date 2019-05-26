@@ -1,0 +1,25 @@
+.trip-img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.fas.fa-chevron-right.next-img {
+    font-size: 50px;
+    align-self: center;
+    margin-left: -45px;
+    box-shadow: inset -8px -3px 10px 0px #ffffff96;
+    padding: 4px 7px;
+    color: white;
+    background: rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+}
+.fas.fa-chevron-left.prev-img {
+    font-size: 50px;
+    align-self: center;
+    margin-left: -100%;
+    box-shadow: inset 8px -3px 10px 0px #ffffff96;
+    padding: 4px 7px;
+    color: white;
+    background: rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+}

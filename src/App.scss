@@ -62,6 +62,21 @@ body {
 .far.fa-thumbs-up, .fas.fa-user-plus {
   padding: 6px 2.5px;
 }
+.far.fa-thumbs-up.no-user, .fas.fa-users {
+  cursor: default;
+}
+
+.map-wrapper > div {
+  height: 100%;
+  width: 99%;
+  position: absolute;
+}
+
+.far.fa-plus-square, .far.fa-minus-square {
+  font-size: 1.1rem;
+  padding:6px;
+  cursor: pointer;
+}
 
 
 
