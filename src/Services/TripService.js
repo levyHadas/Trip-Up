@@ -30,6 +30,7 @@ function createTrips() {
 
 function query(filterBy={}) {
     return Axios.get(`${BASE_PATH}`, filterBy)
+    // return Axios.get(`${BASE_PATH}/${filterBy}`)
         .then(res => res.data)
         .catch(err => {throw (err)})
 }
@@ -81,7 +82,8 @@ function getEmpty() {
         "likes": "1",
         "tripDate":"",
         "itinerary": [],
-        "imgs": []
+        "imgs": [],
+        "itinerary":[]
     }
 
 }

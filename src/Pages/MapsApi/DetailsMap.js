@@ -8,18 +8,18 @@ export class DetailsMap extends Component {
 state={center:{}, paths:[], showInfo:false, selectedPlace:''}
 
 componentDidMount() {
-  MapService.itineraryToCoords(this.props.google, this.props.trip)
-            .then(itineraryCoords => {
-              this.setState({ center:itineraryCoords[0], paths:itineraryCoords })
-            })
+
+  const paths = this.props.trip.itinerary.map(place => place.geometry.location)
+  this.setState({ center:paths[0], paths })
+  console.log(this.props.trip.itinerary)
 }
 
 onMapClicked = (props,map, ev) => {
-  return this.setState({showInfo:false, 
-            activeMarker:null,
-            selectedPlace: null, 
-            center:{lat:ev.latLng.lat(), lng:ev.latLng.lng()}
-          })
+  // return this.setState({showInfo:false, 
+  //           activeMarker:null,
+  //           selectedPlace: null, 
+  //           center:{lat:ev.latLng.lat(), lng:ev.latLng.lng()}
+  //         })
 }
 onInfoWindowClose = (props,infoWindow, ev) => {
   return this.setState({showInfo:false, 
@@ -28,6 +28,7 @@ onInfoWindowClose = (props,infoWindow, ev) => {
             })
 }
 onMarkerClicked = (props,marker, ev) => {
+  console.log(props)
   return this.setState({showInfo:true, activeMarker:marker,selectedPlace: props})
   
 }
@@ -36,15 +37,15 @@ render() {
       width: '100%',
       height: '100%',
   }
-  if (this.state.paths && this.state.paths.length) {
-    var markersMap = this.state.paths.map((markerCoords, idx) =>{
-      return <Marker
-        name={this.props.trip.itinerary[idx]}
-        key={idx}
-        position={markerCoords}
-        onClick={this.onMarkerClicked}/>
-    })
-  }  
+  var markersMap = this.props.trip.itinerary.map(place => {
+    return <Marker
+      name={place.name}
+      key={place.place_id}
+      position={place.geometry.location}
+      onClick={this.onMarkerClicked}
+      onClick={this.onMarkerClicked}/>
+  })
+
   return (
   <Fragment>
     {this.state.center.lng && this.state.center.lat &&

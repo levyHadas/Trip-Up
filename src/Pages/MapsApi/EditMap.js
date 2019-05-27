@@ -7,7 +7,7 @@ export class EditMap extends Component {
 state={center:{}, showInfo:false, selectedPlace:''}
 
 componentDidMount() {
-  this.setState({center: this.props.itinerary[0]})
+  // this.setState({center: this.props.itineraryCoords[0]})
 }
   
 
@@ -20,24 +20,36 @@ onMapClicked = (props,map, ev) => {
 }
 
 render() {
-  const style = {
-      width: '100%',
-      height: '100%',
-  }
+  const style = { width: '100%', height: '100%' }
+  var icon = {
+    url: "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png", // url
+    scaledSize: new this.props.google.maps.Size(21, 33), // scaled size
+    origin: new this.props.google.maps.Point(0,0), // origin
+    anchor: new this.props.google.maps.Point(11, 33) // anchor
+};
+  
+  const markersMap = this.props.itinerary.map(place => {
+    console.log(place.geometry.location)
+      return <Marker
+        key={place.place_id}
+        position={place.geometry.location}
+        onClick={this.onMarkerClicked}
+        icon= {icon} />
+      })
+  const paths = this.props.itinerary.map(place => place.geometry.location)
   return (
   <Fragment>
-    <Map google={this.props.google} zoom={this.props.zoom} style={style} 
-      initialCenter={this.props.itinerary[0]}
+    <Map google={this.props.google} zoom={5} style={style} 
+      initialCenter={paths[0]} //should be handled
       onClick={this.onMapClicked}>
-
+      {markersMap}
       <Polygon
-        paths={this.props.itinerary}
+        paths={paths}
         strokeColor="#0000FF"
         strokeOpacity={0.7}
         strokeWeight={1}
         fillColor="#0000FF"
         fillOpacity={0.2} />
-  
     </Map>}
   </Fragment>)
 } //end of render

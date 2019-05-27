@@ -1,6 +1,18 @@
+import { geocodeByAddress } from 'react-places-autocomplete';
+import axios from 'axios'
+
+
+const Axios = axios.create({
+    withCredentials: true,
+})
+const BASE_PATH = (process.env.NODE_ENV !== 'development')
+    ? 'trip/placeinfo'
+    : 'http://localhost:3003/trip/placeinfo'
+
 export default {
     itineraryToCoords,
-    geoCodePlace
+    geoCodePlace,
+    getPlaceInfo
 }
 
 
@@ -13,7 +25,6 @@ function itineraryToCoords (google, trip) {
     }
     return Promise.all(trip.itinerary.map(geoCodePlace.bind(null,geocoder)))
     .then(coords => {
-        console.log(coords)
         return coords.map(coord => {
             return { lat: coord.lat(), lng: coord.lng() }
         })
@@ -28,6 +39,44 @@ function geoCodePlace(geocoder, place) {
       })
     )
   }
+
+function getPlaceInfo(address) {
+  if (!address) {
+    const params = {
+      "placeid" : "ChIJNVQ84YFLHRURqzjMQp3RVGY",
+      "fields": ["name","rating","formatted_phone_number", "photo", "website", "type", "url", "place_id","formatted_address"],
+      "key":"AIzaSyCqz4UvZ4IYUQucqqJY56e-4OW9B_9eg7w"
+    }
+    _infoRequest(params)
+  }
+  else {
+    return geocodeByAddress(address)
+    .then(results => {
+      const params = {
+        "placeid" : results[0].place_id,
+        "fields": ["name","rating","formatted_phone_number", "photo", "website", "type", "place_id", "geometry", "formatted_address"],
+        "key":"AIzaSyCqz4UvZ4IYUQucqqJY56e-4OW9B_9eg7w"
+      }
+      return _infoRequest(params)
+        .then(info => info)
+    })
+    .catch(error => console.error('Error', error))
+  }
+}
+
+function _infoRequest(params) {
+  var strParams = '?'
+  for (var key in params) {
+    strParams += `${key}=${params[key]}&`
+  }
+  return Axios.get(`${BASE_PATH}/'${strParams}'`)
+      .then(res => res.data.result)
+      .catch(err => {throw (err)})
+}
+
+
+
+  
 
 
 

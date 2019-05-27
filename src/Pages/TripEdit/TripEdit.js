@@ -15,7 +15,7 @@ class TripEdit extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {itineraryCoords:[], country:''}
+        this.state = {itinerary:[], country:''}
         this.tripTypes = []
         this.tripId = this.props.match.params.id
     }
@@ -34,12 +34,7 @@ class TripEdit extends Component {
                 if (this.props.user._id !== this.props.trip.organizer._id) {
                     this.props.history.push('/')
                 } else this.setState({...this.props.trip})
-            })
-            .then(() => {
-                MapService.itineraryToCoords(this.props.google, this.props.trip)
-                    .then(itineraryCoords => this.setState({itineraryCoords}))
-            })
-            
+            })  
         }
     }
 
@@ -56,27 +51,30 @@ class TripEdit extends Component {
     handleSubmit = (ev) => {
         ev.preventDefault()
         var stateToSave = {...this.state}
-        delete stateToSave.itineraryCoords
         this.props.saveTrip(stateToSave, this.props)
     }
     
     addToItinerary = (newPlace) => {
-        var itinerary = this.state.itinerary
-        itinerary.push(newPlace)
-        this.setState({itinerary})
-        MapService.itineraryToCoords(this.props.google, this.props.trip)
-            .then(itineraryCoords => this.setState({itineraryCoords}))
+        
+        MapService.getPlaceInfo(newPlace)
+        .then (placeInfo => {
+            var itinerary = this.state.itinerary
+            itinerary.push(placeInfo)            
+            this.setState({itinerary})
+        })
+        
     }
     
     
     removeFromItinerary = (ev) => {
         ev.preventDefault()
-        // ev.stopPropagation()
+        // ev.stopPropagation() 
         var itinerary = this.state.itinerary
-        itinerary.splice(ev.target.getAttribute('value'), 1)
+        const idxToRemove = itinerary.findIndex(place => {
+            return place.place_id === ev.target.getAttribute('value')
+        })
+        itinerary.splice(idxToRemove, 1)
         this.setState({itinerary})
-        MapService.itineraryToCoords(this.props.google, this.props.trip)
-            .then(itineraryCoords => this.setState({itineraryCoords}))
     }
 
     // "country": "",
@@ -102,11 +100,11 @@ class TripEdit extends Component {
         })
 
         if (this.state.itinerary && this.state.itinerary.length) {
-            var itineraryMap = this.state.itinerary.map((place, idx) => {
-                return <div className="place-container" key={idx}>
-                            <span>{place}</span>
+            var itineraryMap = this.state.itinerary.map(place => {
+                return <div className="place-container" key={place.place_id}>
+                            <span>{place.name}</span>
                             <i className="far fa-minus-square remove" 
-                                    value={idx}
+                                    value={place.place_id}
                                     onClick={this.removeFromItinerary}>
                             </i>
                         </div>
@@ -125,13 +123,12 @@ class TripEdit extends Component {
                     {itineraryMap}
                     <LocationSearchInput onAddToItinerary={this.addToItinerary}/>
                 </div>
-                {this.state.itineraryCoords.length &&
+                {this.state.itinerary.length &&
                 <div className="map-wrapper-edit">
-                    <EditMap itinerary={this.state.itineraryCoords} 
-                            country={this.state.country}
-                            className="map-container"
-                            google={this.props.google}
-                            zoom={5}>
+                    <EditMap className="map-container"
+                            country={this.state.country} //should be countryCoords i ncase itenery is empty
+                            itinerary={this.state.itinerary}
+                            google={this.props.google}>
                     </EditMap>
                 </div>}
             </div>}
@@ -158,4 +155,3 @@ const mapDispatchToProps = {loadTrip, saveTrip}
   
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper(GoogleApiConfig)(TripEdit))
 
-// export default connect(mapStateToProps, mapDispatchToProps)(TripEdit)

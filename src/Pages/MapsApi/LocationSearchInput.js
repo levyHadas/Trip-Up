@@ -1,12 +1,10 @@
 import React from 'react';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
+import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
+// getLatLng,
  
 class LocationSearchInput extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = { address: '' }
   }
  
@@ -21,7 +19,7 @@ class LocationSearchInput extends React.Component {
         this.props.onAddToItinerary(results[0].formatted_address)
         setTimeout(() => {this.setState({ address: '' })},200)
       })
-      .catch(error => console.error('Error', error));
+      .catch(error => console.error('Error', error))
   };
  
   render() {

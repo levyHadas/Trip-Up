@@ -21,15 +21,7 @@ componentDidMount() {
         })
       }) 
   })
-  
-  // setTimeout(() => {
-  //   console.log(this.state)
-  //   this.setState({
-  //     center: 
-  //     {lat: 29.4910603, lng: 34.9025285}
-  //   })
-  //   setTimeout(() => {console.log(this.state)}, 1000)
-  // }, 1000)
+
 }
 
 _itineraryToCoords = () => {

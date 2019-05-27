@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import TripService from './Services/TripService'
 
 
 // import SocketService from './Services/SocketService'
@@ -18,7 +19,7 @@ class App extends PureComponent{
     return (
       <div className="App">
         <AppRouter/>
-        {/* <button onClick={() => TripService.createTrips()}>Create trips</button> */}
+        <button onClick={() => TripService.createTrips()}>Create trips</button>
       </div>
     )
   }
