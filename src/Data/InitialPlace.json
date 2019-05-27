@@ -1,0 +1,21 @@
+{
+    "formatted_address" : "Madrid, Spain",
+    "geometry" : {
+        "location" : {
+            "lat" : 40.4167754,
+            "lng" : -3.7037902
+        },
+        "viewport" : {
+            "northeast" : {
+                "lat" : 40.5638447,
+                "lng" : -3.5249115
+            },
+            "southwest" : {
+                "lat" : 40.3120639,
+                "lng" : -3.8341618
+            }
+        }
+    },
+    "name" : "Madrid",
+    "photos" : [ ]
+}

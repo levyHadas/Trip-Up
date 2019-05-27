@@ -1,5 +1,6 @@
 import { geocodeByAddress } from 'react-places-autocomplete';
 import axios from 'axios'
+import { GoogleApiConfig } from '../Services/GoogleApiConfig'
 
 
 const Axios = axios.create({
@@ -45,7 +46,7 @@ function getPlaceInfo(address) {
     const params = {
       "placeid" : "ChIJNVQ84YFLHRURqzjMQp3RVGY",
       "fields": ["name","rating","formatted_phone_number", "photo", "website", "type", "url", "place_id","formatted_address"],
-      "key":"AIzaSyCqz4UvZ4IYUQucqqJY56e-4OW9B_9eg7w"
+      "key":GoogleApiConfig.apiKey
     }
     _infoRequest(params)
   }
@@ -55,7 +56,7 @@ function getPlaceInfo(address) {
       const params = {
         "placeid" : results[0].place_id,
         "fields": ["name","rating","formatted_phone_number", "photo", "website", "type", "place_id", "geometry", "formatted_address"],
-        "key":"AIzaSyCqz4UvZ4IYUQucqqJY56e-4OW9B_9eg7w"
+        "key":GoogleApiConfig.apiKey
       }
       return _infoRequest(params)
         .then(info => info)

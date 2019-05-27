@@ -29,7 +29,6 @@ render() {
 };
   
   const markersMap = this.props.itinerary.map(place => {
-    console.log(place.geometry.location)
       return <Marker
         key={place.place_id}
         position={place.geometry.location}
@@ -39,17 +38,18 @@ render() {
   const paths = this.props.itinerary.map(place => place.geometry.location)
   return (
   <Fragment>
-    <Map google={this.props.google} zoom={5} style={style} 
+    <Map google={this.props.google} zoom={this.props.zoom} style={style} 
       initialCenter={paths[0]} //should be handled
       onClick={this.onMapClicked}>
-      {markersMap}
+      {!this.props.initial && markersMap}
+      {!this.props.initial && 
       <Polygon
         paths={paths}
         strokeColor="#0000FF"
         strokeOpacity={0.7}
         strokeWeight={1}
         fillColor="#0000FF"
-        fillOpacity={0.2} />
+        fillOpacity={0.2} />}
     </Map>}
   </Fragment>)
 } //end of render

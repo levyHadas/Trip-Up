@@ -1,6 +1,5 @@
 import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon} from 'google-maps-react';
 import React, { Component, Fragment } from 'react'
-import MapService from '../../Services/MapService'
 import { GoogleApiConfig } from '../../Services/GoogleApiConfig'
 
 export class DetailsMap extends Component {

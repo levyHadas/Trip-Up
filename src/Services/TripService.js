@@ -1,5 +1,5 @@
 import axios from 'axios'
-import trips from '../Services/TripsData.json'
+import trips from '../Data/TripsData'
 import UserService from './UserService.js';
 
 const Axios = axios.create({

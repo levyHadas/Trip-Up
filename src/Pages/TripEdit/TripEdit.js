@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 // import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon} from 'google-maps-react';
 import { GoogleApiWrapper } from 'google-maps-react';
 import EditMap from '../MapsApi/EditMap'
+import InitialPlace from '../../Data/InitialPlace'
 
 import BudgetRange from '../../Comps/BudgetRange/BudgetRange'
 import TripService from '../../Services/TripService'
@@ -15,7 +16,7 @@ class TripEdit extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {itinerary:[], country:''}
+        this.state = {itinerary:[], country:'', budget:{min:200, max:1500}}
         this.tripTypes = []
         this.tripId = this.props.match.params.id
     }
@@ -55,7 +56,6 @@ class TripEdit extends Component {
     }
     
     addToItinerary = (newPlace) => {
-        
         MapService.getPlaceInfo(newPlace)
         .then (placeInfo => {
             var itinerary = this.state.itinerary
@@ -116,28 +116,37 @@ class TripEdit extends Component {
                 value={this.state.country}
                 placeholder="Country" 
                 onChange={this.handleInput}/>
-
-            {this.state.itinerary && 
-            <div className="itinerary-container flex">
-                <div>
-                    {itineraryMap}
-                    <LocationSearchInput onAddToItinerary={this.addToItinerary}/>
-                </div>
-                {this.state.itinerary.length &&
-                <div className="map-wrapper-edit">
-                    <EditMap className="map-container"
-                            country={this.state.country} //should be countryCoords i ncase itenery is empty
-                            itinerary={this.state.itinerary}
-                            google={this.props.google}>
-                    </EditMap>
-                </div>}
-            </div>}
             <select name="type"  placeholder="type" 
                     onChange={this.handleInput}>
                     {tripTypseMap}
             </select>
-            {this.state.budget && 
-            <BudgetRange budget={this.state.budget} onSetBudget={budget => this.setState({budget:budget})}></BudgetRange>}
+            <BudgetRange budget={this.state.budget} onSetBudget={budget => this.setState({budget:budget})}/>
+            <div className="itinerary-container flex">
+                <div>
+                    {this.state.itinerary.length !== 0 && itineraryMap}
+                    <LocationSearchInput onAddToItinerary={this.addToItinerary}/>
+                </div>
+                {this.state.itinerary.length !== 0 &&
+                <div className="map-wrapper-edit">
+                    <EditMap className="map-container"
+                            country={this.state.country} //should be countryCoords i ncase itenery is empty
+                            itinerary={this.state.itinerary}
+                            zoom={5}
+                            google={this.props.google}>
+                    </EditMap>
+                </div>}
+                {this.state.itinerary.length === 0 &&
+                <div className="map-wrapper-edit">
+                    <EditMap className="map-container"
+                            country={this.state.country} //should be countryCoords i ncase itenery is empty
+                            itinerary={[InitialPlace]}
+                            zoom={1}
+                            google={this.props.google}
+                            initial={true}>
+                    </EditMap>
+                </div>}
+            </div>
+            
             
             <button onClick={this.handleSubmit}>Save</button>
         </form>)
