@@ -66,9 +66,14 @@ body {
   cursor: default;
 }
 
-.map-wrapper > div {
+.map-wrapper-details > div {
   height: 100%;
   width: 99%;
+  position: absolute;
+}
+.map-wrapper-edit > div {
+  height: 350px;
+  width: 350px;
   position: absolute;
 }
 
@@ -76,6 +81,12 @@ body {
   font-size: 1.1rem;
   padding:6px;
   cursor: pointer;
+}
+
+.gm-bundled-control
+,.gm-style-mtc
+,.gm-fullscreen-control{
+    transform: scale(.8);
 }
 
 

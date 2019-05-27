@@ -8,8 +8,9 @@ import { updateLikeJoin } from '../../Services/GlobalFunctions'
 import UtilService from '../../Services/UtilService'
 
 import './TripDetails.scss'
-import MapContainer from '../MapContainer/MapContainer'
+import DetailsMap from '../MapsApi/DetailsMap'
 import ImgGallery from '../../Comps/ImgGallery/ImgGallery'
+
 
 class TripDetails extends PureComponent {
     constructor(props) {
@@ -38,13 +39,13 @@ class TripDetails extends PureComponent {
     }
 
     handleLikeJoin(ev) {
-        updateLikeJoin(ev.target.getAttribute('data-action-type'), this.props.user, this.props.trip)
+        const actionType = ev.target.getAttribute('data-action-type')
+        updateLikeJoin(actionType, this.props.user, this.props.trip)
         this.props.saveUser(this.props.user)
         this.props.updateTripLikesMembers(this.props.trip)
     }
     
     render() {
-      
         const linkToEdit =`/trip/edit/${this.tripId}`
         return (
         <section className = "trip-details flex column">
@@ -52,8 +53,11 @@ class TripDetails extends PureComponent {
             <div className="details-actions-container flex space-between">
                 <div className="info-container">
                     <p className="tripInfo">Country: {this.props.trip.country}</p>
-                    {this.props.trip.city && <p className="tripInfo">City: {this.props.trip.city}</p>}
-                    <p className="tripInfo">Type: {UtilService.getIconForType(this.props.trip.type)}</p>
+                    {this.props.trip.city && 
+                    <p className="tripInfo">City: {this.props.trip.city}</p>}
+                    <p className="tripInfo">
+                        Type: {UtilService.getIconForType(this.props.trip.type)}
+                    </p>
                 </div>
                 <div className="actions-container flex space-between">
                     <span data-action-type="like" onClick={this.handleLikeJoin}>
@@ -65,7 +69,8 @@ class TripDetails extends PureComponent {
                         {this.props.trip.members.length}
                         <i className="fas fa-user-plus" title="Join" data-action-type="join"></i>
                     </span>}
-                    {this.props.trip.organizer && this.props.user._id === this.props.trip.organizer._id &&
+                    {this.props.trip.organizer && 
+                     this.props.user._id === this.props.trip.organizer._id &&
                     <span>
                         <Link to={linkToEdit}><i className="far fa-edit"></i></Link>
                         <i className="far fa-trash-alt"onClick={this.deleteTrip}></i>
@@ -77,11 +82,8 @@ class TripDetails extends PureComponent {
                 <ImgGallery imgs={this.props.trip.imgs}/>}
             </div>
             {this.props.trip.country &&
-            <div className="map-wrapper">
-            <MapContainer itinerary={this.props.trip.itinerary} 
-                        country={this.props.trip.country}
-                        className="map-container">
-            </MapContainer>
+            <div className="map-wrapper-details">
+                <DetailsMap trip={this.props.trip} className="map-container"/>
             </div>}
         </section>)
     }
