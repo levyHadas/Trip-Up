@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 // import { BrowserRouter, Route, Switch}  from 'react-router-dom'
 import { HashRouter, Route, Switch, Redirect}  from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -12,46 +12,57 @@ import TripEdit from '../Pages/TripEdit/TripEdit'
 import AppHeader from './AppHeader/AppHeader'
 
 function mapStateToProps (state) {
-    return { user: state.user }
+    return { user: state.user, navOpen:state.util.navOpen }
 }
 
 const AppRouter = (props) => {
-    // const PrivateRoute = () => {
-    //     return Store.userStore.user ? <Route/> : <Redirect to="/signup" />}
     const HomeRoute = () => {
         return props.user._id ? 
-            <Redirect to="/trip"/> : <Redirect to="/home"/>}
-    
-    return (
-        <HashRouter>
-            <section>
-            <AppHeader user={props.user} dispatch={props.dispatch}/>
-            <div className="main-container">
-                <Switch>
-                    <Route path="/home" component={HomePage}/>
-                    <Route path="/login" component={HomePage}/>
-                    <Route path="/signup" component={HomePage}/>
-                    <Route path="/trip/edit/:id" component={TripEdit}/>
-                    <Route exact path="/trip/edit" component={TripEdit}/>
-                    <Route path="/trip/:id" component={TripDetails}/>
-                    <Route exact path="/trip" component={TripsPage}/>
-                    <HomeRoute exact path="/" component={HomePage}/>
+        <Redirect to="/trip"/> : <Redirect to="/home"/>}
         
-           
-                {/* {<PrivateRoute exact 
-                    path="/edit/:id" 
-                    render = {(props) => <ContactEdit/>}
-                />}  */}
-            
-                
-                </Switch>
-            </div>
-            </section>
-        </HashRouter>
-
- 
-    )
+        return (
+            <HashRouter>
+            <Fragment>
+                <AppHeader user={props.user} dispatch={props.dispatch}/>
+                <div className="main-container">
+                    <Switch>
+                        <Route path="/home" component={HomePage}/>
+                        <Route path="/login" component={HomePage}/>
+                        <Route path="/signup" component={HomePage}/>
+                        <Route path="/trip/edit/:id" component={TripEdit}/>
+                        <Route exact path="/trip/edit" component={TripEdit}/>
+                        <Route path="/trip/:id" component={TripDetails}/>
+                        <Route exact path="/trip" component={TripsPage}/>
+                        <HomeRoute exact path="/" component={HomePage}/>
+                    </Switch>
+                </div>
+            </Fragment>
+        </HashRouter>)
 }
 
 
 export default connect(mapStateToProps)(AppRouter) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  {<PrivateRoute exact 
+//     path="/edit/:id" 
+//     render = {(props) => <ContactEdit/>}
+// />
+
+
+// const PrivateRoute = () => {
+    //     return Store.userStore.user ? <Route/> : <Redirect to="/signup" />}

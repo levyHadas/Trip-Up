@@ -1,7 +1,7 @@
 .range-slider {
   width: 300px;
-  margin: 30px;
   position: relative;
+  margin: 25px 12px;
 }
 
 .input-range__track {
@@ -54,7 +54,7 @@
 .input-range__label.input-range__label--max {
   bottom: -1.4rem;
   position: absolute;
-  left: 100%;
+  left: 90%;
   color: red;
 }
 .input-range__label.input-range__label--min {

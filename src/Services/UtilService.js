@@ -4,7 +4,8 @@ import React from 'react'
 export default {
     getRandomIntInclusive,
     makeId,
-    getIconForType
+    getIconForType,
+    getStarsForRating
 }
 
 function getIconForType(type) {
@@ -26,6 +27,108 @@ function getIconForType(type) {
             return <i className="fas fa-shopping-bag" title="Shoping"></i>
         default:
             return <i className="fas fa-suitcase"></i>
+    }
+}
+function getStarsForRating(rate) {
+
+    rate = Number(rate*2/10).toFixed(1)
+    rate = rate/2*10
+    switch (rate) {
+        case rate === 0.5 : //return half
+            return ( <span>
+                <i className="fas fa-star-half-alt"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+            </span>)
+        case 1: //return 1 
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+            </span>)
+        case 1.5:
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star-half-alt"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+            </span>)
+        case 2:
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+            </span>)        
+        case 2.5:
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star-half-alt"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+            </span>)
+            
+        case 3:
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+            </span>)        
+            
+        case 3.5:
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star-half-alt"></i>
+                <i className="far fa-star no"></i>
+            </span>)
+            
+        case 4:
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="far fa-star no"></i>
+            </span>)        
+            
+        case 4.5:
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star-half-alt"></i>
+            </span>)
+            
+        case 5:
+            return ( <span>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+                <i className="fas fa-star yes"></i>
+            </span>)        
+            
+        default: //empty stars
+            return ( <span>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+                <i className="far fa-star no"></i>
+            </span>)        
+            
     }
 }
   

@@ -1,4 +1,111 @@
-.autocomplete-dropdown-container {
-    max-width: 250px;
-    cursor: pointer;
+@import '../../Css/Colors.scss';
+
+.suggestions-container {
+    background-color: white;
+    border: 1px solid gainsboro;
+    padding: 2px;
+    cursor:pointer;
+    max-width: 185px;
 }
+.edit-container {
+
+  h1 {
+    padding:20px;
+    margin-bottom:0;
+  }
+  button {
+    margin:0 20px; 
+  }
+}
+
+.edit-field {
+  width: 120px;
+  margin: 10px;
+}
+.edit-field.date {
+  width: 160px;
+}
+.edit-field.max-members {
+  width: 80px;
+}
+.edit-container {
+  margin: 20px 30px;
+}
+
+.top-container {
+  max-width: 680px;
+  flex-wrap: wrap;
+  padding: 20px;
+  // :first-child {
+    //   margin: 10px 10px 10px 0;
+    // }
+    
+  }
+// .budget-range {
+    
+//   margin: 20px;
+// }
+
+.places-search-container {
+  width: 80%;
+  margin: 0 auto;
+}
+.places-list {
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 40px 0 20px 0;
+}
+
+.search-places {
+  position: absolute;
+  z-index: 1;
+  margin: 10px 0;
+}
+.place-container {
+  margin-right: 7px;
+  box-shadow: 2px 2px 2px 2px solid white;
+  border: 1px dashed white;
+}
+
+.edit-container {
+  background-color: $white-trans;
+  
+}
+
+.map-wrapper-edit > div {
+  max-width: 1000px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin-left: -30px;
+}
+
+.map-wrapper-edit {
+    .gmnoprint {
+      left: calc(100% - 230px) !important;
+      .gm-style-mtc {
+        float: right !important;
+      }
+    }
+}
+
+
+@media (max-width: 750px) {
+  .map-wrapper-edit {
+      .gmnoprint {
+        left: calc(100% - 120px) !important;
+        margin-top: 50px !important;
+        .gm-style-mtc {
+          // right: -3px !important;
+          right: -3px;
+          
+        }
+        div[title="Show satellite imagery"] {
+          right: -5px;
+        }
+      }
+    }
+  }
+
+

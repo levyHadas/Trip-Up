@@ -1,5 +1,13 @@
+@import './Colors.scss'; 
 * {
   box-sizing: border-box;
+}
+
+body {
+
+  margin: 0;
+  background-color: #F5F5F8;
+  color: $black;
 }
 
 ul, li {
@@ -15,17 +23,43 @@ p {
   margin:0;
 }
 
-h2,h3,h4,h5,h6 {
+h2,h3,h5,h6 {
   margin: 0;
   padding: 0;
 }
-
-
-
-body {
-  background-color: azure;
-  margin: 0;
+h4 {
+  margin: 5px 0;
+  padding: 0;
 }
+input, select {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(217, 228, 228, 0.85);
+}
+
+option {
+  background-color: white;
+  border: 1px solid gainsboro;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+.btn {
+  border-radius: 4px;
+  background-color: antiquewhite;
+  border: none;
+  padding: 7px;
+
+}
+
+
 
 .flex {
   display: flex;
@@ -41,8 +75,8 @@ body {
 }
 .main-container {
   max-width: 1000px;
-  border-right: 2px solid rgba(220, 220, 220, 0.425);
-  border-left: 2px solid rgba(220, 220, 220, 0.425);
+  // border-right: 2px solid rgba(220, 220, 220, 0.425);
+  // border-left: 2px solid rgba(220, 220, 220, 0.425);
   margin: 0 auto;
   // padding: 20px
 }
@@ -66,16 +100,7 @@ body {
   cursor: default;
 }
 
-.map-wrapper-details > div {
-  height: 100%;
-  width: 99%;
-  position: absolute;
-}
-.map-wrapper-edit > div {
-  height: 350px;
-  width: 350px;
-  position: absolute;
-}
+
 
 .far.fa-plus-square, .far.fa-minus-square {
   font-size: 1.1rem;
@@ -83,11 +108,25 @@ body {
   cursor: pointer;
 }
 
-.gm-bundled-control
-,.gm-style-mtc
-,.gm-fullscreen-control{
-    transform: scale(.8);
+
+
+.app-bg-img {
+  background-image: url('../Assets/home-bg2.jpg');
+  min-height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: fixed;
+  top: 0;
+  left:0;
+  z-index: -1;
+  opacity: 0.7;
 }
+
+
+
+
 
 
 

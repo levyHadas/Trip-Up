@@ -8,9 +8,7 @@ class SignupPage extends Component {
     state = {username:'', password: '', passwordRepeat:''}
     
     handleInput = (ev) => {
-        // if (ev.target.value) {
-            this.setState({[ev.target.name]: ev.target.value})
-        // } else this.setState({[ev.target.name]: ''})
+        this.setState({[ev.target.name]: ev.target.value})
     }
 
     handleSubmit = async(ev) => {
@@ -24,23 +22,24 @@ class SignupPage extends Component {
     render() {
         return (
             <section className="signup">
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" 
+                <form className="login-form flex column align-center"
+                        onSubmit={this.handleSubmit}>
+                    <input className="login-input" type="text" 
                         placeholder="Username"
                         name="username"
                         value={this.state.username} 
                         onChange={this.handleInput}/>
-                    <input type="password"
+                    <input className="login-input" type="password"
                         placeholder="Password"
                         name="password"
                         value={this.state.password} 
                         onChange={this.handleInput}/>
-                    <input type="password"
+                    <input  className="login-input" type="password"
                         placeholder="Password Repeat"
                         name="passwordRepeat"
                         value={this.state.passwordRepeat} 
                         onChange={this.handleInput}/>
-                    <button>Sign Up</button>
+                    <button className="btn login-btn">Sign Up</button>
                 </form>
             </section>
         )

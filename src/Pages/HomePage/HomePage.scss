@@ -1,0 +1,67 @@
+@import '../../Css/Colors.scss';
+.home-container {
+    background-image: url('../../Assets/home-bg2.jpg');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed ;
+    top:55px;
+    left:0;
+    z-index: -1;
+}
+
+.signup-login-container {
+    padding: 30px;
+    max-width: 700px;
+    justify-content: space-around;
+    margin: 0 auto;
+    .login-form {
+        width: 230px;
+        height: 240px;
+        background-color: rgba(75, 65, 47, 0.3);; 
+        justify-content: space-evenly;
+    }
+    .login-input {
+        width: 180px;
+        height: 32px;
+        padding: 10px;
+        color: #402e1e;
+    }
+}
+.find-a-trip-btn {
+    width: 250px;
+    padding: 15px;
+    border-radius: 80px;
+    font-size: 2rem;
+    border: none;
+    background: $black;
+    margin: 30px auto 20px auto;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: cursive;
+    color:$white;
+}
+
+@media (max-width: 550px) { 
+    .home-container {
+        height: -webkit-fill-available;
+        position: absolute;
+        background-size: cover;
+        background-position: bottom;
+    }
+    .signup-login-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .login-form {
+        margin-bottom: 30px;
+    }
+    .signup::before {
+            content: 'OR:';
+            color: $white;
+        }
+    
+}

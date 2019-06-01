@@ -6,7 +6,7 @@ import { updateLikeJoin } from '../../Services/GlobalFunctions'
 import { loadTrips, updateTripLikesMembers } from '../../Actions/TripActions'
 import TripList from '../../Comps/TripList/TripList'
 import TripService from '../../Services/TripService'
-// import  MapContainer  from '../MapContainer/MapContainer';
+import './TripsPage.scss'
 
 
 class TripPage extends PureComponent {
@@ -18,8 +18,6 @@ class TripPage extends PureComponent {
   
 
     onUpdateLikeJoin = async(ev) => {
-        // ev.nativeEvent.stopPropagation()
-        // ev.nativeEvent.preventDefault()
         const actionType = ev.target.getAttribute('data-action-type')
         const tripId = ev.target.getAttribute('data-trip-id')
         const trip = await TripService.getById(tripId) 
@@ -33,10 +31,10 @@ class TripPage extends PureComponent {
     render() {
         return (
             <section className="trips">
-            {/* <MapContainer className="mapContainer"></MapContainer> */}
                 {!this.props.loading && 
                 <TripList trips={this.props.trips} user={this.props.user} 
                     onUpdateLikeJoin={this.onUpdateLikeJoin}/>}
+            <div className="app-bg-img"></div>
             </section>
         )
     }

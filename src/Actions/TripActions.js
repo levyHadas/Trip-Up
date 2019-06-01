@@ -11,6 +11,7 @@ export function loadTrips(filterBy) {
             })
     }
 }
+
 export function loadTrip(tripId) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         if (!tripId) dispatch ({type:'setCurrTrip', payload:{}})
@@ -25,6 +26,7 @@ export function loadTrip(tripId) {
         }
     }
 }
+
 export function deleteTrip(tripId, { history }) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
@@ -37,20 +39,17 @@ export function deleteTrip(tripId, { history }) {
     }
 }
 
-
-
-
-export function saveTrip(tripToSave, props=null) {
+export function saveTrip(tripToSave) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
-        TripService.save(tripToSave)
+        return TripService.save(tripToSave)
         .then((savedTrip) => {
             dispatch ({type:'setCurrTrip', payload:savedTrip})
             dispatch ({type:'loading', payload:false})
-            if (props) props.history.push(`/trip/${savedTrip._id}`)
         })
     }
 }
+
 export function updateTripLikesMembers(tripToUpdate) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         TripService.updateLikesMembers(tripToUpdate)
@@ -64,6 +63,30 @@ export function updateTripLikesMembers(tripToUpdate) {
         .catch ((err) => {throw(err)})
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // export function signup(user) {

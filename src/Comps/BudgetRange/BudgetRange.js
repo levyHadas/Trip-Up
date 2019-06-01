@@ -5,7 +5,6 @@ import './BudgetRange.scss'
 class BudgetRange extends Component {
     state = { min: 0,max: 1000}
     componentDidMount() {
-        console.log(this.props.budget)
         this.setState({min:this.props.budget.min, max:this.props.budget.max})
     }
     render() {

@@ -1,6 +1,8 @@
 import axios from 'axios'
 import trips from '../Data/TripsData'
 import UserService from './UserService.js';
+import { GoogleApiConfig } from '../Services/GoogleApiConfig'
+
 
 const Axios = axios.create({
     withCredentials: true,
@@ -18,7 +20,9 @@ export default {
     getEmpty,
     createTrips,
     getTripTypes,
-    updateLikesMembers
+    updateLikesMembers,
+    getPlaceImg,
+    getTripImgs
 }
 
 function createTrips() {
@@ -45,7 +49,6 @@ function getById(tripId) {
 async function save(trip) {
     trip.organizer = await UserService.getLoggedUser()
     trip.createdAt = Date.now()
-    console.log(trip)
     if (trip._id) {
         return Axios.put(`${BASE_PATH}/${trip._id}`, trip)
         .then(res => res.data)
@@ -71,24 +74,37 @@ function remove(tripId) {
 function getEmpty() {
     return {
         "country": "",
-        "city": "",
-        "budget": "",
+        "budget": {min:200, max:1500},
         "type": "",
-        "max-members": "",
+        "maxMembers": "",
         "organizer": {},
         "members": [],
         "status": "open",
         "createdAt":"",
-        "likes": "1",
+        "likes": 1,
         "tripDate":"",
-        "itinerary": [],
-        "imgs": [],
         "itinerary":[]
     }
 
 }
 function getTripTypes() {
-    return ['hiking', 'shoping', 'music', 'art', 'other', 'photography', 'skiing', 'food']
+    return ['Type','hiking', 'shoping', 'music', 'art', 'other', 'photography', 'skiing', 'food']
 }
 
-// "itinerary": [{"name":"madrid", "img":"", "coords":{}}, {"name":"barcelona", "img":"", "coords":{}}],
+function getPlaceImg(photoReference) {
+    return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${GoogleApiConfig.apiKey}`
+}
+
+function getTripImgs(trip) {
+    var allPhotosObjects = []
+    trip.itinerary.forEach(place => {
+        if (place.photos) {
+            var somePhotos = (place.photos).slice(0,2)
+            allPhotosObjects.push(...somePhotos)
+        }
+        
+    })
+    return allPhotosObjects.map(photo => {
+        return getPlaceImg(photo.photo_reference)})
+}
+

@@ -19,25 +19,3 @@ export const userReducer = (state=initialState, action) => {
 
 
 
-//examples for exports
-
-// export default (state={}, action) => {
-//     if (action.type === 'a') state = {...state, num:action.payload} 
-//     return state
-// }
-// import userReducer from '../Reducers/userReducer'
-
-
-
-
-// const mainReducer = (state={}, action) => {
-    //     if (action.type === 'a') state = {...state, num:action.payload} 
-    //     return state
-    // }
-    // export default {
-        //     mainReducer,
-        // }
-
-// import userReducer from '../Reducers/userReducer'
-// userReducer.mainReducer
-

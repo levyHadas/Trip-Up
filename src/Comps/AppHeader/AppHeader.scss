@@ -1,27 +1,133 @@
+@import '../../Css/Colors.scss';
 .header-container {
     height: 55px;
     padding: 0 20px;
-    background-color: black;
-    color: white;
+    background-color: $white;
     margin: 0;
+    box-shadow: -3px -3px 13px 0px rgba(89, 95, 59, 0.6);
 }
 .header-items-container {
     max-width: 1000px;
     margin: 0 auto;
-    // justify-content: space-between;
     align-items: center;
     height: 100%;
 }
 
 .user-area-link {
     width: 130px;
+    justify-content: flex-end;
 }
 
 .user-img {
     width: 35px;
     height: 35px;
-
+    border-radius: 50%;
+    
+    
+}
+.user-name {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: $white-trans;
+    margin-left: -37px;
+    text-align: center;
+    font-size: 1.5rem;
+    color: $orange;
+    font-family: cursive;
+    font-weight: bold;
+    
 }
 .title-nav-container {
-    width: 450px;
+    width: 360px;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-family: cursive;
+    color: $orange;
+}
+.fas fa-umbrella-beach {
+    color: white;
+}
+
+.name-logout-container {
+    width: 90px;
+    height: 55px;
+    
+}
+.Nav_link {
+    color: $black;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.logout {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 750px) {
+    .header-container {
+        padding: 0 10px;
+    }
+    .hamburger {
+        display: block;
+        position: absolute;
+        height: 55px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: $orange;
+    }
+    .nav-container {
+        flex-direction: column;
+        // align-items: flex-start;
+        // position: absolute;
+        // top:0;
+        // left: 0;
+    }
+    .title-nav-container {
+        flex-direction: row-reverse;
+        width: 125px;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+    .nav-container {
+        position: absolute;
+        left: 0;
+        top: 55px;
+        width: 300px;
+        height: 100vh;
+        // background-color: rgba(58, 50, 36, 0.8);
+        background-color: $white-trans-half;
+        align-items: center;
+        z-index: 2;
+        border-right: 1px solid $orange;
+        &.nav-open {
+            transform: translate(0, 0);
+            justify-content: flex-start;
+            transition: transform 0.5s ease;
+        }
+        &.nav-closed {
+            position: absolute;
+            transform: translate(-100%, 0);
+            transition: transform 0.5s ease;
+            justify-content: flex-start;
+        }
+        .Nav_link {
+            color: $black;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 20px;
+            border-bottom: 1px solid $orange;
+            width: 100%;
+        }
+    }
+
+
+  
+    
+    
 }

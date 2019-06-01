@@ -6,7 +6,6 @@ export const tripReducer = (state=initialState, action) => {
         case 'setTrips':
             return ({...state, trips:[...action.payload]})
         case 'setCurrTrip':
-            // if (action.payload) return ({...state, currTrip:action.payload})
             return ({...state, currTrip:{...action.payload}})
         default:
             return state

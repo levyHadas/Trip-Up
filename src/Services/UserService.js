@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import UtilService from './UtilService'
 
 const BASE_PATH = (process.env.NODE_ENV !== 'development')
     ? '/user'
@@ -56,22 +55,4 @@ function logout() {
 }
 
 
-
-// function _getDefaultUser() {
-//     const randId = UtilService.makeId()
-//     return {
-//         _id: 'guest' + randId,
-//         username: 'Guest_' + randId,
-//         img: 'https://api.adorable.io/avatars/puki'
-//     }
-// }
-
-// function getUser(userId) {
-
-//     return axios.get(`${BASE_PATH}/${userId}`)
-//         .then(res => res.data)
-//         .catch(err => err)
-
-
-// }
 

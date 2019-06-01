@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
-
+import { Link } from 'react-router-dom'
 
 import LoginPage from '../LoginPage/LoginPage'
 import SignupPage from '../SignupPage/SignupPage'
+import './HomePage.scss'
 
 class HomePage extends Component {
       
     render() {
         return (
-            <section className="home">
+            <section className="home-container">
+                <Link to="/trip" className="find-a-trip-btn">find a trip</Link>
                 {!this.props.loading && 
                 <div className="signup-login-container flex">
                     {!this.props.user.username && 

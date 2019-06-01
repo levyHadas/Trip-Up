@@ -7,7 +7,6 @@ class LoginPage extends Component {
     
     state = {username:'', password: ''}
   
-  
     handleInput = (ev) => {
         this.setState({[ev.target.name]: ev.target.value})
     }
@@ -16,22 +15,23 @@ class LoginPage extends Component {
         ev.preventDefault()
         if (!this.state.username || !this.state.password) return;
         this.props.login({...this.state}, this.props.history)
-        
     }
     
     render() {
         return (
             <section className="login">
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" 
+                <form className="login-form flex column align-center"onSubmit={this.handleSubmit}>
+                    <input className="login-input" type="text" 
                         name="username"
+                        placeholder="Username"
                         value={this.state.username} 
                         onChange={this.handleInput}/>
-                    <input type="password"
+                    <input className="login-input" type="password"
                         name="password"
+                        placeholder="Password"
                         value={this.state.password} 
                         onChange={this.handleInput}/>
-                    <button>Login</button>
+                    <button className="btn login-btn">Login</button>
                 </form>
             </section>
         )

@@ -8,7 +8,7 @@
             "max" : 3000
         },
         "type" : "hiking",
-        "max-members" : 5,
+        "maxMembers" : 5,
         "organizer" : {
             "_id" : "5ce3b0552ef80c2e34274e10",
             "username" : "qwe",
@@ -67,10 +67,6 @@
         "createdAt" : 1558969659254.0,
         "likes" : 50,
         "tripDate" : "",
-        "itinerary" : [ 
-            "Amsterdam, Netherlands", 
-            "Haarlem, Netherlands"
-        ],
         "imgs" : [ 
             "https://media.istockphoto.com/photos/traditional-dutch-windmills-and-houses-near-the-canal-in-zaanstad-picture-id937057490?k=6&m=937057490&s=612x612&w=0&h=Yy9QZZbEpkVKNu0mj1hi6XBlteLeu-PN_9Uz1HPvo4c=", 
             "https://media.istockphoto.com/photos/haarlem-netherlands-picture-id522913421?k=6&m=522913421&s=612x612&w=0&h=cyb44JvW5FeFG-GRGwqQxcuzJ5wqbi9sH31BreIKLtc="
@@ -303,7 +299,7 @@
             "max" : 800
         },
         "type" : "music",
-        "max-members" : 3,
+        "maxMembers" : 3,
         "organizer" : {
             "_id" : "5ce3b0552ef80c2e34274e10",
             "username" : "qwe",
@@ -362,10 +358,6 @@
         "createdAt" : 1558967199698.0,
         "likes" : 15,
         "tripDate" : "",
-        "itinerary" : [ 
-            "London, UK", 
-            "Liverpool, UK"
-        ],
         "imgs" : [ 
             "https://media.istockphoto.com/photos/westminster-bridge-at-sunset-london-uk-picture-id516921682?k=6&m=516921682&s=612x612&w=0&h=OjePl26n9xhOwMu4l5yjpKgluKsksuaT3vFLco8uPgY=", 
             "https://media.istockphoto.com/photos/people-walking-in-the-liverpool-one-shopping-centre-picture-id670857740?k=6&m=670857740&s=612x612&w=0&h=l2dDBrJerflJG4w0kKGuQZrZmCNPIJDpXpPsPVVz3vI="
@@ -382,7 +374,7 @@
             "max" : 800
         },
         "type" : "shoping",
-        "max-members" : 4,
+        "maxMembers" : 4,
         "organizer" : {
             "_id" : "5ce3b0552ef80c2e34274e10",
             "username" : "qwe",
@@ -441,10 +433,6 @@
         "createdAt" : 1558967949517.0,
         "likes" : 10,
         "tripDate" : "",
-        "itinerary" : [ 
-            "Madrid, Spain", 
-            "Barcelona, Spain"
-        ],
         "imgs" : [ 
             "https://media.istockphoto.com/photos/madrid-spain-on-gran-via-picture-id514769480?k=6&m=514769480&s=612x612&w=0&h=Uhx2ObZe412KRgGmzOGI6KIwcw2935MnVV7ln0FW8yw=", 
             "https://media.istockphoto.com/photos/barcelona-park-guell-spain-picture-id511515106?k=6&m=511515106&s=612x612&w=0&h=6gxpw_I8eHYA_jSZlzWrY_MQlL_1TjbAKfathNy1UqY="
@@ -676,7 +664,7 @@
             "max" : 800
         },
         "type" : "hiking",
-        "max-members" : 5,
+        "maxMembers" : 5,
         "organizer" : {
             "_id" : "5ce3b0552ef80c2e34274e10",
             "username" : "qwe",
@@ -735,13 +723,6 @@
         "createdAt" : 1558968124988.0,
         "likes" : 1,
         "tripDate" : "",
-        "itinerary" : [ 
-            "Eilat, Israel", 
-            "Mitzpe Ramon, Israel", 
-            "Dead Sea", 
-            "Tel Aviv-Yafo, Israel", 
-            "Sha'ar HaGolan, Israel"
-        ],
         "imgs" : [ 
             "https://media.istockphoto.com/photos/central-public-beach-and-marina-in-eilat-famous-resort-and-recreation-picture-id915229528?k=6&m=915229528&s=612x612&w=0&h=z9mSsMT5AudPmEsdxaTIRCCj0cmpYB6sx_nQ6YajYmc=", 
             "https://media.istockphoto.com/photos/full-moon-in-the-summer-night-over-the-judean-desert-near-the-town-of-picture-id1009483866?k=6&m=1009483866&s=612x612&w=0&h=tJ_aqaWBWP7imvyxpUkWel-770HqdGJbhRfgAXfL3x8=", 
@@ -1245,7 +1226,7 @@
             "max" : 1000
         },
         "type" : "art",
-        "max-members" : 2,
+        "maxMembers" : 2,
         "organizer" : {
             "_id" : "5ce3b0552ef80c2e34274e10",
             "username" : "qwe",
@@ -1304,11 +1285,6 @@
         "createdAt" : 1558968166242.0,
         "likes" : 1,
         "tripDate" : "",
-        "itinerary" : [ 
-            "Rome, Metropolitan City of Rome, Italy", 
-            "Milan, Metropolitan City of Milan, Italy", 
-            "Florence, Metropolitan City of Florence, Italy"
-        ],
         "imgs" : [ 
             "https://media.istockphoto.com/photos/rome-italy-picture-id521818530?k=6&m=521818530&s=612x612&w=0&h=Imwq0CGAMxhBz3I2WnBwfToc5G1XMnvwKY_73PqCvkg=", 
             "https://media.istockphoto.com/photos/famous-vintage-tram-in-milan-lombardia-italy-picture-id915598138?k=6&m=915598138&s=612x612&w=0&h=OQ4KOlqqrDbqC5uLQjgIT1_LSGOD2pITKjo-B8sxszc=", 

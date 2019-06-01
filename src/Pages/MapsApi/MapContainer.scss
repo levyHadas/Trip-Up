@@ -1,0 +1,50 @@
+.gm-style-iw.gm-style-iw-c {
+    max-width: 450px !important;
+}
+
+.gm-bundled-control
+,.gm-style-mtc
+,.gm-fullscreen-control{
+    transform: scale(.8);
+}
+
+// .map-wrapper-details > div {
+//     height: 80%;
+//     width: 80%;
+//     position: absolute;
+//     max-width: 800px;
+//     margin: 15px 0 30px 10%;
+//   }
+  // .map-wrapper-edit > div {
+  //   max-width: 1000px;
+  //   height: 100%;
+  //   width: 99%;
+  //   position: absolute;
+  //   margin-left: -30px;
+  // }
+ 
+  // .map-wrapper-edit {
+  //     .gmnoprint {
+  //       left: calc(100% - 230px) !important;
+  //       .gm-style-mtc {
+  //         float: right !important;
+  //       }
+  //     }
+  // }
+  // @media (max-width: 750px) {
+  // .map-wrapper-edit {
+  //     .gmnoprint {
+  //       left: calc(100% - 120px) !important;
+  //       margin-top: 50px !important;
+  //       .gm-style-mtc {
+  //         // right: -3px !important;
+  //         right: -3px;
+          
+  //       }
+  //       div[title="Show satellite imagery"] {
+  //         right: -5px;
+  //       }
+  //     }
+  //   }
+  // }
+ 

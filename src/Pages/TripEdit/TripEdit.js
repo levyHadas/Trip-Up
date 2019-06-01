@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon} from 'google-maps-react';
 import { GoogleApiWrapper } from 'google-maps-react';
-import EditMap from '../MapsApi/EditMap'
+import MapContainer from '../MapsApi/MapContainer'
 import InitialPlace from '../../Data/InitialPlace'
 
 import BudgetRange from '../../Comps/BudgetRange/BudgetRange'
@@ -11,12 +11,19 @@ import MapService from '../../Services/MapService'
 import { loadTrip, saveTrip } from '../../Actions/TripActions'
 import LocationSearchInput from '../MapsApi/LocationSearchInput'
 import { GoogleApiConfig } from '../../Services/GoogleApiConfig'
+import './TripEdit.scss'
 
 class TripEdit extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {itinerary:[], country:'', budget:{min:200, max:1500}}
+        this.state = { itinerary:[], 
+                        country: '', 
+                        budget: {min:200, max:1500}, 
+                        tripDate: '', 
+                        maxMembers: 2,
+                        itineraryErr: false,
+                        tripDateErr: false }
         this.tripTypes = []
         this.tripId = this.props.match.params.id
     }
@@ -40,27 +47,56 @@ class TripEdit extends Component {
     }
 
     componentWillUnmount() {
+        
         this.props.loadTrip(null)
     }
 
 
     handleInput = (ev) => {
-        if (ev.target.value) this.setState({[ev.target.name]:ev.target.value})
+        this.setState({ tripDateErr: false })
+        if (ev.target.value) {
+            var value
+            if (isNaN(ev.target.value)) value = ev.target.value
+            else value = +ev.target.value
+            this.setState({[ev.target.name]:value})
+        }
         else this.setState({[ev.target.name]:''})
     }
 
     handleSubmit = (ev) => {
-        ev.preventDefault()
+        if (ev) ev.preventDefault()
+        if (!this.state.itinerary.length) {
+            this.setState({ itineraryErr: true })
+            return; 
+        }
+        if (!this.state.tripDate) {
+            this.setState({ tripDateErr: true })
+            return;
+        }
+        if (this.state.type === 'Type') this.setState({ type: '' })
         var stateToSave = {...this.state}
-        this.props.saveTrip(stateToSave, this.props)
+        this.props.saveTrip(stateToSave)
+            .then(() => this.props.history.push(`/trip/${this.props.trip._id}`))
     }
     
     addToItinerary = (newPlace) => {
-        MapService.getPlaceInfo(newPlace)
+        this.setState({ itineraryErr: false })
+        if (!this.state.country) {
+            let countryNames = newPlace.address_components.pop()
+            if (countryNames.long_name === 'United States') {
+                let stateNames = newPlace.address_components.pop()
+                this.setState({country:countryNames.long_name + stateNames.long_name})
+            } else this.setState({country:countryNames.long_name})
+        }
+        MapService.getPlaceInfo(newPlace.place_id)
         .then (placeInfo => {
             var itinerary = this.state.itinerary
             itinerary.push(placeInfo)            
             this.setState({itinerary})
+            if (this.state._id) {
+            var stateToSave = {...this.state}
+            this.props.saveTrip(stateToSave)
+            }
         })
         
     }
@@ -75,22 +111,21 @@ class TripEdit extends Component {
         })
         itinerary.splice(idxToRemove, 1)
         this.setState({itinerary})
+        if (this.state._id) {
+            var stateToSave = {...this.state}
+            this.props.saveTrip(stateToSave)
+        }
     }
 
-    // "country": "",
-    // "city": "",
-    // "budget": "",
-    // "type": "",
-    // "max-members": "",
-    // "organizer": {},
-    // "members": [],
-    // "status": "open",
-    // "createdAt":"",
-    // "likes": "1",
-    // "tripDate":"",
-    // "itinerary": [],
-    // "imgs": []
     render() {
+        var icon = {
+            url: "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png", // url
+            scaledSize: new this.props.google.maps.Size(21, 33), // scaled size
+            origin: new this.props.google.maps.Point(0,0), // origin
+            anchor: new this.props.google.maps.Point(11, 33) // anchor
+        }
+
+        if (this.state.itinerary && this.state.itinerary.length) console.log(this.state.itinerary)
         const tripTypseMap = this.tripTypes.map((option, idx) => {
             if (this.state.type === option) {
                 return <option name={option} value={option} 
@@ -111,45 +146,64 @@ class TripEdit extends Component {
             })
         }
         return (
+        <section className="edit-container">
+        {!this.state._id && <h1>Create a Trip</h1>}
+        {this.state._id && <h1>Edit Your Trip</h1>}
+        {this.state.itineraryErr &&
+        <p className="err">Must choose at least one place</p>}
+        {this.state.tripDateErr &&
+        <p className="err">Must choose trip date</p>}
         <form>
-            <input type="text" name="country" 
-                value={this.state.country}
-                placeholder="Country" 
-                onChange={this.handleInput}/>
-            <select name="type"  placeholder="type" 
-                    onChange={this.handleInput}>
-                    {tripTypseMap}
-            </select>
-            <BudgetRange budget={this.state.budget} onSetBudget={budget => this.setState({budget:budget})}/>
-            <div className="itinerary-container flex">
-                <div>
+            <button onClick={this.handleSubmit}>Save</button>
+            <div className="top-container flex">
+                <input className="edit-field" type="text" name="country" 
+                    value={this.state.country}
+                    placeholder="Country" 
+                    onChange={this.handleInput}/>
+                <select className="edit-field" name="type"  placeholder="type" 
+                        onChange={this.handleInput}>
+                        {tripTypseMap}
+                </select>
+                <input className="edit-field date" type="date" name="tripDate" 
+                    value={this.state.tripDate}
+                    onChange={this.handleInput}
+                    required/>
+                <input className="edit-field max-members" type="number" name="maxMembers" 
+                    value={this.state.maxMembers}
+                    placeholder="Max Travellers"
+                    onChange={this.handleInput}/>
+            </div>
+            <BudgetRange className="budget-range"
+                budget={this.state.budget} 
+                onSetBudget={budget => this.setState({budget:budget})}/>
+          
+            <div className="bottom-container">
+                <div className="places-list flex">
                     {this.state.itinerary.length !== 0 && itineraryMap}
+                </div>
+                <div className="search-places">
                     <LocationSearchInput onAddToItinerary={this.addToItinerary}/>
                 </div>
                 {this.state.itinerary.length !== 0 &&
                 <div className="map-wrapper-edit">
-                    <EditMap className="map-container"
-                            country={this.state.country} //should be countryCoords i ncase itenery is empty
+                    <MapContainer className="map-container"
                             itinerary={this.state.itinerary}
                             zoom={5}
-                            google={this.props.google}>
-                    </EditMap>
+                            icon={icon}/>
                 </div>}
                 {this.state.itinerary.length === 0 &&
                 <div className="map-wrapper-edit">
-                    <EditMap className="map-container"
-                            country={this.state.country} //should be countryCoords i ncase itenery is empty
+                    <MapContainer className="map-container"
                             itinerary={[InitialPlace]}
                             zoom={1}
-                            google={this.props.google}
-                            initial={true}>
-                    </EditMap>
-                </div>}
+                            initial={true}/>
+            </div>}
+                
             </div>
             
-            
-            <button onClick={this.handleSubmit}>Save</button>
-        </form>)
+        </form>
+        <div className="app-bg-img"></div>
+        </section>)
     }
 }
 

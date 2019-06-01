@@ -1,22 +1,47 @@
+@import '../../Css/Colors.scss';
 .trip-item-card {
-    background-color: #f9f8f6;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 7px 0 rgba(0, 0, 0, 0.15);
+    // box-shadow:  5px 3px 10px 4px  $white;
+    box-shadow: 2px 1px 13px 0px rgba(89, 95, 59, 0.6);
     cursor: pointer;
     border-radius: 20px;
     height: 320px;
+    background-color: $white;
+    &.closed {
+        opacity: 0.5;
+        z-index: -1;
+        .trip-item-inner::before {
+            content: ' FULL';
+            font-size: 35px;
+            color: red;
+            font-family: cursive;
+            text-decoration: underline;
+            font-style: italic;
+            border-bottom: 2px solid red;
+            margin: 20px ;
+        }
+      
+    }
 }
 .trip-item-inner {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 70%;
+    height: 74%;
+    margin: 0 auto;
 }
 .trip-title {
-    margin: 5px;
+    margin: 3px;
     text-align: center;
+    padding: 0 3px 3px 3px;
+    
 }
 .right-info-container {
     * {
         font-size: 1.5rem;
     }
+}
+
+.action-info-container {
+    padding: 4px 10px;
+    background: none;
 }

@@ -10,8 +10,15 @@ export function login(user, history) {
             dispatch ({type:'loading', payload:false})
             history.push(`/trip`)
         })
+        .catch(err => {
+            dispatch ({type:'loading', payload:false})
+            dispatch ({type:'setCurrUser', payload:{}})
+            console.log(err)
+            //need to tell user login is incorrect
+        } )
     }
 }
+
 export function signup(user) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
@@ -19,20 +26,6 @@ export function signup(user) {
         .then(signedUser => signedUser)
     }
 }
-// export function addTripToLiked(user, tripId) {
-//     if (user.likes.some((like) => like === tripId)) {
-//         console.log('trip already liked')
-//         return;
-//     }
-//     user.likes.unshift(tripId)
-//     return _updateUser(user)
-// }
-
-// export function addToUserTrips(user, tripId) {
-//     user.trips.unshift(tripId)
-//     _updateUser(user)
-//     //add to trip
-// }
 
 export function saveUser(user) {
     return (dispatch) => {
@@ -40,9 +33,7 @@ export function saveUser(user) {
         return UserService.updateUser(user)
             .then(updatedUser => {
                 dispatch ({type:'updateUser', payload:updatedUser})
-                dispatch ({type:'loading', payload:false})
-            
-                // increaseLikedForTrip()
+                dispatch ({type:'loading', payload:false})            
             })
             .catch((err) => {throw(err)})
     }
@@ -54,19 +45,7 @@ export function updateUserLikesTrips(user) {
             .catch((err) => {throw(err)})
     }
 }
-// function _updateUser(user) {
-//     return (dispatch) => {
-//         dispatch ({type:'loading', payload:true})
-//         return UserService.updateUser(user)
-//             .then(updatedUser => {
-//                 dispatch ({type:'updateUser', payload:updatedUser})
-//                 dispatch ({type:'loading', payload:false})
-            
-//                 // increaseLikedForTrip()
-//             })
-//             .catch((err) => {throw(err)})
-//     }
-// }
+
 export function loadUser() {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
@@ -85,4 +64,56 @@ export function loadUser() {
             })
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function _updateUser(user) {
+//     return (dispatch) => {
+//         dispatch ({type:'loading', payload:true})
+//         return UserService.updateUser(user)
+//             .then(updatedUser => {
+//                 dispatch ({type:'updateUser', payload:updatedUser})
+//                 dispatch ({type:'loading', payload:false})
+            
+//                 // increaseLikedForTrip()
+//             })
+//             .catch((err) => {throw(err)})
+//     }
+// }
+
+// export function addTripToLiked(user, tripId) {
+//     if (user.likes.some((like) => like === tripId)) {
+//         console.log('trip already liked')
+//         return;
+//     }
+//     user.likes.unshift(tripId)
+//     return _updateUser(user)
+// }
+
+// export function addToUserTrips(user, tripId) {
+//     user.trips.unshift(tripId)
+//     _updateUser(user)
+//     //add to trip
+// }
 
