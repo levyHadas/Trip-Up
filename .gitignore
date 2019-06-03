@@ -4,13 +4,14 @@
 /node_modules
 /.pnp
 .pnp.js
-./config/googleApiConfig.js
+
+/src/config/googleApiConfig.js
 
 # testing
 /coverage
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store
