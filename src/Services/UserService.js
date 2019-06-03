@@ -31,7 +31,6 @@ function signup(user) {
 }
 
 function login(credentials) {
-    console.log(`${BASE_PATH_USER}/login`)
     return Axios.post(`${BASE_PATH_USER}/login`, credentials)
         .then(res => res.data)
         .catch(err => {throw (err)})

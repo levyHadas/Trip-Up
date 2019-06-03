@@ -104,7 +104,6 @@ export function loadUser() {
 
 // export function addTripToLiked(user, tripId) {
 //     if (user.likes.some((like) => like === tripId)) {
-//         console.log('trip already liked')
 //         return;
 //     }
 //     user.likes.unshift(tripId)

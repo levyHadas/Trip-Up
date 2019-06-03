@@ -19,9 +19,7 @@ if (placeInfo.reviews) {
         let date = new Date(review.time)
         date = date.toLocaleDateString()
         review.text = review.text.slice(0,150)
-        console.log(review)
         let lastDot = review.text.lastIndexOf('.')
-        console.log(lastDot)
         review.text = review.text.slice(0,lastDot)
         return <div key={idx}>
                     {review.author_name}({date}): {review.text}...

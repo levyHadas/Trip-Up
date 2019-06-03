@@ -125,7 +125,6 @@ class TripEdit extends Component {
             anchor: new this.props.google.maps.Point(11, 33) // anchor
         }
 
-        if (this.state.itinerary && this.state.itinerary.length) console.log(this.state.itinerary)
         const tripTypseMap = this.tripTypes.map((option, idx) => {
             if (this.state.type === option) {
                 return <option name={option} value={option} 
