@@ -1,7 +1,7 @@
 import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon} from 'google-maps-react';
 import React, { Component, Fragment } from 'react'
-import { GoogleApiConfig } from '../../Services/GoogleApiConfig'
-import PlaceInfo from '../../Comps/PlaceInfo/PlaceInfo'
+import { googleApiConfig } from '../../config/googleApiConfig'
+import PlaceInfo from '../../components/placeInfo/PlaceInfo'
 import './MapContainer.scss'
  
 export class MapContainer extends Component {
@@ -61,6 +61,6 @@ render() {
 
 } //end of comp
 
-export default GoogleApiWrapper(GoogleApiConfig)(MapContainer)
+export default GoogleApiWrapper(googleApiConfig)(MapContainer)
 
 

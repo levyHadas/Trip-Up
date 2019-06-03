@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 // import SocketService from './Services/SocketService'
-import AppRouter from '../src/Comps/AppRouter'
-import { loadUser } from './Actions/UserActions'
-import './Css/App.scss'
+import AppRouter from '../src/components/AppRouter'
+import { loadUser } from './actions/userActions'
+import './css/App.scss'
 
 
 class App extends PureComponent{

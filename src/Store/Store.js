@@ -2,9 +2,9 @@ import { applyMiddleware, combineReducers, createStore } from 'redux'
 // import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-import { userReducer } from '../Reducers/UserReducer'
-import { tripReducer } from '../Reducers/TripReducer'
-import { utilReducer } from '../Reducers/UtilReducer'
+import { userReducer } from '../reducers/userReducer'
+import { tripReducer } from '../reducers/tripReducer'
+import { utilReducer } from '../reducers/utilReducer'
 
 const reducers = combineReducers({
     user: userReducer,

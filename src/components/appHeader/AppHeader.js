@@ -1,7 +1,7 @@
 import React from 'react'
-import AppNav from '../AppNav/AppNav'
+import AppNav from '../appNav/AppNav'
 import './AppHeader.scss'
-import { logout } from '../../Actions/UserActions'
+import { logout } from '../../actions/userActions'
 import { Link } from 'react-router-dom'
 
 function AppHeader ({ user, dispatch }) {

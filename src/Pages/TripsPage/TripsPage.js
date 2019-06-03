@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import React, { PureComponent } from 'react'
 
-import { updateUserLikesTrips } from '../../Actions/UserActions'
-import { updateLikeJoin } from '../../Services/GlobalFunctions'
-import { loadTrips, updateTripLikesMembers } from '../../Actions/TripActions'
-import TripList from '../../Comps/TripList/TripList'
-import TripService from '../../Services/TripService'
+import { updateUserLikesTrips } from '../../actions/userActions'
+import { updateLikeJoin } from '../../services/likeJoinService'
+import { loadTrips, updateTripLikesMembers } from '../../actions/tripActions'
+import TripList from '../../components/tripList/TripList'
+import tripService from '../../services/tripService'
 import './TripsPage.scss'
 
 
@@ -20,7 +20,7 @@ class TripPage extends PureComponent {
     onUpdateLikeJoin = async(ev) => {
         const actionType = ev.target.getAttribute('data-action-type')
         const tripId = ev.target.getAttribute('data-trip-id')
-        const trip = await TripService.getById(tripId) 
+        const trip = await tripService.getById(tripId) 
         
         updateLikeJoin(actionType, this.props.user, trip)
         this.props.updateUserLikesTrips(this.props.user)

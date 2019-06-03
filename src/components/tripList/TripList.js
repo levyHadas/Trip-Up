@@ -1,5 +1,5 @@
 import React from 'react'
-import TripItem from '../TripItem/TripItem'
+import TripItem from '../tripItem/TripItem'
 import './TripList.scss'
 
 function TripList ({ trips, user, onUpdateLikeJoin }) {

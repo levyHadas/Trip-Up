@@ -1,16 +1,13 @@
 import axios from 'axios'
-import trips from '../Data/TripsData'
-import UserService from './UserService.js';
-import { GoogleApiConfig } from '../Services/GoogleApiConfig'
+import trips from '../data/tripsData'
+import userService from './userService.js';
+import { googleApiConfig } from '../config/googleApiConfig'
+import { BASE_PATH_TRIP } from '../config/consts'
 
 
 const Axios = axios.create({
     withCredentials: true,
 })
-
-const BASE_PATH = (process.env.NODE_ENV !== 'development')
-    ? '/trip'
-    : 'http://localhost:3003/trip'
 
 export default {
     query,
@@ -33,40 +30,40 @@ function createTrips() {
 }
 
 function query(filterBy={}) {
-    return Axios.get(`${BASE_PATH}`, filterBy)
-    // return Axios.get(`${BASE_PATH}/${filterBy}`)
+    return Axios.get(`${BASE_PATH_TRIP}`, filterBy)
+    // return Axios.get(`${BASE_PATH_TRIP}/${filterBy}`)
         .then(res => res.data)
         .catch(err => {throw (err)})
 }
 
 function getById(tripId) {
     if (!tripId) return null
-    return Axios.get(`${BASE_PATH}/${tripId}`)
+    return Axios.get(`${BASE_PATH_TRIP}/${tripId}`)
         .then(res => res.data)
         .catch(err => {throw (err)})
 }
 
 async function save(trip) {
-    trip.organizer = await UserService.getLoggedUser()
+    trip.organizer = await userService.getLoggedUser()
     trip.createdAt = Date.now()
     if (trip._id) {
-        return Axios.put(`${BASE_PATH}/${trip._id}`, trip)
+        return Axios.put(`${BASE_PATH_TRIP}/${trip._id}`, trip)
         .then(res => res.data)
         .catch(err => {throw (err)})
     }
-    return Axios.post(`${BASE_PATH}`, trip)
+    return Axios.post(`${BASE_PATH_TRIP}`, trip)
     .then(res => res.data)
     .catch(err => {throw (err)})
 }
 async function updateLikesMembers(trip) {
-    return Axios.put(`${BASE_PATH}/memberslikes/${trip._id}`, trip)
+    return Axios.put(`${BASE_PATH_TRIP}/memberslikes/${trip._id}`, trip)
         .then(res => res.data)
         .catch(err => {throw (err)})
    
 }
 
 function remove(tripId) {
-    return Axios.delete(`${BASE_PATH}/${tripId}`)
+    return Axios.delete(`${BASE_PATH_TRIP}/${tripId}`)
         .then(res => res.data)
         .catch(err => {throw (err)})
 }
@@ -92,7 +89,7 @@ function getTripTypes() {
 }
 
 function getPlaceImg(photoReference) {
-    return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${GoogleApiConfig.apiKey}`
+    return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${googleApiConfig.apiKey}`
 }
 
 function getTripImgs(trip) {

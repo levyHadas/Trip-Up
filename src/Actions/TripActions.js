@@ -1,10 +1,10 @@
 
-import TripService from '../Services/TripService'
+import tripService from '../services/tripService'
 
 export function loadTrips(filterBy) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
-        TripService.query(filterBy)
+        tripService.query(filterBy)
             .then(trips => {
                 dispatch ({type:'setTrips', payload:trips})
                 dispatch ({type:'loading', payload:false})
@@ -17,7 +17,7 @@ export function loadTrip(tripId) {
         if (!tripId) dispatch ({type:'setCurrTrip', payload:{}})
         else {
             dispatch ({type:'loading', payload:true})
-            return TripService.getById(tripId)
+            return tripService.getById(tripId)
             .then(currTrip => {
                 dispatch ({type:'setCurrTrip', payload:currTrip})
                 dispatch ({type:'loading', payload:false})
@@ -30,7 +30,7 @@ export function loadTrip(tripId) {
 export function deleteTrip(tripId, { history }) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
-        TripService.remove(tripId)
+        tripService.remove(tripId)
             .then(() => {
                 dispatch ({type:'setCurrTrip', payload:null})
                 dispatch ({type:'loading', payload:false})
@@ -42,7 +42,7 @@ export function deleteTrip(tripId, { history }) {
 export function saveTrip(tripToSave) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
-        return TripService.save(tripToSave)
+        return tripService.save(tripToSave)
         .then((savedTrip) => {
             dispatch ({type:'setCurrTrip', payload:savedTrip})
             dispatch ({type:'loading', payload:false})
@@ -52,10 +52,10 @@ export function saveTrip(tripToSave) {
 
 export function updateTripLikesMembers(tripToUpdate) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
-        TripService.updateLikesMembers(tripToUpdate)
+        tripService.updateLikesMembers(tripToUpdate)
         .then(updatedTrip => {
                 dispatch ({type:'setCurrTrip', payload:updatedTrip})
-                TripService.query({})
+                tripService.query({})
                 .then(trips => {
                     dispatch ({type:'setTrips', payload:trips})
                 })

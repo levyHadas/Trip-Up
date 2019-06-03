@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon} from 'google-maps-react';
 import { GoogleApiWrapper } from 'google-maps-react';
-import MapContainer from '../MapsApi/MapContainer'
-import InitialPlace from '../../Data/InitialPlace'
+import MapContainer from '../../components/googleMaps/MapContainer'
+import InitialPlace from '../../data/initialPlace'
 
-import BudgetRange from '../../Comps/BudgetRange/BudgetRange'
-import TripService from '../../Services/TripService'
-import MapService from '../../Services/MapService'
-import { loadTrip, saveTrip } from '../../Actions/TripActions'
-import LocationSearchInput from '../MapsApi/LocationSearchInput'
-import { GoogleApiConfig } from '../../Services/GoogleApiConfig'
+import BudgetRange from '../../components/budgetRange/BudgetRange'
+import TripService from '../../services/tripService'
+import MapService from '../../services/mapService'
+import { loadTrip, saveTrip } from '../../actions/tripActions'
+import LocationSearchInput from '../../components/googleMaps/LocationSearchInput'
+import { googleApiConfig } from '../../config/googleApiConfig'
 import './TripEdit.scss'
 
 class TripEdit extends Component {
@@ -216,5 +216,5 @@ const mapDispatchToProps = {loadTrip, saveTrip}
 
 
   
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper(GoogleApiConfig)(TripEdit))
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper(googleApiConfig)(TripEdit))
 

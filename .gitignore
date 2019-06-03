@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-./src/Services/GoogleApiConfig.js
+./config/googleApiConfig.js
 
 # testing
 /coverage

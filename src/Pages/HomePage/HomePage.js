@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import LoginPage from '../LoginPage/LoginPage'
-import SignupPage from '../SignupPage/SignupPage'
+import LoginPage from '../loginPage/LoginPage'
+import SignupPage from '../signupPage/SignupPage'
 import './HomePage.scss'
 
 class HomePage extends Component {

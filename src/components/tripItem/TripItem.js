@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import './TripItem.scss'
-import TripService from '../../Services/TripService';
+import tripService from '../../services/tripService';
 
 
 function TripItem ({ trip, user, onUpdateLikeJoin }) {
   const linkTo =`/trip/${trip._id}`
   const linkToEdit =`/trip/edit/${trip._id}`
-  var tripImg = TripService.getPlaceImg(trip.itinerary[0].photos[0].photo_reference)
+  var tripImg = tripService.getPlaceImg(trip.itinerary[0].photos[0].photo_reference)
   const cardClassName = (trip.status === 'closed') ? 'trip-item-card closed':'trip-item-card'
     return (
       <li className={cardClassName}>

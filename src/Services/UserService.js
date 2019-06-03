@@ -1,8 +1,5 @@
 import axios from 'axios'
-
-const BASE_PATH = (process.env.NODE_ENV !== 'development')
-    ? '/user'
-    : 'http://localhost:3003/user'
+import { BASE_PATH_USER } from '../config/consts'
 
 
 export default {
@@ -19,7 +16,7 @@ const Axios = axios.create({
 
 function updateUser(user) {
     console.log(user)
-    return Axios.put(`${BASE_PATH}/:${user._id}`, user)
+    return Axios.put(`${BASE_PATH_USER}/:${user._id}`, user)
         .then(res => res.data) 
         .catch(err => {throw (err)}) 
 }
@@ -27,20 +24,21 @@ function updateUser(user) {
 function signup(user) {
     user.likes = []
     user.trips = []
-    return Axios.post(`${BASE_PATH}/signup`, user)
+    return Axios.post(`${BASE_PATH_USER}/signup`, user)
         .then(res => {
             return res.data})
         .catch(err => {throw (err)}) 
 }
 
 function login(credentials) {
-    return Axios.post(`${BASE_PATH}/login`, credentials)
+    console.log(`${BASE_PATH_USER}/login`)
+    return Axios.post(`${BASE_PATH_USER}/login`, credentials)
         .then(res => res.data)
         .catch(err => {throw (err)})
 }
 
 function getLoggedUser() {
-    return Axios.get(`${BASE_PATH}/loggedUser`)
+    return Axios.get(`${BASE_PATH_USER}/loggedUser`)
         .then(res => {
             if (!res.data) return null 
             return res.data
@@ -49,7 +47,7 @@ function getLoggedUser() {
 
 
 function logout() {
-    return Axios.get(`${BASE_PATH}/logout`)
+    return Axios.get(`${BASE_PATH_USER}/logout`)
         .then(() => Promise.resolve())
         .catch(err => Promise.reject(err))
 }

@@ -4,12 +4,12 @@ import { HashRouter, Route, Switch, Redirect}  from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
-import HomePage from '../Pages/HomePage/HomePage'
-import TripsPage from '../Pages/TripsPage/TripsPage'
-import TripDetails from '../Pages/TripDetails/TripDetails'
-import TripEdit from '../Pages/TripEdit/TripEdit'
+import HomePage from '../pages/homePage/HomePage'
+import TripsPage from '../pages/tripsPage/TripsPage'
+import TripDetails from '../pages/tripDetails/TripDetails'
+import TripEdit from '../pages/tripEdit/TripEdit'
 
-import AppHeader from './AppHeader/AppHeader'
+import AppHeader from './appHeader/AppHeader'
 
 function mapStateToProps (state) {
     return { user: state.user, navOpen:state.util.navOpen }

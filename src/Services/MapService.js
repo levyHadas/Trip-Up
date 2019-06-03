@@ -1,13 +1,10 @@
 import axios from 'axios'
-import { GoogleApiConfig } from '../Services/GoogleApiConfig'
-
+import { googleApiConfig } from '../config/googleApiConfig'
+import { BASE_PATH_MAPS } from '../config/consts'
 
 const Axios = axios.create({
     withCredentials: true,
 })
-const BASE_PATH = (process.env.NODE_ENV !== 'development')
-    ? 'trip/placeinfo'
-    : 'http://localhost:3003/trip/placeinfo'
 
 export default {
     itineraryToCoords,
@@ -45,7 +42,7 @@ function getPlaceInfo(placeId) {
     "placeid" : placeId,
     "fields": ["name","rating","formatted_phone_number", "url", "reviews",
                 "photo", "website", "type", "place_id", "geometry", "formatted_address"],
-    "key":GoogleApiConfig.apiKey
+    "key":googleApiConfig.apiKey
   }
   return _infoRequest(params)
     .then(info => info)
@@ -58,7 +55,7 @@ function _infoRequest(params) {
   for (var key in params) {
     strParams += `${key}=${params[key]}&`
   }
-  return Axios.get(`${BASE_PATH}/'${strParams}'`)
+  return Axios.get(`${BASE_PATH_MAPS}/'${strParams}'`)
       .then(res => res.data.result)
       .catch(err => {throw (err)})
 }

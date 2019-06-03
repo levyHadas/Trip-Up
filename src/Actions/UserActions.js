@@ -1,10 +1,10 @@
 
-import UserService from '../Services/UserService'
+import userService from '../services/userService'
 
 export function login(user, history) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
-        UserService.login(user)
+        userService.login(user)
         .then(savedUser => {
             dispatch ({type:'setCurrUser', payload:savedUser})
             dispatch ({type:'loading', payload:false})
@@ -22,7 +22,7 @@ export function login(user, history) {
 export function signup(user) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
-        return UserService.signup(user)
+        return userService.signup(user)
         .then(signedUser => signedUser)
     }
 }
@@ -30,7 +30,7 @@ export function signup(user) {
 export function saveUser(user) {
     return (dispatch) => {
         dispatch ({type:'loading', payload:true})
-        return UserService.updateUser(user)
+        return userService.updateUser(user)
             .then(updatedUser => {
                 dispatch ({type:'updateUser', payload:updatedUser})
                 dispatch ({type:'loading', payload:false})            
@@ -40,7 +40,7 @@ export function saveUser(user) {
 }
 export function updateUserLikesTrips(user) {
     return (dispatch) => {
-        return UserService.updateUser(user)
+        return userService.updateUser(user)
             .then(updatedUser => dispatch ({type:'updateUserLikesTrips', payload:updatedUser}))
             .catch((err) => {throw(err)})
     }
@@ -49,7 +49,7 @@ export function updateUserLikesTrips(user) {
 export function loadUser() {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
-        UserService.getLoggedUser()
+        userService.getLoggedUser()
             .then(user => {
                 if (user) dispatch ({type:'setCurrUser', payload:user})
                 dispatch ({type:'loading', payload:false})
@@ -58,7 +58,7 @@ export function loadUser() {
     }
     export function logout() {
         return (dispatch) => { //it recives dispatch from the thunk middleware
-            UserService.logout()
+            userService.logout()
             .then(() => {
                 dispatch ({type:'setCurrUser', payload:{_id:null, username:'', password:''}})
             })

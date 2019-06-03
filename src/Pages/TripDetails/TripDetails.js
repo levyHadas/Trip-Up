@@ -2,15 +2,15 @@
 import React, { PureComponent, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loadTrip, deleteTrip, updateTripLikesMembers } from '../../Actions/TripActions'
-import { saveUser } from '../../Actions/UserActions'
-import { updateLikeJoin } from '../../Services/GlobalFunctions'
-import UtilService from '../../Services/UtilService'
+import { loadTrip, deleteTrip, updateTripLikesMembers } from '../../actions/tripActions'
+import { saveUser } from '../../actions/userActions'
+import { updateLikeJoin } from '../../services/likeJoinService'
+import UtilService from '../../services/utilService'
 
 import './TripDetails.scss'
-import MapContainer from '../MapsApi/MapContainer'
-import ImgGallery from '../../Comps/ImgGallery/ImgGallery'
-import TripService from '../../Services/TripService';
+import MapContainer from '../../components/googleMaps/MapContainer'
+import ImgGallery from '../../components/imgGallery/ImgGallery'
+import TripService from '../../services/tripService';
 
 
 class TripDetails extends PureComponent {

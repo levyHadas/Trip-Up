@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import UtilService from '../../Services/UtilService'
+import utilService from '../../services/utilService'
 
 function PlaceInfo ({placeInfo}) {
 if (!placeInfo) return ''
@@ -40,7 +40,7 @@ if (placeInfo.reviews) {
                 <div><a href={url} target="_blank" rel="noopener noreferrer">{url.slice(0,20)}...</a></div>}               
                 {placeInfo.rating &&
                 <div>
-                    {UtilService.getStarsForRating(placeInfo.rating)}
+                    {utilService.getStarsForRating(placeInfo.rating)}
                 </div>}
                 {placeInfo.reviews &&
                 <div className="reviews-contianer">
