@@ -3,6 +3,7 @@ import AppNav from '../appNav/AppNav'
 import './AppHeader.scss'
 import { logout } from '../../actions/userActions'
 import { Link } from 'react-router-dom'
+import logoImg from '../../assets/logo.png'
 
 function AppHeader ({ user, dispatch }) {
     const isMobile = window.document.body.clientWidth < 750
@@ -17,8 +18,10 @@ function AppHeader ({ user, dispatch }) {
             </div>}
             <div className="header-items-container flex space-between">
             <div className="title-nav-container flex align-center space-between">
-                <Link to="/trip">
-                    <h1 className="logo">Trip<i className="fas fa-umbrella-beach"></i>Up</h1>
+                <Link to="/" className="flex align-center space-between">
+                    <img className="logo-img" src={logoImg} alt=""/>
+                    <h1 className="logo-txt">TRIP  UP</h1>
+                    {/* <h1 className="logo">Trip<i className="fas fa-umbrella-beach"></i>Up</h1> */}
                 </Link>
                     
                 <AppNav/>

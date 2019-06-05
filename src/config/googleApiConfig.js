@@ -1,3 +1,3 @@
 export const googleApiConfig = {
-    apiKey:'AIzaSyDhC9mVkdIVlIzpm-C0uD3Qv_rA7_hig84'
+    apiKey:'AIzaSyAveXr-gVgIZtUOQ-XhxBly0BIUb4u2NGw'
 }

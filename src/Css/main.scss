@@ -1,6 +1,8 @@
-@import './Colors.scss'; 
+@import './colors.scss'; 
+@import url('https://fonts.googleapis.com/css?family=Architects+Daughter|Raleway|Titillium+Web&display=swap');
 * {
   box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
 }
 
 body {
@@ -44,7 +46,19 @@ option {
   border-radius: 5px;
 }
 
+.fa, .far, .fas {
+  font-family: "Font Awesome 5 Free";
+}
 
+button {
+  border-radius: 4px;
+  padding: 6px 8px;
+  border: none;
+  background-color: $orange;
+  color: $white;
+  border: 0.4px solid $white;
+
+}
 
 
 
@@ -52,10 +66,6 @@ option {
 
 
 .btn {
-  border-radius: 4px;
-  background-color: antiquewhite;
-  border: none;
-  padding: 7px;
 
 }
 
@@ -123,7 +133,9 @@ option {
   z-index: -1;
   opacity: 0.7;
 }
-
+.gm-style-iw-d {
+  z-index: 10;
+}
 
 
 

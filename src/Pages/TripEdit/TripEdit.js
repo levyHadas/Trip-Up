@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon} from 'google-maps-react';
 import { GoogleApiWrapper } from 'google-maps-react';
 import MapContainer from '../../components/googleMaps/MapContainer'
-import InitialPlace from '../../data/initialPlace'
+import defaultPlace from '../../data/initialPlace'
 
 import BudgetRange from '../../components/budgetRange/BudgetRange'
 import TripService from '../../services/tripService'
@@ -188,13 +188,14 @@ class TripEdit extends Component {
                     <MapContainer className="map-container"
                             itinerary={this.state.itinerary}
                             zoom={5}
-                            icon={icon}/>
+                            icon={icon}
+                            initial={false}/>
                 </div>}
                 {this.state.itinerary.length === 0 &&
                 <div className="map-wrapper-edit">
                     <MapContainer className="map-container"
-                            itinerary={[InitialPlace]}
-                            zoom={1}
+                            itinerary={[defaultPlace]}
+                            zoom={12}
                             initial={true}/>
             </div>}
                 

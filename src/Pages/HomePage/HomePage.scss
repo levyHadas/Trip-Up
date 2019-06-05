@@ -1,4 +1,4 @@
-@import '../../css/Colors.scss';
+@import '../../css/colors.scss';
 .home-container {
     background-image: url('../../assets/home-bg2.jpg');
     width: 100%;
@@ -40,16 +40,17 @@
     display: block;
     text-align: center;
     text-transform: uppercase;
-    font-family: cursive;
+    font-family: 'Architects Daughter', cursive;
     color:$white;
 }
 
 @media (max-width: 550px) { 
     .home-container {
-        height: -webkit-fill-available;
+        height: auto;
         position: absolute;
         background-size: cover;
         background-position: bottom;
+        min-height: 100vh;
     }
     .signup-login-container {
         flex-direction: column;

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Trip-Up",
+  "name": "Team up for trips around the world",
   "icons": [
     {
       "src": "favicon.ico",

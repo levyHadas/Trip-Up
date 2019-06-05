@@ -1,10 +1,14 @@
-@import '../../css/Colors.scss';
+@import '../../css/colors.scss';
 .header-container {
     height: 55px;
     padding: 0 20px;
     background-color: $white;
     margin: 0;
     box-shadow: -3px -3px 13px 0px rgba(89, 95, 59, 0.6);
+    * {
+        font-family: 'Titillium Web', sans-serif;
+
+    }
 }
 .header-items-container {
     max-width: 1000px;
@@ -30,7 +34,7 @@
     height: 35px;
     border-radius: 50%;
     background-color: $white-trans;
-    margin-left: -37px;
+    margin-left: -41px;
     text-align: center;
     font-size: 1.5rem;
     color: $orange;
@@ -42,10 +46,29 @@
     width: 360px;
 }
 
-.logo {
-    font-size: 1.6rem;
-    font-family: cursive;
-    color: $orange;
+.logo-txt {
+    // font-size: 1.6rem;
+    // font-family: cursive;
+    // color: $orange;
+    font-size: 1.5rem;
+    color: $white;
+    margin-left: -75px;
+    font-family: 'Architects Daughter', cursive;
+    text-shadow: -1px -1px 0 $black,  
+     1px -2px 0 $black,
+     -1px 1px 0 $black,
+      1px 1px 0 $black;
+ 
+    
+}
+.logo-img {
+    // width: 55px;
+    // height: 55px;
+    margin-left: 15px;
+    width: 57px;
+    height: 56px;
+    border-radius: 50%;
+    
 }
 .fas fa-umbrella-beach {
     color: white;

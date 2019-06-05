@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 // import SocketService from './Services/SocketService'
 import AppRouter from '../src/components/AppRouter'
 import { loadUser } from './actions/userActions'
-import './css/App.scss'
+import './css/main.scss'
 
 
 class App extends PureComponent{
