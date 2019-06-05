@@ -1,11 +1,12 @@
+@import '../../css/colors.scss';
 .range-slider {
-  width: 300px;
+  width: 270px;
   position: relative;
   margin: 25px 12px;
 }
 
 .input-range__track {
-  background: #eeeeee;
+  background: $black;
   border-radius: 0.3rem;
   cursor: pointer;
   display: block;
@@ -20,20 +21,12 @@
   top: -1.8rem;
 }
 
-.input-range__label {
-  color: #aaaaaa;
-  font-family: "Helvetica Neue", san-serif;
-  font-size: 0.8rem;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  white-space: nowrap;
-}
 .input-range__slider {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: #3f51b5;
-  border: 1px solid #3f51b5;
+  background: $green;
+  border: 1px solid $green;
   border-radius: 100%;
   cursor: pointer;
   display: block;
@@ -55,23 +48,25 @@
   bottom: -1.4rem;
   position: absolute;
   left: 90%;
-  color: red;
+  color: $orange;
 }
 .input-range__label.input-range__label--min {
   bottom: -1.4rem;
   position: absolute;
-  color: red;
+  color: $orange;
 }
 .input-range__label {
-  color: #aaaaaa;
+  color: $black;
   font-family: "Helvetica Neue", san-serif;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   white-space: nowrap;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 .input-range__track--active {
-    background: #3f51b5;
+    background: $green;
 }
 

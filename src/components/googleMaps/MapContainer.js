@@ -13,7 +13,7 @@ componentDidMount() {
     navigator.geolocation.getCurrentPosition(
         location => {
           this.setState({center:{lat:location.coords.latitude, lng:location.coords.longitude}})
-        }, () => this.setState({center:this.props.defaultPlace.geometry.location}) )
+        }, () => this.setState({center:this.props.itinerary[0].geometry.location}) )
   } else this.setState({center:this.props.itinerary[0].geometry.location})
 }
   

@@ -19,7 +19,7 @@ class TripEdit extends Component {
         super(props)
         this.state = { itinerary:[], 
                         country: '', 
-                        budget: {min:200, max:1500}, 
+                        budget: {min:500, max:1800}, 
                         tripDate: '', 
                         maxMembers: 2,
                         itineraryErr: false,
@@ -163,14 +163,14 @@ class TripEdit extends Component {
                         onChange={this.handleInput}>
                         {tripTypseMap}
                 </select>
-                <input className="edit-field date" type="date" name="tripDate" 
-                    value={this.state.tripDate}
-                    onChange={this.handleInput}
-                    required/>
                 <input className="edit-field max-members" type="number" name="maxMembers" 
                     value={this.state.maxMembers}
                     placeholder="Max Travellers"
                     onChange={this.handleInput}/>
+                <input className="edit-field date" type="date" name="tripDate" 
+                    value={this.state.tripDate}
+                    onChange={this.handleInput}
+                    required/>
             </div>
             <BudgetRange className="budget-range"
                 budget={this.state.budget} 
@@ -188,8 +188,7 @@ class TripEdit extends Component {
                     <MapContainer className="map-container"
                             itinerary={this.state.itinerary}
                             zoom={5}
-                            icon={icon}
-                            initial={false}/>
+                            icon={icon}/>
                 </div>}
                 {this.state.itinerary.length === 0 &&
                 <div className="map-wrapper-edit">

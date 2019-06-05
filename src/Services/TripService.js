@@ -71,7 +71,7 @@ function remove(tripId) {
 function getEmpty() {
     return {
         "country": "",
-        "budget": {min:200, max:1500},
+        "budget": {min:500, max:1500},
         "type": "",
         "maxMembers": "",
         "organizer": {},
