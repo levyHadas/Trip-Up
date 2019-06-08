@@ -73,7 +73,18 @@
     margin: 15px 0 30px 3%;
 }
 
+.fas.fa-long-arrow-alt-left {
+    font-size: 1.7rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
 @media (max-width: 550px) {
+    .fas.fa-long-arrow-alt-left {
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-bottom: -10px;
+    }
     .trip-details {
         margin: 0;
     }

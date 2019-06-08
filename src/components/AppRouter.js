@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 // import { BrowserRouter, Route, Switch}  from 'react-router-dom'
-import { HashRouter, Route, Switch, Redirect}  from 'react-router-dom'
-import { connect } from 'react-redux'
+import { HashRouter, Route, Switch}  from 'react-router-dom'
+// import { connect } from 'react-redux'
 
 
 import HomePage from '../pages/homePage/HomePage'
@@ -11,21 +11,22 @@ import TripEdit from '../pages/tripEdit/TripEdit'
 
 import AppHeader from './appHeader/AppHeader'
 
-function mapStateToProps (state) {
-    return { user: state.user, navOpen:state.util.navOpen }
-}
+// function mapStateToProps (state) {
+//     return { user: state.user }
+// }
 
 const AppRouter = (props) => {
-    const HomeRoute = () => {
-        return props.user._id ? 
-        <Redirect to="/trip"/> : <Redirect to="/home"/>}
+    // const HomeRoute = () => {
+    //     return props.user._id ? 
+    //     <Redirect to="/trip"/> : <Redirect to="/home"/>}
         
         return (
             <HashRouter>
             <Fragment>
-                <AppHeader user={props.user} dispatch={props.dispatch}/>
+                <AppHeader/>
                 <div className="main-container">
                     <Switch>
+                        <Route exact path="/" component={HomePage}/>
                         <Route path="/home" component={HomePage}/>
                         <Route path="/login" component={HomePage}/>
                         <Route path="/signup" component={HomePage}/>
@@ -33,7 +34,7 @@ const AppRouter = (props) => {
                         <Route exact path="/trip/edit" component={TripEdit}/>
                         <Route path="/trip/:id" component={TripDetails}/>
                         <Route exact path="/trip" component={TripsPage}/>
-                        <HomeRoute exact path="/" component={HomePage}/>
+                        {/* <HomeRoute exact path="/" component={HomePage}/> */}
                     </Switch>
                 </div>
             </Fragment>
@@ -41,7 +42,8 @@ const AppRouter = (props) => {
 }
 
 
-export default connect(mapStateToProps)(AppRouter) 
+// export default connect(mapStateToProps)(AppRouter) 
+export default AppRouter
 
 
 

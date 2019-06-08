@@ -6,6 +6,9 @@ class LocationSearchInput extends React.Component {
     super(props)
     this.state = { address: '' }
   }
+  componentDidMount() {
+    this.setState({address:this.props.value})
+  }
  
   handleChange = address => {
     this.setState({ address })
@@ -15,8 +18,10 @@ class LocationSearchInput extends React.Component {
     geocodeByAddress(address)
       .then(results => {
         this.setState({address:results[0].formatted_address})
-        this.props.onAddToItinerary(results[0])
-        setTimeout(() => {this.setState({ address: '' })},200)
+        this.props.onPlaceSelected(results[0])
+        if (this.props.className.includes('on-map')) {
+          setTimeout(() => {this.setState({ address: '' })},200)
+        }
       })
       .catch(error => console.error('Error', error))
   };
@@ -33,16 +38,16 @@ class LocationSearchInput extends React.Component {
           <div>
             <input
               {...getInputProps({
-                placeholder: 'Search Places ...',
-                className: 'location-search-input',
+                placeholder: this.props.placeholder,
+                className: this.props.className,
               })}
             />
-            <div className="autocomplete-dropdown-container">
-              {loading && <div>Loading...</div>}
+            <div className={'autocomplete-dropdown-container '+this.props.className}>
+              {loading && <div className='autocomplete-loading'>Loading...</div>}
               
               {suggestions.map(suggestion => {
                 return (
-                  <div className="suggestions-container"
+                  <div className={'suggestions-container '+this.props.className}
                     {...getSuggestionItemProps(suggestion)}>
                     <span>{suggestion.description}</span>
                   </div>)

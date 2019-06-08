@@ -1,12 +1,27 @@
 @import '../../css/colors.scss';
 
 .suggestions-container {
-    background-color: white;
-    border: 1px solid gainsboro;
-    padding: 2px;
-    cursor:pointer;
-    max-width: 185px;
+  background-color: white;
+  border: 1px solid gainsboro;
+  padding: 4px;
+  cursor:pointer;
+  // max-width: 185px;
+  &.edit-field {
+    margin: 0;
+  }
 }
+.autocomplete-dropdown-container.edit-field {
+  z-index: 2;
+  margin-top: -10px;
+  position: absolute;
+  
+}
+.autocomplete-loading {
+  
+  position: absolute;
+  
+}
+
 .edit-container {
 
   h1 {
@@ -33,16 +48,9 @@
 .top-container {
   max-width: 680px;
   flex-wrap: wrap;
-  padding: 20px;
-  // :first-child {
-    //   margin: 10px 10px 10px 0;
-    // }
-    
+  padding: 20px;  
   }
-// .budget-range {
-    
-//   margin: 20px;
-// }
+
 
 .places-search-container {
   width: 80%;
@@ -89,7 +97,7 @@
 }
 
 
-@media (max-width: 750px) {
+@media (max-width: 745px) {
   .map-wrapper-edit {
       .gmnoprint {
         left: calc(100% - 120px) !important;

@@ -38,7 +38,8 @@ class TripDetails extends PureComponent {
 
 
     goBack() {
-        this.props.history.goBack()
+        // this.props.history.goBack()
+        this.props.history.push('/trip')
     }
 
     handleLikeJoin(ev) {
@@ -61,7 +62,9 @@ class TripDetails extends PureComponent {
         }
         return (
         <section className = "trip-details flex column">
-            {/* <button className="back" onClick={this.goBack}>Back</button> */}
+            <i className="fas fa-long-arrow-alt-left back" 
+                onClick={this.goBack} title="Trips">
+            </i>
             <div className="title-actions-container flex">
                 <h2 className="trip-title">{this.props.trip.country}</h2>
                 {this.props.user && this.props.trip.organizer &&

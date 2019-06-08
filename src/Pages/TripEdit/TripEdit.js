@@ -47,11 +47,12 @@ class TripEdit extends Component {
     }
 
     componentWillUnmount() {
-        
         this.props.loadTrip(null)
     }
 
-
+    setCountry = (address) => {
+        this.setState({country: address.formatted_address})
+    }
     handleInput = (ev) => {
         this.setState({ tripDateErr: false })
         if (ev.target.value) {
@@ -144,6 +145,7 @@ class TripEdit extends Component {
                         </div>
             })
         }
+    
         return (
         <section className="edit-container">
         {!this.state._id && <h1>Create a Trip</h1>}
@@ -152,13 +154,15 @@ class TripEdit extends Component {
         <p className="err">Must choose at least one place</p>}
         {this.state.tripDateErr &&
         <p className="err">Must choose trip date</p>}
+        
         <form>
             <button onClick={this.handleSubmit}>Save</button>
             <div className="top-container flex">
-                <input className="edit-field" type="text" name="country" 
-                    value={this.state.country}
-                    placeholder="Country" 
-                    onChange={this.handleInput}/>
+            {(this.state.country || !this.props.match.params.id) &&
+            <LocationSearchInput className='address-autocomplete-input edit-field'
+                        onPlaceSelected={this.setCountry}
+                        value={this.state.country} placeholder='Country' />}
+         
                 <select className="edit-field" name="type"  placeholder="type" 
                         onChange={this.handleInput}>
                         {tripTypseMap}
@@ -181,7 +185,9 @@ class TripEdit extends Component {
                     {this.state.itinerary.length !== 0 && itineraryMap}
                 </div>
                 <div className="search-places">
-                    <LocationSearchInput onAddToItinerary={this.addToItinerary}/>
+                    <LocationSearchInput className='address-autocomplete-input on-map'
+                        onPlaceSelected={this.addToItinerary}
+                        value='' placeholder='Search Places...'/>
                 </div>
                 {this.state.itinerary.length !== 0 &&
                 <div className="map-wrapper-edit">
