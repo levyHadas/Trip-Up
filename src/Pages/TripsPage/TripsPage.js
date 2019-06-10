@@ -3,9 +3,10 @@ import React, { PureComponent } from 'react'
 
 import { updateUserLikesTrips } from '../../actions/userActions'
 import { updateLikeJoin } from '../../services/likeJoinService'
-import { loadTrips, updateTripLikesMembers } from '../../actions/tripActions'
+import { loadTrips, saveTripMembersAndLikes } from '../../actions/tripActions'
 import TripList from '../../components/tripList/TripList'
 import tripService from '../../services/tripService'
+// import userService from '../../services/userService'
 import './TripsPage.scss'
 
 
@@ -24,8 +25,7 @@ class TripPage extends PureComponent {
         
         updateLikeJoin(actionType, this.props.user, trip)
         this.props.updateUserLikesTrips(this.props.user)
-        this.props.updateTripLikesMembers(trip)
-    
+        this.props.saveTripMembersAndLikes(trip)    
     }
     
     render() {
@@ -43,6 +43,6 @@ class TripPage extends PureComponent {
 function mapStateToProps (state) {
     return { trips: state.trip.trips, loading:state.util.loading, user:state.user }
 }
-const mapDispatchToProps = {loadTrips, updateUserLikesTrips, updateTripLikesMembers}
+const mapDispatchToProps = {loadTrips, updateUserLikesTrips, saveTripMembersAndLikes: saveTripMembersAndLikes}
 
 export default connect(mapStateToProps, mapDispatchToProps)(TripPage)

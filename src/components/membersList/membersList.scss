@@ -1,0 +1,26 @@
+@import '../../css/colors.scss';
+.members-container {
+    position: absolute;
+    // background-color: $white-trans-half;
+    width: 60%;
+    height: fit-content;
+    left: 20%;
+    padding-bottom: 40px;
+    background-color: rgba(51, 53, 39, 0.9);
+    color: $white;
+    border-radius: 7px;
+    border: 3px solid $orange;
+    min-height: 60vh;
+    justify-content: center;
+    top: 55px;
+}
+.far.fa-times-circle {
+    position: absolute;
+    left: calc(100% - 40px);
+    top: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.member-name {
+    display: inline;
+}

@@ -17,7 +17,6 @@ export default {
     getEmpty,
     createTrips,
     getTripTypes,
-    updateLikesMembers,
     getPlaceImg,
     getTripImgs
 }
@@ -44,23 +43,21 @@ function getById(tripId) {
 }
 
 async function save(trip) {
-    trip.organizer = await userService.getLoggedUser()
     trip.createdAt = Date.now()
     if (trip._id) {
         return Axios.put(`${BASE_PATH_TRIP}/${trip._id}`, trip)
         .then(res => res.data)
         .catch(err => {throw (err)})
     }
+    let tripOrganizer = await userService.getLoggedUser()
+    delete tripOrganizer.likes
+    delete tripOrganizer.trips //just want to save the name and the img
+    trip.organizer = tripOrganizer
     return Axios.post(`${BASE_PATH_TRIP}`, trip)
     .then(res => res.data)
     .catch(err => {throw (err)})
 }
-async function updateLikesMembers(trip) {
-    return Axios.put(`${BASE_PATH_TRIP}/memberslikes/${trip._id}`, trip)
-        .then(res => res.data)
-        .catch(err => {throw (err)})
-   
-}
+
 
 function remove(tripId) {
     return Axios.delete(`${BASE_PATH_TRIP}/${tripId}`)
@@ -85,7 +82,7 @@ function getEmpty() {
 
 }
 function getTripTypes() {
-    return ['Type','hiking', 'shoping', 'music', 'art', 'other', 'photography', 'skiing', 'food']
+    return ['Type','Hiking', 'Shoping', 'Music', 'Art', 'Photography', 'Ski', 'Food', 'Other']
 }
 
 function getPlaceImg(photoReference) {
@@ -99,9 +96,9 @@ function getTripImgs(trip) {
             var somePhotos = (place.photos).slice(0,2)
             allPhotosObjects.push(...somePhotos)
         }
-        
     })
     return allPhotosObjects.map(photo => {
         return getPlaceImg(photo.photo_reference)})
 }
+
 

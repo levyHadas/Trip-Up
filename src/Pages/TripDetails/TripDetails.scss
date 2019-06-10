@@ -27,7 +27,10 @@
     margin: 0 0 30px 30px;
     max-width: 400px;
     min-width: 300px;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    .fa, .far, .fas {
+        font-size: 1.4rem;
+    }
 }
 
 .organizer-img {
@@ -77,6 +80,15 @@
     font-size: 1.7rem;
     cursor: pointer;
     padding: 5px;
+}
+.see-members {
+    cursor: pointer;
+    .fas.fa-users{
+        cursor: pointer;
+        padding: 5px;
+        font-size: 1.4rem;
+        
+    }
 }
 
 @media (max-width: 550px) {

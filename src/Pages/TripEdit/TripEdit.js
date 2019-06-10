@@ -119,12 +119,7 @@ class TripEdit extends Component {
     }
 
     render() {
-        var icon = {
-            url: "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png", // url
-            scaledSize: new this.props.google.maps.Size(21, 33), // scaled size
-            origin: new this.props.google.maps.Point(0,0), // origin
-            anchor: new this.props.google.maps.Point(11, 33) // anchor
-        }
+
 
         const tripTypseMap = this.tripTypes.map((option, idx) => {
             if (this.state.type === option) {
@@ -193,8 +188,7 @@ class TripEdit extends Component {
                 <div className="map-wrapper-edit">
                     <MapContainer className="map-container"
                             itinerary={this.state.itinerary}
-                            zoom={5}
-                            icon={icon}/>
+                            zoom={5}/>
                 </div>}
                 {this.state.itinerary.length === 0 &&
                 <div className="map-wrapper-edit">
@@ -223,3 +217,12 @@ const mapDispatchToProps = {loadTrip, saveTrip}
   
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper(googleApiConfig)(TripEdit))
 
+
+
+//icon={icon}
+// var icon = {
+//     url: "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png", // url
+//     scaledSize: new this.props.google.maps.Size(21, 33), // scaled size
+//     origin: new this.props.google.maps.Point(0,0), // origin
+//     anchor: new this.props.google.maps.Point(11, 33) // anchor
+// }

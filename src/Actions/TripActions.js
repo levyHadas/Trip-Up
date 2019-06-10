@@ -1,5 +1,6 @@
 
 import tripService from '../services/tripService'
+import userService from '../services/userService'
 
 export function loadTrips(filterBy) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
@@ -26,6 +27,18 @@ export function loadTrip(tripId) {
         }
     }
 }
+export function loadTripMembers(currTrip) {
+    // console.log(await userService.getUsers({ids:trip.members}))
+    return (dispatch) => { 
+        dispatch ({type:'loading', payload:true})
+        return userService.getUsers({ids:currTrip.members})
+            .then(users => {
+                currTrip.members = users
+                dispatch ({type:'setCurrTrip', payload:currTrip})
+                dispatch ({type:'loading', payload:false})
+            })
+    }
+}
 
 export function deleteTrip(tripId, { history }) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
@@ -43,26 +56,29 @@ export function saveTrip(tripToSave) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
         return tripService.save(tripToSave)
-        .then((savedTrip) => {
+        .then(savedTrip => {
             dispatch ({type:'setCurrTrip', payload:savedTrip})
             dispatch ({type:'loading', payload:false})
         })
-    }
-}
-
-export function updateTripLikesMembers(tripToUpdate) {
-    return (dispatch) => { //it recives dispatch from the thunk middleware
-        tripService.updateLikesMembers(tripToUpdate)
-        .then(updatedTrip => {
-                dispatch ({type:'setCurrTrip', payload:updatedTrip})
-                tripService.query({})
-                .then(trips => {
-                    dispatch ({type:'setTrips', payload:trips})
-                })
-            })
         .catch ((err) => {throw(err)})
     }
 }
+
+//no loading on this update type!!
+export function saveTripMembersAndLikes(tripToSave) {
+    return (dispatch) => { //it recives dispatch from the thunk middleware
+        return tripService.save(tripToSave)
+        .then(savedTrip => {
+            dispatch ({type:'setCurrTrip', payload:savedTrip})
+            tripService.query({})
+            .then(trips => {
+                dispatch ({type:'setTrips', payload:trips})
+            })
+        })
+        .catch ((err) => {throw(err)})
+    }
+}
+
 
 
 

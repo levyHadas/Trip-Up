@@ -32,6 +32,7 @@ function TripItem ({ trip, user, onUpdateLikeJoin }) {
                 data-action-type="like" data-trip-id={trip._id} 
                 onClick={onUpdateLikeJoin.bind(this)}> 
               </i>
+              <span>{trip.members.length}</span>
               <i className="fas fa-user-plus" title="Join" 
                 data-action-type="join" data-trip-id={trip._id} 
                 onClick={onUpdateLikeJoin.bind(this)}>
@@ -42,7 +43,7 @@ function TripItem ({ trip, user, onUpdateLikeJoin }) {
               <i className="far fa-thumbs-up no-user"></i>
                 {/*ev is passed automaticly as last parameter in bind  */}
               <span>{trip.members.length}</span>
-              <i className="fas fa-users" title="Members"></i>
+              <i className="fas fa-users" title="Joined"></i>
             </Fragment>}
           </div>
         </div>}

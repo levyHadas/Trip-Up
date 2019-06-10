@@ -11,7 +11,6 @@ function mapStateToProps (state) {
 }
 
 function AppHeader (props) {
-    console.log(window.document.body.clientWidth)
     const isMobile = window.document.body.clientWidth < 745    
     const toggleNav = (ev) => {
         ev.preventDefault()

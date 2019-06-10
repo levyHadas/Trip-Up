@@ -1,8 +1,8 @@
 
-import React, { PureComponent, Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loadTrip, deleteTrip, updateTripLikesMembers } from '../../actions/tripActions'
+import { loadTrip, deleteTrip, saveTrip, loadTripMembers } from '../../actions/tripActions'
 import { saveUser } from '../../actions/userActions'
 import { updateLikeJoin } from '../../services/likeJoinService'
 import UtilService from '../../services/utilService'
@@ -10,15 +10,18 @@ import UtilService from '../../services/utilService'
 import './TripDetails.scss'
 import MapContainer from '../../components/googleMaps/MapContainer'
 import ImgGallery from '../../components/imgGallery/ImgGallery'
-import TripService from '../../services/tripService';
+import MembersList from '../../components/membersList/MembersList'
+import TripService from '../../services/tripService'
 
 
-class TripDetails extends PureComponent {
+class TripDetails extends Component {
     constructor(props) {
         super(props)
+        this.state = {showMembers:false}
         this.deleteTrip = this.deleteTrip.bind(this)
         this.goBack = this.goBack.bind(this)
         this.handleLikeJoin = this.handleLikeJoin.bind(this)
+        this.showMembers = this.showMembers.bind(this)
         this.tripId = this.props.match.params.id
         this.props.loadTrip(this.tripId)
     }
@@ -46,8 +49,16 @@ class TripDetails extends PureComponent {
         const actionType = ev.target.getAttribute('data-action-type')
         updateLikeJoin(actionType, this.props.user, this.props.trip)
         this.props.saveUser(this.props.user)
-        this.props.updateTripLikesMembers(this.props.trip)
+        this.props.saveTrip(this.props.trip)
     }
+    showMembers() {
+        //check if we already load members, if not. load them
+        if (this.props.trip.members && typeof(this.props.trip.members[0]) === 'string') {
+            this.props.loadTripMembers(this.props.trip)
+        }
+        this.setState({showMembers:true})
+    }
+  
     
     render() {
         if (this.props.trip.itinerary) var tripImgs = TripService.getTripImgs(this.props.trip)
@@ -62,6 +73,7 @@ class TripDetails extends PureComponent {
         }
         return (
         <section className = "trip-details flex column">
+            
             <i className="fas fa-long-arrow-alt-left back" 
                 onClick={this.goBack} title="Trips">
             </i>
@@ -99,13 +111,19 @@ class TripDetails extends PureComponent {
             <div className="main-info-container flex align-center space-between">
                 {UtilService.getIconForType(this.props.trip.type)}
                 <span> | </span>
-                <i className="fas fa-users" title="Members"></i>
-                <span> {this.props.trip.members.length} / {this.props.trip.maxMembers}</span>
+                <div className="num">{this.props.trip.tripDate}</div>
                 <span> | </span>
-                <div>{this.props.trip.tripDate}</div>
+                <span className="see-members" onClick={this.showMembers}> 
+                    <i className="fas fa-users" title="See who joined"> </i>
+                    <span className="num">
+                        {' ' +  this.props.trip.members.length} / {this.props.trip.maxMembers}
+                    </span>
+                </span>
+                {this.state.showMembers && !this.props.loading &&
+                <MembersList members={this.props.trip.members} 
+                    hideMembers={() => this.setState({ showMembers:false })}/>}
                 <span> | </span>
                 <span>By:</span>
-                {/* <p className="organizer-name">By: {this.props.trip.organizer.username} </p> */}
                 <img className="organizer-img" src={this.props.trip.organizer.img} alt="User"/>
             </div>
             <div className="more-info-container flex column">
@@ -134,6 +152,6 @@ function mapStateToProps (state) {
     return { trip: state.trip.currTrip, user:state.user, loading:state.util.loading }
 }
 
-const mapDispatchToProps = {loadTrip, deleteTrip, updateTripLikesMembers, saveUser}
+const mapDispatchToProps = {loadTrip, deleteTrip, saveUser, saveTrip, loadTripMembers}
     
 export default connect(mapStateToProps, mapDispatchToProps)(TripDetails)

@@ -18,7 +18,7 @@ class ImgGallery extends Component {
     }
     prevImg = () => {
         var prevtIdx
-        if (this.state.currImgIdx === 0) prevtIdx = this.props.imgs.length-1
+        if (!this.state.currImgIdx) prevtIdx = this.props.imgs.length-1
         else  prevtIdx = this.state.currImgIdx - 1
         this.setState({currImgIdx:prevtIdx})
     }
