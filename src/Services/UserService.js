@@ -51,9 +51,10 @@ function logout() {
         .catch(err => Promise.reject(err))
 }
 
-function getUsers(query) {
+function getUsers(filterBy) {
     var queryStr = ''
-    if (query.ids) queryStr = `ids=${JSON.stringify(query.ids)}`
+    if (filterBy.usersIds) queryStr = `usersIds=${JSON.stringify(filterBy.usersIds)}`
+    // else
     return Axios.get(`${BASE_PATH_USER}?${queryStr}`)
         .then(res => res.data)
         .catch(err => {throw (err)})

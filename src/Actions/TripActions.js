@@ -2,7 +2,7 @@
 import tripService from '../services/tripService'
 import userService from '../services/userService'
 
-export function loadTrips(filterBy) {
+export function loadTrips(filterBy={}) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
         tripService.query(filterBy)
@@ -28,10 +28,9 @@ export function loadTrip(tripId) {
     }
 }
 export function loadTripMembers(currTrip) {
-    // console.log(await userService.getUsers({ids:trip.members}))
     return (dispatch) => { 
         dispatch ({type:'loading', payload:true})
-        return userService.getUsers({ids:currTrip.members})
+        return userService.getUsers({usersIds:currTrip.members})
             .then(users => {
                 currTrip.members = users
                 dispatch ({type:'setCurrTrip', payload:currTrip})

@@ -28,12 +28,34 @@ function createTrips() {
     })
 }
 
-function query(filterBy={}) {
-    return Axios.get(`${BASE_PATH_TRIP}`, filterBy)
-    // return Axios.get(`${BASE_PATH_TRIP}/${filterBy}`)
+function query(filterBy) {
+    var queryStr = '?'
+    if (filterBy) {
+        if (filterBy.usersIds) queryStr = `usersIds=${JSON.stringify(filterBy.usersIds)}`
+        else {
+            for (var key in filterBy) {
+                if (typeof(filterBy[key]) === 'object') {
+                    if (!filterBy[key]) continue
+                    queryStr += `${key}=${JSON.stringify(filterBy[key])}&`
+                }
+                else queryStr += `${key}=${filterBy[key]}&`
+            }
+        }
+    }
+    return Axios.get(`${BASE_PATH_TRIP}/${queryStr}`)
         .then(res => res.data)
         .catch(err => {throw (err)})
 }
+// function query(filterBy) {
+//     if (filterBy) {
+//         var queryStr = '?'
+//         for (var key in filterBy) {
+//             queryStr += `${key}=${filterBy[key]}&`
+//         }
+//     } else queryStr = ''
+//     return Axios.get(`${BASE_PATH}/${queryStr}`)
+//         .then(toys => toys.data)
+// }
 
 function getById(tripId) {
     if (!tripId) return null
@@ -68,7 +90,7 @@ function remove(tripId) {
 function getEmpty() {
     return {
         "country": "",
-        "budget": {min:500, max:1500},
+        "budget": {min:0, max:1500},
         "type": "",
         "maxMembers": "",
         "organizer": {},

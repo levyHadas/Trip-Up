@@ -5,6 +5,7 @@ import { updateUserLikesTrips } from '../../actions/userActions'
 import { updateLikeJoin } from '../../services/likeJoinService'
 import { loadTrips, saveTripMembersAndLikes } from '../../actions/tripActions'
 import TripList from '../../components/tripList/TripList'
+import FilterBy from '../../components/filterBy/FilterBy'
 import tripService from '../../services/tripService'
 // import userService from '../../services/userService'
 import './TripsPage.scss'
@@ -13,7 +14,8 @@ import './TripsPage.scss'
 class TripPage extends PureComponent {
     
     componentDidMount() {
-        this.props.loadTrips({})
+        // this.props.loadTrips({})
+        this.props.loadTrips()
     }
  
   
@@ -27,10 +29,14 @@ class TripPage extends PureComponent {
         this.props.updateUserLikesTrips(this.props.user)
         this.props.saveTripMembersAndLikes(trip)    
     }
+    filterTrips = (filterBy) => {
+        this.props.loadTrips(filterBy)
+    }
     
     render() {
         return (
             <section className="trips">
+                <FilterBy filterTrips={this.filterTrips}/>
                 {!this.props.loading && 
                 <TripList trips={this.props.trips} user={this.props.user} 
                     onUpdateLikeJoin={this.onUpdateLikeJoin}/>}

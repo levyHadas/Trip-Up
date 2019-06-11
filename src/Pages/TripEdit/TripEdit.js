@@ -6,6 +6,7 @@ import MapContainer from '../../components/googleMaps/MapContainer'
 import defaultPlace from '../../data/initialPlace'
 
 import BudgetRange from '../../components/budgetRange/BudgetRange'
+import TripTypes from '../../components/tripTypes/TripTypes'
 import TripService from '../../services/tripService'
 import MapService from '../../services/mapService'
 import { loadTrip, saveTrip } from '../../actions/tripActions'
@@ -24,7 +25,6 @@ class TripEdit extends Component {
                         maxMembers: 2,
                         itineraryErr: false,
                         tripDateErr: false }
-        this.tripTypes = []
         this.tripId = this.props.match.params.id
     }
 
@@ -32,7 +32,7 @@ class TripEdit extends Component {
         //need to follow url change!!
         if (!this.props.user._id) this.props.history.push('/')
         
-        this.tripTypes = TripService.getTripTypes()
+        
         if (!this.tripId) {
             const tripToEdit = TripService.getEmpty()
             this.setState({...tripToEdit})
@@ -75,8 +75,7 @@ class TripEdit extends Component {
             return;
         }
         if (this.state.type === 'Type') this.setState({ type: '' })
-        var stateToSave = {...this.state}
-        this.props.saveTrip(stateToSave)
+        this.props.saveTrip({...this.state})
             .then(() => this.props.history.push(`/trip/${this.props.trip._id}`))
     }
     
@@ -120,15 +119,6 @@ class TripEdit extends Component {
 
     render() {
 
-
-        const tripTypseMap = this.tripTypes.map((option, idx) => {
-            if (this.state.type === option) {
-                return <option name={option} value={option} 
-                            key={idx} selected>{option}
-                        </option>
-            } else return <option name={option} value={option} key={idx}>{option}</option>
-        })
-
         if (this.state.itinerary && this.state.itinerary.length) {
             var itineraryMap = this.state.itinerary.map(place => {
                 return <div className="place-container" key={place.place_id}>
@@ -153,15 +143,13 @@ class TripEdit extends Component {
         <form>
             <button onClick={this.handleSubmit}>Save</button>
             <div className="top-container flex">
-            {(this.state.country || !this.props.match.params.id) &&
-            <LocationSearchInput className='address-autocomplete-input edit-field'
-                        onPlaceSelected={this.setCountry}
-                        value={this.state.country} placeholder='Country' />}
-         
-                <select className="edit-field" name="type"  placeholder="type" 
-                        onChange={this.handleInput}>
-                        {tripTypseMap}
-                </select>
+                {(this.state.country || !this.props.match.params.id) &&
+                <LocationSearchInput className='address-autocomplete-input edit-field'
+                            onPlaceSelected={this.setCountry}
+                            value={this.state.country} placeholder='Country' />}
+                <TripTypes className="edit-field" 
+                    currType={this.state.type}
+                    onTypeSelected={type => this.setState({type})}/>
                 <input className="edit-field max-members" type="number" name="maxMembers" 
                     value={this.state.maxMembers}
                     placeholder="Max Travellers"
