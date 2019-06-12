@@ -7,6 +7,7 @@ import defaultPlace from '../../data/initialPlace'
 
 import BudgetRange from '../../components/budgetRange/BudgetRange'
 import TripTypes from '../../components/tripTypes/TripTypes'
+import ItineraryItem from '../../components/itineraryItem/ItineraryItem'
 import TripService from '../../services/tripService'
 import MapService from '../../services/mapService'
 import { loadTrip, saveTrip } from '../../actions/tripActions'
@@ -121,13 +122,9 @@ class TripEdit extends Component {
 
         if (this.state.itinerary && this.state.itinerary.length) {
             var itineraryMap = this.state.itinerary.map(place => {
-                return <div className="place-container" key={place.place_id}>
-                            <span>{place.name}</span>
-                            <i className="far fa-minus-square remove" 
-                                    value={place.place_id}
-                                    onClick={this.removeFromItinerary}>
-                            </i>
-                        </div>
+                return <ItineraryItem key={place.place_id} 
+                        place={place}
+                        onRemoveFromItinerary={this.removeFromItinerary}/>
             })
         }
     
