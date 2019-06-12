@@ -25,3 +25,4 @@ src/config
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+"src/config/googleApiConfig.js" 
