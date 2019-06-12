@@ -6,6 +6,8 @@
 .pnp.js
 
 /src/config/googleApiConfig.js
+src/config/googleApiConfig.js
+src/config
 
 # testing
 /coverage
