@@ -8,7 +8,8 @@ export default {
     signup,
     getLoggedUser,
     updateUser,
-    getUsers
+    getUsers,
+    getById
 }
 
 const Axios = axios.create({
@@ -24,6 +25,8 @@ function updateUser(user) {
 function signup(user) {
     user.likes = []
     user.trips = []
+    if (!user.fName) user.fName = ''
+    if (!user.sName) user.sName = ''
     return Axios.post(`${BASE_PATH_USER}`, user)
         .then(res => {
             return res.data})
@@ -44,6 +47,12 @@ function getLoggedUser() {
         })
 }
 
+function getById(userId) {
+    if (!userId) return null
+    return Axios.get(`${BASE_PATH_USER}/${userId}`)
+        .then(res => res.data)
+        .catch(err => {throw (err)})
+}
 
 function logout() {
     return Axios.get(`${BASE_PATH_USER}/logout`)

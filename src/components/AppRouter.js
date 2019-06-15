@@ -8,6 +8,8 @@ import HomePage from '../pages/homePage/HomePage'
 import TripsPage from '../pages/tripsPage/TripsPage'
 import TripDetails from '../pages/tripDetails/TripDetails'
 import TripEdit from '../pages/tripEdit/TripEdit'
+import ProfileDetails from '../pages/profileDetails/ProfileDetails'
+import ProfileEdit from '../pages/profileEdit/ProfileEdit'
 
 import AppHeader from './appHeader/AppHeader'
 
@@ -34,6 +36,8 @@ const AppRouter = (props) => {
                         <Route exact path="/trip/edit" component={TripEdit}/>
                         <Route path="/trip/:id" component={TripDetails}/>
                         <Route exact path="/trip" component={TripsPage}/>
+                        <Route path="/user/edit/:id" component={ProfileEdit}/>
+                        <Route path="/user/:id" component={ProfileDetails}/>
                         {/* <HomeRoute exact path="/" component={HomePage}/> */}
                     </Switch>
                 </div>

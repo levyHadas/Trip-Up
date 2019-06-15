@@ -31,7 +31,7 @@ function createTrips() {
 function query(filterBy) {
     var queryStr = '?'
     if (filterBy) {
-        if (filterBy.usersIds) queryStr = `usersIds=${JSON.stringify(filterBy.usersIds)}`
+        if (filterBy.tripsIds) queryStr = `tripsIds=${JSON.stringify(filterBy.tripsIds)}`
         else {
             for (var key in filterBy) {
                 if (typeof(filterBy[key]) === 'object') {
@@ -46,16 +46,7 @@ function query(filterBy) {
         .then(res => res.data)
         .catch(err => {throw (err)})
 }
-// function query(filterBy) {
-//     if (filterBy) {
-//         var queryStr = '?'
-//         for (var key in filterBy) {
-//             queryStr += `${key}=${filterBy[key]}&`
-//         }
-//     } else queryStr = ''
-//     return Axios.get(`${BASE_PATH}/${queryStr}`)
-//         .then(toys => toys.data)
-// }
+
 
 function getById(tripId) {
     if (!tripId) return null
@@ -66,18 +57,23 @@ function getById(tripId) {
 
 async function save(trip) {
     trip.createdAt = Date.now()
+    trip.tripDate = new Date(trip.tripDate).getTime()
+    if (trip.type === 'Type') trip.type = ''
     if (trip._id) {
         return Axios.put(`${BASE_PATH_TRIP}/${trip._id}`, trip)
-        .then(res => res.data)
-        .catch(err => {throw (err)})
+            .then(res => res.data)
+            .catch(err => {throw (err)})
     }
-    let tripOrganizer = await userService.getLoggedUser()
-    delete tripOrganizer.likes
-    delete tripOrganizer.trips //just want to save the name and the img
-    trip.organizer = tripOrganizer
-    return Axios.post(`${BASE_PATH_TRIP}`, trip)
-    .then(res => res.data)
-    .catch(err => {throw (err)})
+    else {
+        let tripOrganizer = await userService.getLoggedUser()
+        delete tripOrganizer.likes
+        delete tripOrganizer.trips //just want to save the name and the img
+        trip.organizer = tripOrganizer
+        if (!trip.desc) trip.desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores atque at odio harum natus voluptate aliquam sapiente mollitia ad molestias quidem, excepturi impedit itaque neque doloribus ex pariatur iste animi.'
+        return Axios.post(`${BASE_PATH_TRIP}`, trip)
+            .then(res => res.data)
+            .catch(err => {throw (err)})
+    }
 }
 
 
@@ -99,7 +95,8 @@ function getEmpty() {
         "createdAt":"",
         "likes": 1,
         "tripDate":"",
-        "itinerary":[]
+        "itinerary":[],
+        "description":''
     }
 
 }

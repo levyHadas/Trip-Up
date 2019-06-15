@@ -10,6 +10,7 @@ import TripTypes from '../../components/tripTypes/TripTypes'
 import ItineraryItem from '../../components/itineraryItem/ItineraryItem'
 import TripService from '../../services/tripService'
 import MapService from '../../services/mapService'
+import UtilService from '../../services/utilService'
 import { loadTrip, saveTrip } from '../../actions/tripActions'
 import LocationSearchInput from '../../components/googleMaps/LocationSearchInput'
 import { googleApiConfig } from '../../config/googleApiConfig'
@@ -36,13 +37,18 @@ class TripEdit extends Component {
         
         if (!this.tripId) {
             const tripToEdit = TripService.getEmpty()
+            tripToEdit.members.push(this.props.user._id)
             this.setState({...tripToEdit})
         } else {
             this.props.loadTrip(this.tripId)
             .then(() => {
                 if (this.props.user._id !== this.props.trip.organizer._id) {
                     this.props.history.push('/')
-                } else this.setState({...this.props.trip})
+                } else {
+                    const tripDate = UtilService.toDatePickerFormat(this.props.trip.tripDate)
+                    this.setState({...this.props.trip, tripDate})
+                }
+
             })  
         }
     }
@@ -57,9 +63,7 @@ class TripEdit extends Component {
     handleInput = (ev) => {
         this.setState({ tripDateErr: false })
         if (ev.target.value) {
-            var value
-            if (isNaN(ev.target.value)) value = ev.target.value
-            else value = +ev.target.value
+            var value = (isNaN(ev.target.value)) ? ev.target.value : +ev.target.value
             this.setState({[ev.target.name]:value})
         }
         else this.setState({[ev.target.name]:''})
@@ -75,8 +79,10 @@ class TripEdit extends Component {
             this.setState({ tripDateErr: true })
             return;
         }
-        if (this.state.type === 'Type') this.setState({ type: '' })
-        this.props.saveTrip({...this.state})
+        var tripToSubmit = {...this.state}
+        delete tripToSubmit.tripDateErr 
+        delete tripToSubmit.itineraryErr 
+        this.props.saveTrip(tripToSubmit)
             .then(() => this.props.history.push(`/trip/${this.props.trip._id}`))
     }
     
@@ -94,10 +100,6 @@ class TripEdit extends Component {
             var itinerary = this.state.itinerary
             itinerary.push(placeInfo)            
             this.setState({itinerary})
-            if (this.state._id) {
-            var stateToSave = {...this.state}
-            this.props.saveTrip(stateToSave)
-            }
         })
         
     }
@@ -105,21 +107,15 @@ class TripEdit extends Component {
     
     removeFromItinerary = (ev) => {
         ev.preventDefault()
-        // ev.stopPropagation() 
         var itinerary = this.state.itinerary
         const idxToRemove = itinerary.findIndex(place => {
             return place.place_id === ev.target.getAttribute('value')
         })
         itinerary.splice(idxToRemove, 1)
         this.setState({itinerary})
-        if (this.state._id) {
-            var stateToSave = {...this.state}
-            this.props.saveTrip(stateToSave)
-        }
     }
 
     render() {
-
         if (this.state.itinerary && this.state.itinerary.length) {
             var itineraryMap = this.state.itinerary.map(place => {
                 return <ItineraryItem key={place.place_id} 
@@ -142,7 +138,7 @@ class TripEdit extends Component {
             <div className="top-container flex">
                 {(this.state.country || !this.props.match.params.id) &&
                 <LocationSearchInput className='address-autocomplete-input edit-field'
-                            onPlaceSelected={this.setCountry}
+                            onPlaceSelected={this.setCountry} required
                             value={this.state.country} placeholder='Country' />}
                 <TripTypes className="edit-field" 
                     currType={this.state.type}

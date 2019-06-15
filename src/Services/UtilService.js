@@ -5,7 +5,18 @@ export default {
     getRandomIntInclusive,
     makeId,
     getIconForType,
-    getStarsForRating
+    getStarsForRating,
+    toDatePickerFormat
+}
+
+function toDatePickerFormat(timestamp) {
+    const date = new Date(timestamp)
+    const year = '' + date.getFullYear()
+    let month = '' + date.getMonth()
+    if (month < 10) month = '0'+ month
+    let day = date.getDay()
+    if (day < 10) day = '0'+ day
+    return `${year}-${month}-${day}`
 }
 
 function getIconForType(type) {

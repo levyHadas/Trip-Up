@@ -25,12 +25,14 @@ class LoginPage extends Component {
                         name="username"
                         placeholder="Username"
                         value={this.state.username} 
-                        onChange={this.handleInput}/>
+                        onChange={this.handleInput}
+                        required/>
                     <input className="login-input" type="password"
                         name="password"
                         placeholder="Password"
                         value={this.state.password} 
-                        onChange={this.handleInput}/>
+                        onChange={this.handleInput}
+                        required/>
                     <button className="btn login-btn">Login</button>
                 </form>
             </section>

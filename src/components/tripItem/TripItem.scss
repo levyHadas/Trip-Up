@@ -4,11 +4,15 @@
     box-shadow: 2px 1px 13px 0px rgba(89, 95, 59, 0.6);
     cursor: pointer;
     border-radius: 20px;
-    height: 320px;
+    height: 290px;
     background-color: $white;
     &.closed {
-        opacity: 0.5;
-        z-index: -1;
+        opacity: 0.7;
+        cursor: not-allowed;
+        .trip-item-inner {
+            cursor: not-allowed;
+
+        }
         .trip-item-inner::before {
             content: ' FULL';
             font-size: 35px;
@@ -17,6 +21,19 @@
             text-decoration: underline;
             font-style: italic;
             border-bottom: 2px solid red;
+            margin: 20px ;
+        }
+      
+    }
+    &.mine {
+        .trip-item-inner::after {
+            content: ' By this user';
+            font-size: 1.3rem;
+            color: $black;
+            font-family: cursive;
+            font-style: italic;
+            border: 2px solid $orange;
+            padding: 3px 0 ;
             margin: 20px ;
         }
       
@@ -42,6 +59,6 @@
 }
 
 .action-info-container {
-    padding: 4px 10px;
+    padding: 0 10px;
     background: none;
 }

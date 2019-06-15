@@ -1,14 +1,21 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import './TripItem.scss'
 import tripService from '../../services/tripService';
+import TripItemInfo from '../tripItemInfo/TripItemInfo'
 
-
+//this component should be broken down to 3 components:
+//trip item which holds:
+//trip status display
+//trip actions display
+//trip by me display
 function TripItem ({ trip, user, onUpdateLikeJoin }) {
   const linkTo =`/trip/${trip._id}`
   const linkToEdit =`/trip/edit/${trip._id}`
   var tripImg = tripService.getPlaceImg(trip.itinerary[0].photos[0].photo_reference)
-  const cardClassName = (trip.status === 'closed') ? 'trip-item-card closed':'trip-item-card'
+  var cardClassName = 'trip-item-card'
+  if (trip.status === 'closed') cardClassName += ' closed'
+  if (trip.organizer._id === user._id) cardClassName += ' mine'
     return (
       <li className={cardClassName}>
         <h2 className="trip-title">{trip.country}</h2>    
@@ -24,28 +31,8 @@ function TripItem ({ trip, user, onUpdateLikeJoin }) {
             {trip.organizer._id === user._id &&
             <Link to={linkToEdit}><i className="far fa-edit"></i></Link>} 
           </div>
-          <div className="right-info-container flex align-center">
-            <span>{trip.likes}</span>
-            {user._id && user._id !== trip.organizer._id && 
-            <Fragment>
-              <i className="far fa-thumbs-up" title="like" 
-                data-action-type="like" data-trip-id={trip._id} 
-                onClick={onUpdateLikeJoin.bind(this)}> 
-              </i>
-              <span>{trip.members.length}</span>
-              <i className="fas fa-user-plus" title="Join" 
-                data-action-type="join" data-trip-id={trip._id} 
-                onClick={onUpdateLikeJoin.bind(this)}>
-              </i>
-            </Fragment>}
-            {(!user._id || user._id === trip.organizer._id) &&
-            <Fragment>
-              <i className="far fa-thumbs-up no-user"></i>
-                {/*ev is passed automaticly as last parameter in bind  */}
-              <span>{trip.members.length}</span>
-              <i className="fas fa-users" title="Joined"></i>
-            </Fragment>}
-          </div>
+        {onUpdateLikeJoin &&
+        <TripItemInfo trip={trip} user={user} onUpdateLikeJoin={onUpdateLikeJoin}/>}
         </div>}
       </li>
     )

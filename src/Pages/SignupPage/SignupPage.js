@@ -28,17 +28,20 @@ class SignupPage extends Component {
                         placeholder="Username"
                         name="username"
                         value={this.state.username} 
-                        onChange={this.handleInput}/>
+                        onChange={this.handleInput}
+                        required/>
                     <input className="login-input" type="password"
                         placeholder="Password"
                         name="password"
                         value={this.state.password} 
-                        onChange={this.handleInput}/>
+                        onChange={this.handleInput}
+                        required/>
                     <input  className="login-input" type="password"
                         placeholder="Password Repeat"
                         name="passwordRepeat"
                         value={this.state.passwordRepeat} 
-                        onChange={this.handleInput}/>
+                        onChange={this.handleInput}
+                        required/>
                     <button className="btn login-btn">Sign Up</button>
                 </form>
             </section>

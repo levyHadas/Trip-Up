@@ -1,0 +1,41 @@
+@import '../../css/colors.scss';
+
+.filter-container {
+    max-width: 800px;
+    margin: 20px auto 0;
+    height: 150px;
+    padding: 7px 15px 20px 15px;
+    background-color: $white;
+    // border: 0.5px solid $green;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 90%;
+}
+.filter-container > h4 {
+    margin-bottom: 10px;
+} 
+.country-filter {
+    
+}
+.main-filters-container {
+
+    width: 100%
+}
+.more-filters-container {
+    width: 100%
+}
+.trip-status {
+    width:200px;
+}
+.trip-status > label {
+   
+    margin-right: -20px;
+    
+}
+
+
+@media (max-width: 745px) {
+    .filter-container {
+        display: none;
+    }
+}

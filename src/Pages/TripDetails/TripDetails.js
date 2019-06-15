@@ -14,6 +14,7 @@ import MembersList from '../../components/membersList/MembersList'
 import TripService from '../../services/tripService'
 
 
+
 class TripDetails extends Component {
     constructor(props) {
         super(props)
@@ -111,7 +112,9 @@ class TripDetails extends Component {
             <div className="main-info-container flex align-center space-between">
                 {UtilService.getIconForType(this.props.trip.type)}
                 <span> | </span>
-                <div className="num">{this.props.trip.tripDate}</div>
+                <div className="num">
+                    {UtilService.toDatePickerFormat(this.props.trip.tripDate)}
+                </div>
                 <span> | </span>
                 <span className="see-members" onClick={this.showMembers}> 
                     <i className="fas fa-users" title="See who joined"> </i>
