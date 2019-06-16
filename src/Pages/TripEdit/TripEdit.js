@@ -70,6 +70,7 @@ class TripEdit extends Component {
     }
 
     handleSubmit = (ev) => {
+        console.log(this.state)
         if (ev) ev.preventDefault()
         if (!this.state.itinerary.length) {
             this.setState({ itineraryErr: true })
@@ -115,6 +116,8 @@ class TripEdit extends Component {
         this.setState({itinerary})
     }
 
+  
+
     render() {
         if (this.state.itinerary && this.state.itinerary.length) {
             var itineraryMap = this.state.itinerary.map(place => {
@@ -140,9 +143,9 @@ class TripEdit extends Component {
                 <LocationSearchInput className='address-autocomplete-input edit-field'
                             onPlaceSelected={this.setCountry} required
                             value={this.state.country} placeholder='Country' />}
-                <TripTypes className="edit-field" 
+                <TripTypes className="edit-field"
                     currType={this.state.type}
-                    onTypeSelected={type => this.setState({type})}/>
+                    onTypeSelected={this.handleInput}/>
                 <input className="edit-field max-members" type="number" name="maxMembers" 
                     value={this.state.maxMembers}
                     placeholder="Max Travellers"

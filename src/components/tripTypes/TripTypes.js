@@ -7,13 +7,13 @@ function TripTypes({ currType, onTypeSelected, className }) {
     const tripTypseMap = tripTypes.map((option, idx) => {
         if (currType === option) {
             return <option name={option} value={option} 
-                        key={idx} selected>{option}
+                        key={idx} selected >{option} 
                     </option>
-        } else return <option name={option} value={option} key={idx}>{option}</option>
+        } else return <option value={option} key={idx}>{option}</option>
     })
     return ( 
         <select className={className} placeholder="Type" 
-            onChange={onTypeSelected}>
+            onChange={onTypeSelected} name="type">
             {tripTypseMap}
         </select>)
 }
