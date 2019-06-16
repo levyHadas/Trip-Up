@@ -24,14 +24,14 @@ class FilterBy extends Component {
         this.props.filterTrips({...this.state, budget})
     }
     setType = (ev) => {
-        const type = ev.target.value
+        var type = ev.target.value
         this.setState({type})
+        if (type.toLowerCase() === 'type') type = ''
         this.props.filterTrips({...this.state, type})
     }
  
     render() {
         return (
-            
             <section className="filter-container">
                 <h4>Filter:</h4>
                 <div className="main-filters-container flex align-center space-between">
