@@ -21,6 +21,7 @@ function AppHeader (props) {
         ev.preventDefault()
         props.dispatch(logout())
     }
+    const linkToProfile = `/user/${props.user._id}` || ''
     return (
         <header className="header-container">
             {isMobile &&
@@ -34,14 +35,15 @@ function AppHeader (props) {
                     <img className="logo-img" src={logoImg} alt=""/>
                     <h1 className="logo-txt">TRIP  UP</h1>
                 </Link>
-                    
                 <AppNav user={props.user} navLinkClicked={toggleNav} navOpen={props.navOpen}/>
             </div>
                 { props.user._id && 
                 <div className="user-area-link flex align-center">
                     <div className="name-logout-container flex space-between align-center">
                         <img className="user-img" src={props.user.img} alt="User"/>
-                        <p className="user-name">{props.user.username[0]}</p>
+                        <Link to={linkToProfile} className="user-name">
+                            {props.user.fName[0] || props.user.username[0]}
+                        </Link>
                         <a className="Nav_link logout" href="/home"
                             onClick={onLogout}> Logout
                         </a> 

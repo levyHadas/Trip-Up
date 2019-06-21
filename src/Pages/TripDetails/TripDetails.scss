@@ -38,6 +38,7 @@
     border-radius: 50%;
     height: 40px;
     width: 40px;
+    cursor: pointer;
 }
 .creator-container {
     width: 200px;
@@ -55,6 +56,12 @@
 .trip-details {
     background-color: $white-trans;
     margin: 20px;
+}
+.itinerary-container {
+    margin: 0 30px;
+    p {
+        margin: 7px 0 0 20px;
+    }
 }
 
 // .img-container {
@@ -80,14 +87,21 @@
     font-size: 1.7rem;
     cursor: pointer;
     padding: 5px;
+    &:hover {
+        color: $green;
+      }
 }
 .see-members {
     cursor: pointer;
     .fas.fa-users{
+        border: 2px solid white;
+        background-color: $bg-white;
         cursor: pointer;
         padding: 5px;
         font-size: 1.4rem;
-        
+        &:hover {
+            color: $green;
+        }
     }
 }
 
@@ -106,6 +120,9 @@
     .title-actions-container, .more-info-container {
         margin: 10px;
     }
+    .itinerary-container {
+        margin: 10px;
+    }
     .img-container {
         margin:0;
         width: 100%;
@@ -116,7 +133,7 @@
     .map-wrapper-details > div {
         width: 100%;
         margin: 0;
-        padding-top: 20px;
+        padding-top: 10px;
         background-color: $white-trans;
     }
 }

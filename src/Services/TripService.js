@@ -29,9 +29,11 @@ function createTrips() {
 }
 
 function query(filterBy) {
-    var queryStr = '?'
+    var queryStr = ''
     if (filterBy) {
-        if (filterBy.tripsIds) queryStr = `tripsIds=${JSON.stringify(filterBy.tripsIds)}`
+        if (filterBy.tripsIds) {
+            queryStr = `tripsIds=${JSON.stringify(filterBy.tripsIds)}`
+        }
         else {
             for (var key in filterBy) {
                 if (typeof(filterBy[key]) === 'object') {
@@ -42,11 +44,10 @@ function query(filterBy) {
             }
         }
     }
-    return Axios.get(`${BASE_PATH_TRIP}/${queryStr}`)
+    return Axios.get(`${BASE_PATH_TRIP}?${queryStr}`)
         .then(res => res.data)
         .catch(err => {throw (err)})
 }
-
 
 function getById(tripId) {
     if (!tripId) return null

@@ -38,6 +38,7 @@ function geoCodePlace(geocoder, place) {
   }
 
 function getPlaceInfo(placeId) {
+  console.log('here')
   const params = {
     "placeid" : placeId,
     "fields": ["name","rating","formatted_phone_number", "url", "reviews",
@@ -45,7 +46,7 @@ function getPlaceInfo(placeId) {
     "key":googleApiConfig.apiKey
   }
   return _infoRequest(params)
-    .then(info => info)
+    .then(info => {console.log(info); return info})
     .catch(error => console.error('Error', error))
 }
 

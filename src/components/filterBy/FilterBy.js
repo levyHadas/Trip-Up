@@ -38,7 +38,7 @@ class FilterBy extends Component {
                     <input list="country-filter" type="list" 
                         name="country" 
                         value={this.state.country}
-                        placeholder="country"
+                        placeholder="Country"
                         onChange={this.setFilter}/>
                     <CountryDatalist id="country-filter"></CountryDatalist>
                     <div className="dates-container">
@@ -57,6 +57,7 @@ class FilterBy extends Component {
                     <TripTypes className="filter-type" 
                         currType={this.state.type}
                         onTypeSelected={this.setType}/>
+                    <p>Budget:</p>
                     <BudgetRange onSetBudget={this.setBudget} 
                         budget={this.state.budget || {min:0, max:5000}}/>
                     <span className="trip-status flex align-center space-between">

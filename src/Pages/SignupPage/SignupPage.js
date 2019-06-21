@@ -25,6 +25,12 @@ class SignupPage extends Component {
                 <form className="login-form flex column align-center"
                         onSubmit={this.handleSubmit}>
                     <input className="login-input" type="text" 
+                        placeholder="First Name"
+                        name="fName"
+                        value={this.state.fName} 
+                        onChange={this.handleInput}
+                        required/>
+                    <input className="login-input" type="text" 
                         placeholder="Username"
                         name="username"
                         value={this.state.username} 

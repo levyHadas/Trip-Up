@@ -21,19 +21,19 @@ ul, li {
 a {
   text-decoration: none;
   color: inherit;
+  &:hover {
+    color: $green;
+  }
 }
 p {
   margin:0;
 }
 
-h2,h3,h5,h6 {
-  margin: 0;
+h2,h3,h4, h5,h6 {
+  margin: 5px;
   padding: 0;
 }
-h4 {
-  margin: 5px 0;
-  padding: 0;
-}
+
 input, select {
   padding: 7px;
   border-radius: 4px;
@@ -59,6 +59,9 @@ button {
   background-color: $orange;
   color: $white;
   border: 0.4px solid $white;
+  &:hover {
+    color: $green;
+  }
 
 }
 
@@ -106,9 +109,12 @@ button {
   font-size: 1.5rem;
   padding:6px;
   cursor: pointer;
+  &:hover {
+    color: $green;
+  }
 }
 .far.fa-thumbs-up, .fas.fa-user-plus {
-  padding: 6px 2.5px;
+  padding: 6px 6px;
 }
 .far.fa-thumbs-up.no-user, .fas.fa-users {
   cursor: default;

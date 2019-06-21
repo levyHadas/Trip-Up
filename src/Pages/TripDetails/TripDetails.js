@@ -72,6 +72,7 @@ class TripDetails extends Component {
                 return <span key={idx}>{place.name}, </span>
             })
         }
+        const linkToOrganizerProfile = `/user/${this.props.user._id}`
         return (
         <section className = "trip-details flex column">
             
@@ -112,7 +113,7 @@ class TripDetails extends Component {
             <div className="main-info-container flex align-center space-between">
                 {UtilService.getIconForType(this.props.trip.type)}
                 <span> | </span>
-                <div className="num">
+                <div className="num" title="Trip Date">
                     {UtilService.toDatePickerFormat(this.props.trip.tripDate)}
                 </div>
                 <span> | </span>
@@ -126,12 +127,14 @@ class TripDetails extends Component {
                 <MembersList members={this.props.trip.members} 
                     hideMembers={() => this.setState({ showMembers:false })}/>}
                 <span> | </span>
-                <span>By:</span>
-                <img className="organizer-img" src={this.props.trip.organizer.img} alt="User"/>
+                <span title="Organizer">By:</span>
+                <Link to={linkToOrganizerProfile}>
+                    <img className="organizer-img" src={this.props.trip.organizer.img} alt="User"/>
+                </Link>
             </div>
             <div className="more-info-container flex column">
-                {/* <p>Description: {this.props.trip.desc}</p> */}
-                <span className="trip-info"><h4>Itinerary:</h4> {itineraryList}.</span>
+                <p title="Description">{this.props.trip.desc || ' '}</p>
+                
             </div>
 
             {tripImgs &&
@@ -139,6 +142,11 @@ class TripDetails extends Component {
                 <ImgGallery imgs={tripImgs}/>
             </div>}
             </Fragment>}
+            <div className="itinerary-container">
+                <h2>Trip Itinerary:</h2>
+                <p className="trip-info">{itineraryList}.</p>
+                <p>See places on map. Click the map markes to see place info.</p>
+            </div>
             {this.props.trip.itinerary &&
             <div className="map-wrapper-details">
                 <MapContainer className="map-container"

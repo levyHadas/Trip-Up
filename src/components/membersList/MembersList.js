@@ -4,7 +4,7 @@ function MembersList({ members, hideMembers }) {
     const membersMap = members.map(member => {
         return (<li key={member._id}> 
                     <img className="member-img" src={member.img} alt="Traveler"/>
-                    <p className="member-name">{member.username}</p>
+                    <p className="member-name">{member.fName || member.username}</p>
                 </li>)
         }) 
 

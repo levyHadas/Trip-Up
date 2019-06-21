@@ -70,7 +70,6 @@ class TripEdit extends Component {
     }
 
     handleSubmit = (ev) => {
-        console.log(this.state)
         if (ev) ev.preventDefault()
         if (!this.state.itinerary.length) {
             this.setState({ itineraryErr: true })
@@ -166,7 +165,7 @@ class TripEdit extends Component {
                 <div className="search-places">
                     <LocationSearchInput className='address-autocomplete-input on-map'
                         onPlaceSelected={this.addToItinerary}
-                        value='' placeholder='Search Places...'/>
+                        value='' placeholder='Add place to itinerary'/>
                 </div>
                 {this.state.itinerary.length !== 0 &&
                 <div className="map-wrapper-edit">

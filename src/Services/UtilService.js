@@ -12,9 +12,9 @@ export default {
 function toDatePickerFormat(timestamp) {
     const date = new Date(timestamp)
     const year = '' + date.getFullYear()
-    let month = '' + date.getMonth()
+    let month = date.getMonth()+1
     if (month < 10) month = '0'+ month
-    let day = date.getDay()
+    let day = date.getDate()
     if (day < 10) day = '0'+ day
     return `${year}-${month}-${day}`
 }
@@ -23,21 +23,23 @@ function getIconForType(type) {
     if (type) type = type.toLowerCase()
     switch (type) {
         case 'hiking':
-            return <i className="fas fa-hiking" title="Hiking"></i>
+            return <i className="fas fa-hiking" title="Trip type - Hiking"></i>
         case 'music': 
-            return <i className="fas fa-music" title="Music"></i>
+            return <i className="fas fa-music" title="Trip type - Music"></i>
         case 'art':
-            return <i className="fas fa-palette" title="Art"></i>
+            return <i className="fas fa-palette" title="Trip type - Art"></i>
         case 'food':
-            return <i className="fas fa-utensils" title="Food"></i>
+            return <i className="fas fa-utensils" title="Trip type - Food"></i>
         case 'nature':
-            return <i className="fas fa-tree" title="Nature"></i>
+            return <i className="fas fa-tree" title="Trip type - Nature"></i>
         case 'photography':
-            return <i className="fas fa-camera-retro" title="Nhotography"></i>
+            return <i className="fas fa-camera-retro" title="Trip type - Nhotography"></i>
         case 'shoping':
-            return <i className="fas fa-shopping-bag" title="Shoping"></i>
+            return <i className="fas fa-shopping-bag" title="Trip type - Shoping"></i>
+        case 'work':
+            return <i className="fas fa-suitcase" title="Trip type - Work"></i>
         default:
-            return <i className="fas fa-suitcase"></i>
+            return <i className="fas fa-plane-departure" title="Trip type - Other"></i>
     }
 }
 function getStarsForRating(rate) {

@@ -76,7 +76,6 @@
 
 .edit-container {
   background-color: $white-trans;
-  
 }
 
 .map-wrapper-edit > div {
@@ -94,6 +93,13 @@
         float: right !important;
       }
     }
+}
+.search-places > div > input {
+  height: 40px;
+  border: 3px solid $orange;
+}
+.autocomplete-dropdown-container.address-autocomplete-input > div:hover {
+  background-color: #e6f1fa;
 }
 
 

@@ -63,7 +63,8 @@ function logout() {
 function getUsers(filterBy) {
     var queryStr = ''
     if (filterBy.usersIds) queryStr = `usersIds=${JSON.stringify(filterBy.usersIds)}`
-    // else
+    console.log(`${BASE_PATH_USER}?${queryStr}`)
+    // else - no need for this at the moment
     return Axios.get(`${BASE_PATH_USER}?${queryStr}`)
         .then(res => res.data)
         .catch(err => {throw (err)})

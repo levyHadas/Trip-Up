@@ -17,7 +17,7 @@ const typesMap = placeInfo.types.map((type, idx) => {
 if (placeInfo.reviews) {
     var reviewsMap = placeInfo.reviews.map((review, idx) => {
         if (idx === 3) return ''
-        let date = new Date(review.time)
+        let date = new Date(review.time * 1000)
         date = date.toLocaleDateString()
         review.text = review.text.slice(0,150)
         let lastDot = review.text.lastIndexOf('.')
