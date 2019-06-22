@@ -97,7 +97,7 @@ function getEmpty() {
         "likes": 1,
         "tripDate":"",
         "itinerary":[],
-        "description":''
+        "desc":''
     }
 
 }

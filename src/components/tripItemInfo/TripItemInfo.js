@@ -11,7 +11,7 @@ function TripItemInfo ({ trip, user, onUpdateLikeJoin }) {
             onClick={onUpdateLikeJoin.bind(this)}> 
           </i>
           <span>{trip.members.length}</span>
-          <i className="fas fa-user-plus" title="Join" 
+          <i className="fas fa-user-plus" title="Ask to Join" 
             data-action-type="join" data-trip-id={trip._id} 
             onClick={onUpdateLikeJoin.bind(this)}>
           </i>

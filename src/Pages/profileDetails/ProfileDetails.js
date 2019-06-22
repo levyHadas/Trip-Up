@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import userSevice from '../../services/userService'
 import TripList from '../../components/tripList/TripList'
+import IncomingRequestsList from '../../components/incomingRequestsList/IncomingRequestsList'
+
 
 
 import './profileDetails.scss'
 import tripService from '../../services/tripService';
+import { updateJoinRequest } from '../../services/likeJoinService'
 
 
 
@@ -19,6 +22,12 @@ class MemberDetails extends Component {
         var profile = await userSevice.getById(this.props.match.params.id)
         profile.trips = await tripService.query({tripsIds:profile.trips})
         this.setState({ ...profile, loading:false })
+    }
+
+    updateRequestStatus = (ev) => {
+        let request = this.state.incomingRequests.find(request => request.tripId = ev.target.name)
+        request.status = ev.target.value
+        updateJoinRequest(request, this.state._id)
     }
 
     render() {
@@ -37,6 +46,11 @@ class MemberDetails extends Component {
                 <h3>Added Trips:</h3>
                 <TripList trips={this.state.trips} user={profileUser}/>
             </Fragment>}
+            {this.state._id === this.props.user._id && this.state.incomingRequests && 
+                <IncomingRequestsList 
+                    requests={this.state.incomingRequests}
+                    onUpdateRequestStatus={this.updateRequestStatus}/>
+            }
         </section>)
     }
 }

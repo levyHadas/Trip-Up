@@ -90,7 +90,7 @@ class TripDetails extends Component {
                             <i className="far fa-thumbs-up" title="like" data-action-type="like"></i>
                         </span>
                         <span data-action-type="join" onClick={this.handleLikeJoin}>
-                            <i className="fas fa-user-plus" title="Join" data-action-type="join"></i>
+                            <i className="fas fa-user-plus" title="Ask to Join" data-action-type="join"></i>
                         </span>
                     </Fragment>}
                     {this.props.user._id === this.props.trip.organizer._id &&

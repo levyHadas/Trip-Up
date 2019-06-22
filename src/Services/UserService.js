@@ -9,7 +9,8 @@ export default {
     getLoggedUser,
     updateUser,
     getUsers,
-    getById
+    getById,
+    
 }
 
 const Axios = axios.create({
@@ -22,9 +23,12 @@ function updateUser(user) {
         .catch(err => {throw (err)}) 
 }
 
+
 function signup(user) {
     user.likes = []
     user.trips = []
+    user.incomingRequests = []
+    user.outgoingRequests = []
     if (!user.fName) user.fName = ''
     if (!user.sName) user.sName = ''
     return Axios.post(`${BASE_PATH_USER}`, user)
@@ -63,7 +67,6 @@ function logout() {
 function getUsers(filterBy) {
     var queryStr = ''
     if (filterBy.usersIds) queryStr = `usersIds=${JSON.stringify(filterBy.usersIds)}`
-    console.log(`${BASE_PATH_USER}?${queryStr}`)
     // else - no need for this at the moment
     return Axios.get(`${BASE_PATH_USER}?${queryStr}`)
         .then(res => res.data)
