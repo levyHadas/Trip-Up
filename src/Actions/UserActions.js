@@ -27,21 +27,14 @@ export function signup(user) {
     }
 }
 
-export function saveUser(user) {
+export function saveUser(user, { noLoading } = false ) {
     return (dispatch) => {
-        dispatch ({type:'loading', payload:true})
+        if (!noLoading) dispatch ({type:'loading', payload:true})
         return userService.updateUser(user)
             .then(updatedUser => {
                 dispatch ({type:'updateUser', payload:updatedUser})
-                dispatch ({type:'loading', payload:false})            
+                if (!noLoading) dispatch ({type:'loading', payload:false})            
             })
-            .catch(err => {throw(err)})
-    }
-}
-export function updateUserLikesTrips(user) {
-    return (dispatch) => {
-        return userService.updateUser(user)
-            .then(updatedUser => dispatch ({type:'updateUserLikesTrips', payload:updatedUser}))
             .catch(err => {throw(err)})
     }
 }
@@ -54,14 +47,15 @@ export function loadUser() {
                 if (user) dispatch ({type:'setCurrUser', payload:user})
                 dispatch ({type:'loading', payload:false})
             })
-        }
     }
-    export function logout() {
-        return (dispatch) => { //it recives dispatch from the thunk middleware
-            userService.logout()
-            .then(() => {
-                dispatch ({type:'setCurrUser', payload:{_id:null, username:'', password:''}})
-            })
+}
+
+export function logout() {
+    return (dispatch) => { //it recives dispatch from the thunk middleware
+        userService.logout()
+        .then(() => {
+            dispatch ({type:'setCurrUser', payload:{_id:null, username:'', password:''}})
+        })
     }
 }
 

@@ -10,7 +10,7 @@ import IncomingRequestsList from '../../components/incomingRequestsList/Incoming
 
 import './profileDetails.scss'
 import tripService from '../../services/tripService';
-import { updateJoinRequest } from '../../services/likeJoinService'
+import requestService from '../../services/requestService'
 
 
 
@@ -24,10 +24,16 @@ class MemberDetails extends Component {
         this.setState({ ...profile, loading:false })
     }
 
-    updateRequestStatus = (ev) => {
+    setRequestReply = (ev) => {
         let request = this.state.incomingRequests.find(request => request.tripId = ev.target.name)
         request.status = ev.target.value
-        updateJoinRequest(request, this.state._id)
+        requestService.updateRequestStatus(request, this.state._id)
+        //if request.status === APPROVED:
+        //add member to trip member 
+        //reload trip
+        //add trip to user
+        //reload profile
+        //socket.service - reload trip to all
     }
 
     render() {
@@ -49,7 +55,7 @@ class MemberDetails extends Component {
             {this.state._id === this.props.user._id && this.state.incomingRequests && 
                 <IncomingRequestsList 
                     requests={this.state.incomingRequests}
-                    onUpdateRequestStatus={this.updateRequestStatus}/>
+                    onUpdateRequestStatus={this.setRequestReply}/>
             }
         </section>)
     }

@@ -30,8 +30,8 @@ class SignupPage extends Component {
                         value={this.state.fName} 
                         onChange={this.handleInput}
                         required/>
-                    <input className="login-input" type="text" 
-                        placeholder="Username"
+                    <input className="login-input" type="email" 
+                        placeholder="Email"
                         name="username"
                         value={this.state.username} 
                         onChange={this.handleInput}

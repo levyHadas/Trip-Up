@@ -2,16 +2,21 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loadTrip, deleteTrip, saveTrip, loadTripMembers } from '../../actions/tripActions'
-import { saveUser } from '../../actions/userActions'
-import { updateLikeJoin } from '../../services/likeJoinService'
-import UtilService from '../../services/utilService'
 
 import './TripDetails.scss'
+import UtilService from '../../services/utilService'
+import TripService from '../../services/tripService'
+
+import { loadTrip, deleteTrip, updateTripLikes, loadTripMembers } from '../../actions/tripActions'
+import { saveUser } from '../../actions/userActions'
+
 import MapContainer from '../../components/googleMaps/MapContainer'
 import ImgGallery from '../../components/imgGallery/ImgGallery'
 import MembersList from '../../components/membersList/MembersList'
-import TripService from '../../services/tripService'
+import JoinBtn from '../../components/joinBtn/JoinBtn'
+import LikeBtn from '../../components/likeBtn/LikeBtn'
+
+
 
 
 
@@ -20,8 +25,7 @@ class TripDetails extends Component {
         super(props)
         this.state = {showMembers:false}
         this.deleteTrip = this.deleteTrip.bind(this)
-        this.goBack = this.goBack.bind(this)
-        this.handleLikeJoin = this.handleLikeJoin.bind(this)
+        this.backToTrips = this.backToTrips.bind(this)
         this.showMembers = this.showMembers.bind(this)
         this.tripId = this.props.match.params.id
         this.props.loadTrip(this.tripId)
@@ -41,17 +45,11 @@ class TripDetails extends Component {
     }
 
 
-    goBack() {
+    backToTrips() {
         // this.props.history.goBack()
         this.props.history.push('/trip')
     }
 
-    handleLikeJoin(ev) {
-        const actionType = ev.target.getAttribute('data-action-type')
-        updateLikeJoin(actionType, this.props.user, this.props.trip)
-        this.props.saveUser(this.props.user)
-        this.props.saveTrip(this.props.trip)
-    }
     showMembers() {
         //check if we already load members, if not. load them
         if (this.props.trip.members && typeof(this.props.trip.members[0]) === 'string') {
@@ -77,33 +75,23 @@ class TripDetails extends Component {
         <section className = "trip-details flex column">
             
             <i className="fas fa-long-arrow-alt-left back" 
-                onClick={this.goBack} title="Trips">
+                onClick={this.backToTrips} title="Trips">
             </i>
             <div className="title-actions-container flex">
                 <h2 className="trip-title">{this.props.trip.country}</h2>
                 {this.props.user && this.props.trip.organizer &&
                 <div className="actions-container flex space-between">
-                    {this.props.user._id && this.props.user._id !== this.props.trip.organizer._id &&
+                    {this.props.user._id &&
                     <Fragment>
-                        <span data-action-type="like" onClick={this.handleLikeJoin}>
-                            {this.props.trip.likes}
-                            <i className="far fa-thumbs-up" title="like" data-action-type="like"></i>
-                        </span>
-                        <span data-action-type="join" onClick={this.handleLikeJoin}>
-                            <i className="fas fa-user-plus" title="Ask to Join" data-action-type="join"></i>
-                        </span>
+                        <LikeBtn userLiking={this.props.user} tripToLike={this.props.trip}
+                            saveUser={this.props.saveUser} updateTripLikes={this.props.updateTripLikes}/>
+                        <JoinBtn userRequesting={this.props.user} tripToRequest={this.props.trip}/>
                     </Fragment>}
                     {this.props.user._id === this.props.trip.organizer._id &&
-                    <Fragment>
-                    <span data-action-type="like">
-                        {this.props.trip.likes}
-                        <i className="far fa-thumbs-up no-user" title="like" data-action-type="like"></i>
-                    </span>
                     <span>
                         <Link to={linkToEdit}><i className="far fa-edit"></i></Link>
                         <i className="far fa-trash-alt"onClick={this.deleteTrip}></i>
-                    </span>
-                    </Fragment>}
+                    </span>}
           
                 </div>}
             </div>
@@ -163,6 +151,6 @@ function mapStateToProps (state) {
     return { trip: state.trip.currTrip, user:state.user, loading:state.util.loading }
 }
 
-const mapDispatchToProps = {loadTrip, deleteTrip, saveUser, saveTrip, loadTripMembers}
+const mapDispatchToProps = {loadTrip, deleteTrip, saveUser, updateTripLikes, loadTripMembers}
     
 export default connect(mapStateToProps, mapDispatchToProps)(TripDetails)

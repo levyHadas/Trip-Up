@@ -23,7 +23,7 @@ class LoginPage extends Component {
                 <form className="login-form flex column align-center"onSubmit={this.handleSubmit}>
                     <input className="login-input" type="text" 
                         name="username"
-                        placeholder="Username"
+                        placeholder="Email\Username"
                         value={this.state.username} 
                         onChange={this.handleInput}
                         required/>

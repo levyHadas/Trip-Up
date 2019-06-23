@@ -64,15 +64,43 @@ export function saveTrip(tripToSave) {
 }
 
 //no loading on this update type!!
-export function saveTripMembersAndLikes(tripToSave) {
+export function saveTripWithoutLoading(tripToSave) {
+    // return (dispatch) => { //it recives dispatch from the thunk middleware
+    //     return tripService.save(tripToSave)
+    //     .then(savedTrip => {
+    //         dispatch ({type:'setCurrTrip', payload:savedTrip})
+    //         tripService.query({})
+    //         .then(trips => {
+    //             dispatch ({type:'setTrips', payload:trips})
+    //         })
+    //     })
+    //     .catch ((err) => {throw(err)})
+    // }
+}
+export function reloadTrip(tripToReload, trips = null) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
-        return tripService.save(tripToSave)
+        return tripService.save(tripToReload)
         .then(savedTrip => {
             dispatch ({type:'setCurrTrip', payload:savedTrip})
-            tripService.query({})
-            .then(trips => {
-                dispatch ({type:'setTrips', payload:trips})
-            })
+            _reloadTripInTrips(dispatch, savedTrip, trips)
+        })
+        .catch ((err) => {throw(err)})
+    }
+}
+
+function _reloadTripInTrips(dispatch, trip, trips) {
+    if (!trips || !trips.length) return;
+    const idx = trips.findIndex(listItem => listItem._id === trip._id)
+    if (idx !== -1) trips[idx] = trip
+    dispatch ({type:'setTrips', payload:trips})
+}
+
+export function updateTripLikes(tripToUpdate, trips = null) {
+    return (dispatch) => { //it recives dispatch from the thunk middleware
+        return tripService.updateLikes(tripToUpdate)
+        .then(savedTrip => {
+            dispatch ({type:'setCurrTrip', payload:savedTrip})
+            _reloadTripInTrips(dispatch, savedTrip, trips)
         })
         .catch ((err) => {throw(err)})
     }

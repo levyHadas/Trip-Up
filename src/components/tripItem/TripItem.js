@@ -2,14 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './TripItem.scss'
 import tripService from '../../services/tripService';
-import TripItemInfo from '../tripItemInfo/TripItemInfo'
+import JoinBtn from '../joinBtn/JoinBtn'
+import LikeBtn from '../likeBtn/LikeBtn'
 
-//this component should be broken down to 3 components:
-//trip item which holds:
-//trip status display
-//trip actions display
-//trip by me display
-function TripItem ({ trip, user, onUpdateLikeJoin }) {
+function TripItem ({ trip, user, trips, saveUser, updateTripLikes}) {
   const linkTo =`/trip/${trip._id}`
   const linkToEdit =`/trip/edit/${trip._id}`
   var tripImg = tripService.getPlaceImg(trip.itinerary[0].photos[0].photo_reference)
@@ -31,8 +27,12 @@ function TripItem ({ trip, user, onUpdateLikeJoin }) {
             {trip.organizer._id === user._id &&
             <Link to={linkToEdit}><i className="far fa-edit"></i></Link>} 
           </div>
-        {onUpdateLikeJoin &&
-        <TripItemInfo trip={trip} user={user} onUpdateLikeJoin={onUpdateLikeJoin}/>}
+          {user._id &&
+            <div className="right-info-container flex align-center">
+              <LikeBtn userLiking={user} tripToLike={trip} trips={trips}
+                  saveUser={saveUser} updateTripLikes={updateTripLikes}/>
+              <JoinBtn userRequesting={user} tripToRequest={trip}/>
+            </div>}
         </div>}
       </li>
     )
