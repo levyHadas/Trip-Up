@@ -21,3 +21,5 @@ export const BASE_PATH_MAPS = (process.env.NODE_ENV !== 'development')
 export const PANDING = 'panding'
 export const APPROVED = 'approved'
 export const DECLINED = 'declined'
+export const OPEN = 'open'
+export const CLOSED = 'closed'

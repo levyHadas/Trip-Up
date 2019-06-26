@@ -58,26 +58,15 @@ button {
   border: none;
   background-color: $orange;
   color: $white;
+  cursor: pointer;
   border: 0.4px solid $white;
   &:hover {
     color: $green;
   }
-
 }
 
 
-
-
-
-
-.btn {
-
-}
-.num {
-  font-family: sans-serif;
-}
-
-
+//helpers
 .flex {
   display: flex;
 }
@@ -90,19 +79,23 @@ button {
 .space-between {
   justify-content: space-between;
 }
+
+// css
+.num {
+  font-family: sans-serif;
+}
+
+
 .main-container {
   max-width: 1100px;
   // border-right: 2px solid rgba(220, 220, 220, 0.425);
   // border-left: 2px solid rgba(220, 220, 220, 0.425);
   margin: 0 auto;
-  // padding: 20px
 }
 
 .nav-container {
-  // max-width: 70%;
   max-width: 350px;
   width: 200px
-  // justify-content: space-between;
 }
 
 .far.fa-thumbs-up, .fas.fa-user-plus, .far.fa-edit, .far.fa-trash-alt, .fas.fa-users {
@@ -124,7 +117,6 @@ button {
 }
 
 
-
 .far.fa-plus-square, .far.fa-minus-square {
   font-size: 1.1rem;
   padding:6px;
@@ -132,20 +124,6 @@ button {
 }
 
 
-
-.app-bg-img {
-  // background-image: url('../assets/home-bg2.jpg');
-  // min-height: 100%;
-  // width: 100%;
-  // background-position: center;
-  // background-size: cover;
-  // background-repeat: no-repeat;
-  // position: fixed;
-  // top: 0;
-  // left:0;
-  // z-index: -1;
-  // opacity: 0.7;
-}
 .gm-style-iw-d {
   z-index: 10;
 }

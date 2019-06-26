@@ -2,14 +2,14 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import userSevice from '../../services/userService'
+import userService from '../../services/userService'
+import tripService from '../../services/tripService'
 import TripList from '../../components/tripList/TripList'
 import IncomingRequestsList from '../../components/incomingRequestsList/IncomingRequestsList'
 
-
+import { reloadTrip } from '../../actions/tripActions'
 
 import './profileDetails.scss'
-import tripService from '../../services/tripService';
 import requestService from '../../services/requestService'
 
 
@@ -19,21 +19,32 @@ class MemberDetails extends Component {
     state = { loading:true }
 
     async componentDidMount() {
-        var profile = await userSevice.getById(this.props.match.params.id)
+        var profile = await userService.getById(this.props.match.params.id)
         profile.trips = await tripService.query({tripsIds:profile.trips})
-        this.setState({ ...profile, loading:false })
+        var requestsPromises = profile.incomingRequests.map(async(request) => {
+            const memberAndTripPromises = await Promise.all([userService.getById(request.memberId), tripService.getById(request.tripId)])
+            const memberRequesting = memberAndTripPromises[0]
+            const tripRequested = memberAndTripPromises[1]
+            var detailedRequest = 
+                {   ...request, 
+                    memberName: memberRequesting.name || memberRequesting.username,
+                    memberImg: memberRequesting.img,
+                    tripCountry: tripRequested.country
+                } 
+            return detailedRequest
+        })
+        var detailedRequests = await Promise.all(requestsPromises)
+        profile.incomingRequests = detailedRequests
+        this.setState({ ...profile })
     }
 
-    setRequestReply = (ev) => {
-        let request = this.state.incomingRequests.find(request => request.tripId = ev.target.name)
-        request.status = ev.target.value
-        requestService.updateRequestStatus(request, this.state._id)
-        //if request.status === APPROVED:
-        //add member to trip member 
-        //reload trip
-        //add trip to user
-        //reload profile
-        //socket.service - reload trip to all
+    setRequestReply = async(ev) => {
+        let incomingRequests = [...this.state.incomingRequests]
+        let requestIdx = incomingRequests.findIndex(request => request._id === ev.target.name)
+        incomingRequests[requestIdx].status = ev.target.value
+        this.setState({incomingRequests})
+        await requestService.saveNewStatus(incomingRequests[requestIdx])
+        // in request service - socketService.emit('new-reply')
     }
 
     render() {
@@ -55,15 +66,17 @@ class MemberDetails extends Component {
             {this.state._id === this.props.user._id && this.state.incomingRequests && 
                 <IncomingRequestsList 
                     requests={this.state.incomingRequests}
-                    onUpdateRequestStatus={this.setRequestReply}/>
+                    onSetRequestReply={this.setRequestReply}/>
             }
         </section>)
     }
 }
 
 function mapStateToProps (state) {
-    return { user:state.user }
+    return { user:state.user, currTrip:state.trip.currTrip }
 }
 
+const mapDispatchToProps = { reloadTrip }
+
     
-export default connect(mapStateToProps)(MemberDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(MemberDetails)

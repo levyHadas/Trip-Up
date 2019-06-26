@@ -5,6 +5,7 @@ import { logout } from '../../actions/userActions'
 import { Link } from 'react-router-dom'
 import logoImg from '../../assets/logo.png'
 import { connect } from 'react-redux'
+import { withRouter }  from 'react-router-dom'
 
 function mapStateToProps (state) {
     return { navOpen:state.util.navOpen, user: state.user }
@@ -20,6 +21,7 @@ function AppHeader (props) {
     const onLogout = (ev) => {
         ev.preventDefault()
         props.dispatch(logout())
+        props.history.push('/home')
     }
     const linkToProfile = `/user/${props.user._id}` || ''
     return (
@@ -37,7 +39,7 @@ function AppHeader (props) {
                 </Link>
                 <AppNav user={props.user} navLinkClicked={toggleNav} navOpen={props.navOpen}/>
             </div>
-                { props.user._id && 
+                {props.user._id && 
                 <div className="user-area-link flex align-center">
                     <div className="name-logout-container flex space-between align-center">
                         <img className="user-img" src={props.user.img} alt="User"/>
@@ -54,5 +56,4 @@ function AppHeader (props) {
     )
 }
 
-
-export default connect(mapStateToProps)(AppHeader)
+export default connect(mapStateToProps)(withRouter(AppHeader))

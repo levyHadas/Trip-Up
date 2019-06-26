@@ -5,25 +5,25 @@ export function login(user, history) {
     return (dispatch) => { //it recives dispatch from the thunk middleware
         dispatch ({type:'loading', payload:true})
         userService.login(user)
-        .then(savedUser => {
-            dispatch ({type:'setCurrUser', payload:savedUser})
-            dispatch ({type:'loading', payload:false})
-            history.push(`/trip`)
-        })
-        .catch(err => {
-            dispatch ({type:'loading', payload:false})
-            dispatch ({type:'setCurrUser', payload:{}})
-            console.log(err)
-            //need to tell user login is incorrect
-        } )
+            .then(loggedUser => {
+                dispatch ({type:'setCurrUser', payload:loggedUser})
+                dispatch ({type:'loading', payload:false})
+                history.push(`/trip`)
+            })
+            .catch(err => {
+                dispatch ({type:'loading', payload:false})
+                dispatch ({type:'setCurrUser', payload:{}})
+                console.log(err)
+                //need to tell user login is incorrect
+            } )
     }
 }
 
 export function signup(user) {
-    return (dispatch) => { //it recives dispatch from the thunk middleware
+    return (dispatch) => { 
         dispatch ({type:'loading', payload:true})
         return userService.signup(user)
-        .then(signedUser => signedUser)
+            .then(signedUser => signedUser)
     }
 }
 
@@ -40,7 +40,7 @@ export function saveUser(user, { noLoading } = false ) {
 }
 
 export function loadUser() {
-    return (dispatch) => { //it recives dispatch from the thunk middleware
+    return (dispatch) => { 
         dispatch ({type:'loading', payload:true})
         userService.getLoggedUser()
             .then(user => {
@@ -49,12 +49,20 @@ export function loadUser() {
             })
     }
 }
+export function reloadCurrUser() {
+    return (dispatch) => { 
+        userService.getLoggedUser()
+            .then(user => {
+                if (user) dispatch ({type:'setCurrUser', payload:user})
+            })
+    }
+}
 
 export function logout() {
-    return (dispatch) => { //it recives dispatch from the thunk middleware
+    return (dispatch) => { 
         userService.logout()
         .then(() => {
-            dispatch ({type:'setCurrUser', payload:{_id:null, username:'', password:''}})
+            dispatch ({type:'setCurrUser', payload:{_id:null, username:''}})
         })
     }
 }

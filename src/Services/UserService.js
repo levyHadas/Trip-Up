@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { BASE_PATH_USER } from '../config/consts'
+import socketService from './socketService'
 
 
 export default {
@@ -33,21 +34,30 @@ function signup(user) {
     if (!user.sName) user.sName = ''
     return Axios.post(`${BASE_PATH_USER}`, user)
         .then(res => {
-            return res.data})
-        .catch(err => {throw (err)}) 
+            const signedUser = res.data
+            socketService.emit('user-logged-in', signedUser)
+            return signedUser
+        })
+        .catch(err => { throw (err) }) 
 }
 
 function login(credentials) {
     return Axios.post(`${BASE_PATH_USER}/login`, credentials)
-        .then(res => res.data)
-        .catch(err => {throw (err)})
+        .then(res => {
+            const loggedUser = res.data
+            socketService.emit('user-logged-in', loggedUser)
+            return loggedUser
+        })
+        .catch(err => { throw (err) })
 }
 
 function getLoggedUser() {
     return Axios.get(`${BASE_PATH_USER}/loggedUser`)
         .then(res => {
             if (!res.data) return null 
-            return res.data
+            const loggedUser = res.data
+            socketService.emit('user-logged-in', loggedUser)
+            return loggedUser
         })
 }
 
@@ -58,9 +68,13 @@ function getById(userId) {
         .catch(err => {throw (err)})
 }
 
-function logout() {
+async function logout() {
+    const logoutUser = await getLoggedUser()
+    socketService.emit('user-logged-out', logoutUser)
     return Axios.get(`${BASE_PATH_USER}/logout`)
-        .then(() => Promise.resolve())
+        .then(() => {
+            return Promise.resolve()
+        })
         .catch(err => Promise.reject(err))
 }
 

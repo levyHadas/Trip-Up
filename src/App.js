@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-// import SocketService from './Services/SocketService'
+import SocketService from './services/socketService'
 import AppRouter from '../src/components/AppRouter'
 import { loadUser } from './actions/userActions'
 import './css/main.scss'
 
 
 class App extends PureComponent{
-  
   componentDidMount() {
     this.props.dispatch(loadUser())
   }
@@ -17,13 +16,12 @@ class App extends PureComponent{
     return (
 
       <div className="App">
-        <AppRouter/>
-        {/* <button onClick={() => TripService.createTrips()}>Create trips</button> */}
-        
+        <AppRouter/>        
       </div>
     )
   }
 }
+
 
 
 export default connect()(App)

@@ -6,6 +6,7 @@ function JoinBtn({ userRequesting, tripToRequest }) {
     const handleJoin = () => {
         if (!userRequesting) return;
         requestService.setNewRequest(userRequesting, tripToRequest)
+        //toast that request was sent
     }
 
     return (

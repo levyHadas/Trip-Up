@@ -3,6 +3,7 @@ import trips from '../data/tripsData'
 import userService from './userService.js';
 import { googleApiConfig } from '../config/googleApiConfig'
 import { BASE_PATH_TRIP } from '../config/consts'
+import { OPEN } from '../config/consts'
 
 
 const Axios = axios.create({
@@ -99,7 +100,7 @@ function getEmpty() {
         "maxMembers": "",
         "organizer": {},
         "members": [],
-        "status": "open",
+        "status": OPEN,
         "createdAt":"",
         "likes": 1,
         "tripDate":"",

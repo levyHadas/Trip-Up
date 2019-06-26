@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { BASE_PATH_REQUEST } from '../config/consts'
 import { PANDING } from '../config/consts'
-import { APPROVED } from '../config/consts'
-import { DECLINED } from '../config/consts'
+import socketService from './socketService'
 
 
 export default {
@@ -11,7 +10,7 @@ export default {
     addOutgoing,
     updateOutgoing,
     setNewRequest,
-    updateRequestStatus
+    saveNewStatus
  
 }
 
@@ -24,21 +23,28 @@ async function setNewRequest(member, trip) {
     if (trip.members.length >= trip.maxMembers) return; //if trip is full - return
     //else - set join request
     const newRequest = 
-        {   tripId : trip._id, 
+        {   _id: `${member._id}_${trip._id}`,
+            tripId : trip._id, 
             memberId : member._id, 
+            organizerId : trip.organizer._id,
             status : PANDING
         }
-    const updatedOrganizer = await addIncoming(newRequest, trip.organizer._id)
-    const updatedMember = await addOutgoing(newRequest, member._id)
-    console.log('request has been sent', updatedOrganizer, updatedMember)
-    // socketService. tell organizer there is a request 
+    newRequest._id = `${newRequest.memberId}_${newRequest.tripId}`
+    await Promise.all([addIncoming(newRequest, trip.organizer._id), addOutgoing(newRequest, member._id)])
+    socketService.emit('new-incoming-request', newRequest)
+    console.log('request has been sent')
+    //for debuging
+    // const updatedOrganizer = await addIncoming(newRequest, trip.organizer._id)
+    // const updatedMember = await addOutgoing(newRequest, member._id)
+    // console.log('request has been sent', updatedOrganizer, updatedMember)
 }
 
-async function updateRequestStatus(request, currUserId) {
-    updateIncoming(request, currUserId)
-    updateOutgoing(request, request.memberId)
-    // const updatedOrganizer = await updateIncoming(request, currUserId)
-    // const updatedMember = await updateOutgoing(request, request.memberId)
+async function saveNewStatus(request) {
+    await Promise.all([updateIncoming(request, request.organizerId), updateOutgoing(request, request.memberId)])
+    socketService.emit('new-reply', request)
+    //socketService. inform user that he was replyed
+    //toast that request was approved
+
 }
 
 function addIncoming(newRequest, organizerId) {

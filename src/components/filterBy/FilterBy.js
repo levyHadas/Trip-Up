@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import BudgetRange from '../budgetRange/BudgetRange'
 import TripTypes from '../tripTypes/TripTypes'
 import CountryDatalist from '../countryDatalist/CountryDatalist'
+import { OPEN, CLOSED } from '../../config/consts'
 import './filterBy.scss'
 
 
@@ -10,11 +11,6 @@ class FilterBy extends Component {
     state = {budget:null, country:'', type:'', status:'', startDate:'', endDate:''}
 
     setFilter = (ev) => {
-        // var value
-        // if (typeof(ev.target.value) === 'number') {
-        //     value = +ev.target.value
-        // }
-        // else value = ev.target.value
         const value = ev.target.value
         this.setState({ [ev.target.name]: value })
         this.props.filterTrips({...this.state, [ev.target.name]: value })
@@ -63,10 +59,10 @@ class FilterBy extends Component {
                     <span className="trip-status flex align-center space-between">
                         <label htmlFor="status-open">Open</label>
                             <input type="radio" name="status" id="status-open"
-                                value="open" onChange={this.setFilter}/>
-                        <label htmlFor="status-closed">Close</label>
+                                value={OPEN} onChange={this.setFilter}/>
+                        <label htmlFor="status-closed">Closed</label>
                             <input type="radio" name="status" id="status-closed"
-                                value="close" onChange={this.setFilter}/>
+                                value={CLOSED} onChange={this.setFilter}/>
                         <label htmlFor="status-all">All</label>
                             <input type="radio" name="status" id="status-all"
                                 value="" onChange={this.setFilter}/>
