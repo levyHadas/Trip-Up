@@ -13,7 +13,11 @@ function IncomingRequestsList({ requests, onSetRequestReply }) {
     return (
         <div className="requestss-container flex column align-center">
             <h1>Join requests</h1>
-            <ul>{requestItems}</ul>
+            <p className="at-work">**AT WORK - NOT DESIGNED YET**</p>
+            {requestItems.length !== 0 &&
+            <ul>{requestItems}</ul>}
+            {!requestItems.length &&
+            <p>No one has requested to join yet</p>}
         </div>)
 }
 export default IncomingRequestsList

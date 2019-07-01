@@ -25,9 +25,11 @@ socket.on('reload-trip', tripToReload => {
 })
 socket.on('request-replied', repliedRequest => {
   console.log('repliedRequest', repliedRequest )
+  alert('THIS POP-UP IS AT WORK, IT WILL NOT BE A NATIV ALERT! \n Organizer replied to join request. Reply is: ' + repliedRequest.status)
 })
 socket.on('inform-new-incoming-request', incomingRequest => {
   store.dispatch(reloadCurrUser())
+  alert('THIS POP-UP IS AT WORK, IT WILL NOT BE A NATIV ALERT! \n You have a new incoming request to join a trip you organized')
   console.log('inform-new-incoming-request', incomingRequest )
 })
 

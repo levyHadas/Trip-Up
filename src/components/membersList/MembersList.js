@@ -10,6 +10,8 @@ function MembersList({ members, hideMembers }) {
 
     return (
         <div className="members-container flex column align-center">
+            <p className="at-work">**AT WORK - NOT DESIGNED YET</p>
+            <p className="at-work">IMAGE WOULD LINK TO MEMBER PROFILE**</p>
             {membersMap.length !==0 && 
             <h1>Trip Travellers:</h1>}
             {!membersMap.length && 

@@ -55,7 +55,7 @@ function getById(tripId) {
     if (!tripId) return null
     return Axios.get(`${BASE_PATH_TRIP}/${tripId}`)
         .then(res => res.data)
-        .catch(err => {throw (err)})
+        .catch(err => { throw (err) })
 }
 
 async function save(trip) {

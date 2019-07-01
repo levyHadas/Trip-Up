@@ -65,7 +65,7 @@ function getById(userId) {
     if (!userId) return null
     return Axios.get(`${BASE_PATH_USER}/${userId}`)
         .then(res => res.data)
-        .catch(err => {throw (err)})
+        .catch(err => { throw (err) })
 }
 
 async function logout() {
