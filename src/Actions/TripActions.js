@@ -20,10 +20,10 @@ export function loadTrip(tripId) {
         else {
             dispatch ({type:'loading', payload:true})
             return tripService.getById(tripId)
-            .then(currTrip => {
-                dispatch ({type:'setCurrTrip', payload:currTrip})
-                dispatch ({type:'loading', payload:false})
-                return currTrip
+                .then(currTrip => {
+                    dispatch ({type:'setCurrTrip', payload:currTrip})
+                    dispatch ({type:'loading', payload:false})
+                    return currTrip
                 })
         }
     }
@@ -43,7 +43,7 @@ export function loadTripMembers(currTrip) {
 export function deleteTrip(tripId, { history }) {
     return (dispatch) => { 
         dispatch ({type:'loading', payload:true})
-        tripService.remove(tripId)
+        return tripService.remove(tripId)
             .then(() => {
                 dispatch ({type:'setCurrTrip', payload:null})
                 dispatch ({type:'loading', payload:false})
@@ -56,11 +56,11 @@ export function saveTrip(tripToSave) {
     return (dispatch) => { 
         dispatch ({type:'loading', payload:true})
         return tripService.save(tripToSave)
-        .then(savedTrip => {
-            dispatch ({type:'setCurrTrip', payload:savedTrip})
-            dispatch ({type:'loading', payload:false})
-        })
-        .catch ((err) => {throw(err)})
+            .then(savedTrip => {
+                dispatch ({type:'setCurrTrip', payload:savedTrip})
+                dispatch ({type:'loading', payload:false})
+            })
+            .catch ((err) => {throw(err)})
     }
 }
 

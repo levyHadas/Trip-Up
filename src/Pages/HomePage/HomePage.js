@@ -11,6 +11,7 @@ class HomePage extends Component {
     render() {
         return (
             <section className="home-container">
+                <h2 className="app-info">The place to join up and travel together</h2>
                 <Link to="/trip" className="find-a-trip-btn">find a trip</Link>
                 {!this.props.loading && 
                 <div className="signup-login-container flex">

@@ -13,18 +13,17 @@ class UserEdit extends Component {
     
     state = {}
 
-    async componentDidMount() {
-        await this.props.loadUser()
-        if (!this.props.user._id || this.props.user._id !== this.props.match.params.id) {
-            this.props.history.push('/')
-        }
-        if (!this.props.user.interests) this.props.user.interests = []
-        if (!this.props.user.media) this.props.user.media = []
-        this.setState({...this.props.user, interests:this.props.user.interests.join(', ')})
+    componentDidMount() {
+        this.props.loadUser()
+            .then(() => {
+                if (!this.props.user._id || this.props.user._id !== this.props.match.params.id) {
+                    this.props.history.push('/')
+                }
+                if (!this.props.user.interests) this.props.user.interests = []
+                if (!this.props.user.media) this.props.user.media = []
+                this.setState({...this.props.user, interests:this.props.user.interests.join(', ')})
+            })
     }
-
- 
-  
 
     handleInput = (ev) => {
         if (ev.target.value) {

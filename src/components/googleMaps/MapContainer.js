@@ -6,15 +6,15 @@ import './MapContainer.scss'
  
 export class MapContainer extends Component {
 
-state={center:{}, showInfo:false, selectedPlace:''}
+state={center:{}, showInfo:false, selectedPlace:'', isCentered:false}
 
 componentDidMount() {
   if (this.props.initial) {    
     navigator.geolocation.getCurrentPosition(
         location => {
-          this.setState({center:{lat:location.coords.latitude, lng:location.coords.longitude}})
-        }, () => this.setState({center:this.props.itinerary[0].geometry.location}) )
-  } else this.setState({center:this.props.itinerary[0].geometry.location})
+          this.setState({center:{lat:location.coords.latitude, lng:location.coords.longitude}, tripId:null})
+        }, () => this.setState({center:this.props.itinerary[0].geometry.location, tripId:null}) )
+  } else this.setState({ center:this.props.itinerary[0].geometry.location, tripId: this.props.tripId})
 }
   
 onInfoWindowClose = (props,infoWindow, ev) => {
@@ -27,8 +27,8 @@ onMarkerClicked = (props,marker, ev) => {
   this.setState({showInfo:true, activeMarker:marker,selectedPlace: props})
 }
 
-
 render() {
+
   const style = { width: '100%', height: '100%' }
   const markersMap = this.props.itinerary.map(place => {
       return <Marker
@@ -39,12 +39,12 @@ render() {
         placeInfo={place}/>
       })
   const paths = this.props.itinerary.map(place => place.geometry.location)
-
   return (
   <Fragment>
     {this.state.center.lat &&
     <Map google={this.props.google} zoom={this.props.zoom} style={style} 
-      initialCenter={this.state.center || paths[0]} //should be handled
+      initialCenter={this.state.center}
+      center={this.props.itinerary[0].geometry.location || this.state.center}
       onClick={this.onMapClicked}>
       
       {!this.props.initial && markersMap}

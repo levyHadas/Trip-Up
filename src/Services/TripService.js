@@ -58,7 +58,7 @@ function getById(tripId) {
         .catch(err => { throw (err) })
 }
 
-async function save(trip) {
+function save(trip) {
     trip.createdAt = Date.now()
     trip.tripDate = new Date(trip.tripDate).getTime()
     if (trip.type === 'Type') trip.type = ''
@@ -68,18 +68,20 @@ async function save(trip) {
             .catch(err => {throw (err)})
     }
     else {
-        let tripOrganizer = await userService.getLoggedUser()
-        delete tripOrganizer.likes
-        delete tripOrganizer.trips //just want to save the name and the img
-        trip.organizer = tripOrganizer //organizer is the current logged user
-        if (!trip.desc) trip.desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores atque at odio harum natus voluptate aliquam sapiente mollitia ad molestias quidem, excepturi impedit itaque neque doloribus ex pariatur iste animi.'
-        return Axios.post(`${BASE_PATH_TRIP}`, trip)
-            .then(res => res.data)
-            .catch(err => {throw (err)})
+        return userService.getLoggedUser()
+            .then(tripOrganizer => {
+                delete tripOrganizer.likes
+                delete tripOrganizer.trips //just want to save the name and the img
+                trip.organizer = tripOrganizer //organizer is the current logged user
+                if (!trip.desc) trip.desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores atque at odio harum natus voluptate aliquam sapiente mollitia ad molestias quidem, excepturi impedit itaque neque doloribus ex pariatur iste animi.'
+                return Axios.post(`${BASE_PATH_TRIP}`, trip)
+                    .then(res => res.data)
+                    .catch(err => {throw (err)})
+            })
     }
 }
 
-async function updateLikes(trip) {
+function updateLikes(trip) {
     return Axios.put(`${BASE_PATH_TRIP}/likes/${trip._id}`, trip)
         .then(res => res.data)
         .catch(err => {throw (err)})

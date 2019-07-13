@@ -33,8 +33,6 @@ class TripEdit extends Component {
     componentDidMount() {
         //need to follow url change!!
         if (!this.props.user._id) this.props.history.push('/')
-        
-        
         if (!this.tripId) {
             const tripToEdit = TripService.getEmpty()
             tripToEdit.members.push(this.props.user._id)
@@ -171,6 +169,7 @@ class TripEdit extends Component {
                 <div className="map-wrapper-edit">
                     <MapContainer className="map-container"
                             itinerary={this.state.itinerary}
+                            tripId={this.state._id}
                             zoom={5}/>
                 </div>}
                 {this.state.itinerary.length === 0 &&
@@ -178,6 +177,7 @@ class TripEdit extends Component {
                     <MapContainer className="map-container"
                             itinerary={[defaultPlace]}
                             zoom={12}
+                            tripId={this.state._id}
                             initial={true}/>
             </div>}
                 

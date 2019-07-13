@@ -16,11 +16,16 @@ import requestService from '../../services/requestService'
 
 class MemberDetails extends Component {
     
-    state = { loading:true }
+    state = { loading:true, newProfile:false }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this._loadProfile()
+            .then(newState => this.setState({ ...newState, reloadProfile:this._loadProfile }))
+    }
+
+    _loadProfile = async() => {
         var profile = await userService.getById(this.props.match.params.id)
-        profile.trips = await tripService.query({tripsIds:profile.trips})
+        profile.trips = await tripService.query({ tripsIds:profile.trips })
         var requestsPromises = profile.incomingRequests.map(async(request) => {
             const memberAndTripPromises = await Promise.all([userService.getById(request.memberId), tripService.getById(request.tripId)])
             const memberRequesting = memberAndTripPromises[0]
@@ -35,7 +40,7 @@ class MemberDetails extends Component {
         })
         var detailedRequests = await Promise.all(requestsPromises)
         profile.incomingRequests = detailedRequests
-        this.setState({ ...profile })
+        return { ...profile, loading:false }
     }
 
     setRequestReply = async(ev) => {
@@ -43,31 +48,41 @@ class MemberDetails extends Component {
         let requestIdx = incomingRequests.findIndex(request => request._id === ev.target.name)
         incomingRequests[requestIdx].status = ev.target.value
         this.setState({incomingRequests})
-        await requestService.saveNewStatus(incomingRequests[requestIdx])
-        // in request service - socketService.emit('new-reply')
+        requestService.saveNewStatus(incomingRequests[requestIdx]) //async
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
+            this._loadProfile()
+                .then(newState => this.setState({...newState}))
+        }
+    }
+  
     render() {
         const profileUser = {...this.state}
-        delete profileUser.loading 
         const linkToEdit =`/user/edit/${this.state._id}`
         return (
-        <section className = "profile-details flex column">
+        <section className = "profile-details flex column align-center">
             {!this.state.loading &&
             <Fragment>
-                {this.state._id === this.props.user._id &&
-                <Link to={linkToEdit}><i className="far fa-edit"></i></Link>}
-                <h1>{this.state.fName} {this.state.sName} Profile</h1>
-                <img className="profile-img" src={this.state.img} alt="user"/>
-                {this.state.interests && <h4>Interests: {this.state.interests.join(', ')}</h4>}
-                <h3>Added Trips:</h3>
-                <TripList trips={this.state.trips} user={profileUser}/>
-            </Fragment>}
-            {this.state._id === this.props.user._id && this.state.incomingRequests && 
+                <img className="profile-img margin-center" src={this.state.img} alt="user"/>
+                <div className="profile-header flex align-center">
+                    <h1>{this.state.fName} {this.state.sName}</h1>
+                    {this.state._id === this.props.user._id &&
+                    <Link to={linkToEdit}><i className="far fa-edit"></i></Link>}
+                </div>
+                {this.state._id === this.props.user._id && this.state.incomingRequests && 
                 <IncomingRequestsList 
-                    requests={this.state.incomingRequests}
-                    onSetRequestReply={this.setRequestReply}/>
-            }
+                requests={this.state.incomingRequests}
+                onSetRequestReply={this.setRequestReply}/>}
+                {this.state.interests && <h4>Interests: {this.state.interests.join(', ')}</h4>}
+                <h3>
+                    {(this.state._id === this.props.user._id) ? 
+                        'Your' : this.state.fName} Trips:
+                </h3>
+                <TripList trips={this.state.trips} user={profileUser}/>
+                
+            </Fragment>}
         </section>)
     }
 }

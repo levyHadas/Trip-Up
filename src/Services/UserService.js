@@ -68,14 +68,16 @@ function getById(userId) {
         .catch(err => { throw (err) })
 }
 
-async function logout() {
-    const logoutUser = await getLoggedUser()
-    socketService.emit('user-logged-out', logoutUser)
-    return Axios.get(`${BASE_PATH_USER}/logout`)
-        .then(() => {
-            return Promise.resolve()
+function logout() {
+    getLoggedUser()
+        .then(logoutUser => {
+            socketService.emit('user-logged-out', logoutUser)
+            return Axios.get(`${BASE_PATH_USER}/logout`)
+                .then(() => {
+                    return Promise.resolve()
+                })
+                .catch(err => Promise.reject(err))
         })
-        .catch(err => Promise.reject(err))
 }
 
 function getUsers(filterBy) {

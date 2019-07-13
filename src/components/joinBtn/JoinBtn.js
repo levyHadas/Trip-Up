@@ -3,16 +3,15 @@ import requestService from '../../services/requestService'
 
 function JoinBtn({ userRequesting, tripToRequest }) {
     
-    const handleJoin = async() => {
+    const handleJoin = () => {
         if (!userRequesting) return;
-        try {
-            await requestService.setNewRequest(userRequesting, tripToRequest)
-            alert('THIS POP-UP IS AT WORK, IT WILL NOT BE A NATIV ALERT! \nJoin request made. Wait for organizer confirmation.')
-        }
-        catch (err) {
-            alert('THIS POP-UP IS AT WORK, IT WILL NOT BE A NATIV ALERT! \nJoin request not made.\n' + err)
-        }
-        //toast that request was sent
+        requestService.setNewRequest(userRequesting, tripToRequest)
+            .then(() =>{
+                alert('THIS POP-UP IS AT WORK, IT WILL NOT BE A NATIV ALERT! \nJoin request made. Wait for organizer confirmation.')
+            })
+            .catch(err => {
+                alert('THIS POP-UP IS AT WORK, IT WILL NOT BE A NATIV ALERT! \nJoin request not made.\n' + err)
+            })
     }
 
     return (

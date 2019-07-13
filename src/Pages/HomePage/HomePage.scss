@@ -44,6 +44,13 @@
     color:$white;
 }
 
+.app-info {
+    margin: 30px 20px;
+    text-align: center;
+    font-family: 'Architects Daughter', cursive;
+
+}
+
 @media (max-width: 550px) { 
     .home-container {
         height: auto;

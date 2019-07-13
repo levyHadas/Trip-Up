@@ -11,12 +11,15 @@ class SignupPage extends Component {
         this.setState({[ev.target.name]: ev.target.value})
     }
 
-    handleSubmit = async(ev) => {
+    handleSubmit = (ev) => {
         ev.preventDefault()
         if (!this.state.username || !this.state.password)  return;
         if (this.state.password !== this.state.passwordRepeat) return;
-        const signedUser = await this.props.signup({username:this.state.username, password: this.state.password})
-        this.props.login(signedUser, this.props.history)
+        this.props.signup({username:this.state.username, password: this.state.password})
+            .then(signedUser => {
+                this.props.login(signedUser, this.props.history)
+            })
+            .catch(err => console.log(err))
     }
     
     render() {
